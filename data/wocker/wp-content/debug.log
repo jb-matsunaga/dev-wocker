@@ -1,0 +1,2 @@
+[14-Sep-2015 08:25:45 UTC] PHP Notice:  Use of undefined constant template_directory - assumed 'template_directory' in /var/www/wordpress/wp-content/themes/theme1/index.php on line 13
+[14-Sep-2015 08:25:51 UTC] PHP Notice:  Use of undefined constant template_directory - assumed 'template_directory' in /var/www/wordpress/wp-content/themes/theme1/index.php on line 13
