@@ -3782,6 +3782,11 @@ body {
   background: #fff;
 }
 
+/* line 9, ../../../../../src/sass/foundation/_basic.scss */
+.section-str {
+  padding: 90px;
+}
+
 /* line 1, ../../../../../src/sass/layout/_header.scss */
 .header {
   width: 100%;
@@ -4009,7 +4014,7 @@ video.responsive-video {
 }
 
 /* line 199, ../../../../../src/sass/components/_global.scss */
-.parallax {
+.parallax1 {
   position: absolute;
   top: 0;
   left: 0;
@@ -4018,7 +4023,7 @@ video.responsive-video {
   z-index: -1;
 }
 /* line 207, ../../../../../src/sass/components/_global.scss */
-.parallax img {
+.parallax1 img {
   display: none;
   position: absolute;
   left: 50%;
@@ -9331,7 +9336,7 @@ a {
 
 /* line 5, ../../../../../src/sass/components/_typography.scss */
 html {
-  line-height: 1.6;
+  line-height: 2;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
   color: rgba(0, 0, 0, 0.87);
@@ -13221,32 +13226,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
     margin-bottom: 5em;
   }
 }
-/* line 1, ../../../../../src/sass/module/_heading.scss */
-.heading-a {
-  font-size: 26px;
-  line-height: 1.5;
-}
-@media (max-width: 414px) {
-  /* line 1, ../../../../../src/sass/module/_heading.scss */
-  .heading-a {
-    font-size: 19px;
-  }
-}
-
-/* line 9, ../../../../../src/sass/module/_heading.scss */
-.heading-b {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 1.5;
-}
-@media (max-width: 414px) {
-  /* line 9, ../../../../../src/sass/module/_heading.scss */
-  .heading-b {
-    font-size: 19px;
-  }
-}
-
 /* line 1, ../../../../../src/sass/module/_card.scss */
 .card-image {
   text-align: center;
@@ -13262,37 +13241,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   }
 }
 
-/* line 1, ../../../../../src/sass/module/_thumbnail.scss */
-.thumbnail {
-  text-align: center;
-}
-/* line 4, ../../../../../src/sass/module/_thumbnail.scss */
-.thumbnail img {
-  width: 100%;
-  max-width: 800px;
-}
-
-/* line 1, ../../../../../src/sass/module/_responsive.scss */
-.visible-xs {
-  display: none !important;
-}
-
-@media screen and (max-width: 992px) {
-  /* line 7, ../../../../../src/sass/module/_responsive.scss */
-  .col.s6 {
-    width: 100% !important;
-  }
-
-  /* line 11, ../../../../../src/sass/module/_responsive.scss */
-  .visible-xs {
-    display: block !important;
-  }
-
-  /* line 15, ../../../../../src/sass/module/_responsive.scss */
-  .hidden-xs {
-    display: none !important;
-  }
-}
 /*----------------------------------------------------------------------------*\
   Headhesive Specific Styles
 /*----------------------------------------------------------------------------*/
@@ -13360,6 +13308,40 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   /* Not required to use, but could be useful to have */
 }
 
+/* line 1, ../../../../../src/sass/module/_heading.scss */
+.heading-a {
+  font-size: 26px;
+  line-height: 1.5;
+}
+@media (max-width: 414px) {
+  /* line 1, ../../../../../src/sass/module/_heading.scss */
+  .heading-a {
+    font-size: 19px;
+  }
+}
+
+/* line 9, ../../../../../src/sass/module/_heading.scss */
+.heading-b {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.5;
+}
+@media (max-width: 414px) {
+  /* line 9, ../../../../../src/sass/module/_heading.scss */
+  .heading-b {
+    font-size: 19px;
+  }
+}
+
+/* line 19, ../../../../../src/sass/module/_heading.scss */
+.heading-c {
+  color: #edf6fe;
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
 @font-face {
   font-family: 'icomoon';
   src: url("../font/icons/icomoon.eot?-ym0bw6");
@@ -13386,37 +13368,144 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   content: "\e600";
 }
 
+/* line 1, ../../../../../src/sass/module/_list.scss */
+.c-list-icons {
+  display: inline-block;
+  margin-top: 30px;
+}
+/* line 5, ../../../../../src/sass/module/_list.scss */
+.c-list-icons > li {
+  float: left;
+  width: auto;
+  padding: 0 10px;
+}
+@media (max-width: 420px) {
+  /* line 5, ../../../../../src/sass/module/_list.scss */
+  .c-list-icons > li {
+    width: 100%;
+    padding: 7px 0;
+  }
+}
+/* line 17, ../../../../../src/sass/module/_list.scss */
+.c-list-icons > li > a:hover {
+  opacity: .9;
+}
+/* line 22, ../../../../../src/sass/module/_list.scss */
+.c-list-icons > li img {
+  height: 60px;
+}
+
 /* line 1, ../../../../../src/sass/module/_nav.scss */
 nav {
   opacity: .85;
   background-color: #000;
 }
 
-/* line 1, ../../../../../src/sass/module/_parallax.scss */
-.parallax-container {
-  height: 500px;
-  padding: 15px;
-  max-width: 1440px;
+/* line 2, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax {
+  background: url(../img/key_visual0.png) 50% 0 no-repeat fixed;
+  color: white;
+  height: 700px;
   margin: 0 auto;
+  padding: 0;
+  position: relative;
 }
-@media (max-width: 992px) {
-  /* line 1, ../../../../../src/sass/module/_parallax.scss */
-  .parallax-container {
-    padding-top: 60px;
-  }
-}
-/* line 11, ../../../../../src/sass/module/_parallax.scss */
-.parallax-container .parallax-logo {
-  background-color: rgba(255, 255, 255, 0.5);
-  display: inline-block;
-  padding: 15px 15px 8px;
-  border-radius: 5px;
+/* line 10, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax-content {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
 }
 /* line 17, ../../../../../src/sass/module/_parallax.scss */
-.parallax-container .parallax-logo img {
-  width: 200px;
+.c-parallax-body {
+  background: url(../img/pattern.png);
+  width: 50%;
+  height: 100%;
+  float: right;
+  text-align: center;
+  padding: 90px 30px;
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 420px) {
+  /* line 17, ../../../../../src/sass/module/_parallax.scss */
+  .c-parallax-body {
+    width: 100%;
+  }
+}
+@media (max-width: 420px) {
+  /* line 17, ../../../../../src/sass/module/_parallax.scss */
+  .c-parallax-body {
+    padding: 90px 0;
+  }
+}
+/* line 35, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax-body h2 {
+  margin: 45px 0;
+}
+@media (max-width: 420px) {
+  /* line 35, ../../../../../src/sass/module/_parallax.scss */
+  .c-parallax-body h2 {
+    font-size: 26px;
+  }
+}
+@media (max-width: 320px) {
+  /* line 35, ../../../../../src/sass/module/_parallax.scss */
+  .c-parallax-body h2 {
+    font-size: 20px;
+  }
+}
+/* line 47, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax-body--second {
+  background: none;
+  float: left;
+}
+/* line 53, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax-logo {
+  width: 400px;
+}
+@media (max-width: 420px) {
+  /* line 53, ../../../../../src/sass/module/_parallax.scss */
+  .c-parallax-logo {
+    width: 70%;
+  }
+}
+/* line 61, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax-overlay {
+  background: url(../img/pattern.png);
+  position: absolute;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+/* line 70, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax--2 {
+  background: url(../img/key_visual-2.png) 50% 0 no-repeat fixed;
+  height: 500px;
 }
 
+/* line 1, ../../../../../src/sass/module/_responsive.scss */
+.visible-xs {
+  display: none !important;
+}
+
+@media screen and (max-width: 992px) {
+  /* line 7, ../../../../../src/sass/module/_responsive.scss */
+  .col.s6 {
+    width: 100% !important;
+  }
+
+  /* line 11, ../../../../../src/sass/module/_responsive.scss */
+  .visible-xs {
+    display: block !important;
+  }
+
+  /* line 15, ../../../../../src/sass/module/_responsive.scss */
+  .hidden-xs {
+    display: none !important;
+  }
+}
 /* line 1, ../../../../../src/sass/module/_social-icons.scss */
 .social-icons {
   float: right;
@@ -13428,4 +13517,14 @@ nav {
   line-height: 10px;
   padding: 5px;
   margin: 12px;
+}
+
+/* line 1, ../../../../../src/sass/module/_thumbnail.scss */
+.thumbnail {
+  text-align: center;
+}
+/* line 4, ../../../../../src/sass/module/_thumbnail.scss */
+.thumbnail img {
+  width: 100%;
+  max-width: 800px;
 }

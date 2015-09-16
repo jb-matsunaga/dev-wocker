@@ -12,9 +12,16 @@ $keyBorderCol: #dd7900;
 $whiteCol: #fff;
 $blackCol: #000;
 
+$color-a: #F4924A;
+$color-b: #3097EF;
+
 //bgColor
 $bg-body: #3D3F3F !default;
 $bg-wrapper: #fff !default;
 
 //root directry
 $imgRoot : '../../../img/';
+
+//responsive
+$responseiveWidth: 420px;
+$responseiveWidthMin: 320px;

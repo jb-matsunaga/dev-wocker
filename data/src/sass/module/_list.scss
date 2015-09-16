@@ -1,0 +1,26 @@
+.c-list-icons {
+    display: inline-block;
+    margin-top: 30px;
+
+    > li {
+        float: left;
+        width: auto;
+
+        @media(max-width: $responseiveWidth) {
+            width: 100%;
+            padding: 7px 0;
+        }
+        padding: 0 10px;
+
+        > a {
+
+            &:hover {
+                opacity: .9;
+            }
+        }
+
+        img {
+            height: 60px;
+        }
+    }
+}

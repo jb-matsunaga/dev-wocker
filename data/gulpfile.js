@@ -22,7 +22,7 @@ var gulp = require("gulp"),
 
 //パス
 var SRC = "src",
-    PUBLIC = "wocker/wp-content/themes/theme1/";
+    PUBLIC = "wocker/wp-content/themes/tixeebox";
 
 
 //ejs
@@ -118,8 +118,9 @@ gulp.task("jsplg", function() {
 
 //js Common
 gulp.task("jscom", function() {
-    gulp.src([SRC + "/js/common.js"])
+    gulp.src([SRC + "/js/*.js", '!'+ SRC + "/js/plugins/*.js"])
         .pipe(plumber())
+        .pipe(concat('run.js'))
         .pipe(gulp.dest(PUBLIC + "/js/"))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
@@ -139,10 +140,9 @@ gulp.task("server", function() {
 //watch
 gulp.task('default',['server'],function() {
     gulp.watch([SRC + '/js/plugins/**/*.js','!'+ SRC + '/js/plugins/back/**/*.js'],['jsplg']);
-    gulp.watch([SRC + '/js/common.js'],['jscom']);
+    gulp.watch([SRC + "/js/*.js", '!'+ SRC + "/js/plugins/*.js"],['jscom']);
     gulp.watch(SRC + '/sass/**/*.scss',['css','hologram']);
     gulp.watch(PUBLIC + '/css/common.css',['mincss']);
-    //gulp.watch(SRC + '/sass/module/*.scss',['sass']);
     gulp.watch(SRC + '/sass/base/sprite/images/*.png',['sprite']);
     gulp.watch([SRC + "/ejs/**/**/*.ejs",SRC + "/data/**.json"],['ejs']);
 });

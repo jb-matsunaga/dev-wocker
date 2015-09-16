@@ -1,21 +1,74 @@
-.parallax-container {
-    height: 500px;
-    padding: 15px;
-    max-width: 1440px;
+//jQuery-Prallax
+.c-parallax{
+    background: url(../img/key_visual0.png) 50% 0 no-repeat fixed;
+    color: white;
+    height: 700px;
     margin: 0 auto;
+    padding: 0;
+    position: relative;
 
-    @media(max-width: $medium-screen) {
-        padding-top: 60px;
+    &-content {
+        //max-width: 1440px;
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
     }
 
-    .parallax-logo {
-        background-color: rgba(255,255,255,.5);
-        display: inline-block;
-        padding: 15px 15px 8px;
-        border-radius: 5px;
+    &-body {
+        background: url(../img/pattern.png);
+        width: 50%;
 
-        img {
-            width: 200px;
+        @media(max-width: $responseiveWidth) {
+            width: 100%;
         }
+        height: 100%;
+        float: right;
+        text-align: center;
+        padding: 90px 30px;
+
+        @media(max-width: $responseiveWidth) {
+            padding: 90px 0;
+        }
+        position: relative;
+        z-index: 2;
+
+        h2 {
+            margin: 45px 0;
+
+            @media(max-width: $responseiveWidth) {
+                font-size: 26px;
+            }
+
+            @media(max-width: $responseiveWidthMin){
+                font-size: 20px;
+            }
+        }
+
+        &--second {
+            background: none;
+            float: left;
+        }
+    }
+
+    &-logo {
+        width: 400px;
+
+        @media(max-width: $responseiveWidth) {
+            width: 70%;
+        }
+    }
+
+    &-overlay {
+        background: url(../img/pattern.png);
+        position: absolute;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
+
+    &--2 {
+        background: url(../img/key_visual-2.png) 50% 0 no-repeat fixed;
+        height: 500px;
     }
 }

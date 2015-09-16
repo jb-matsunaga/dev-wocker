@@ -16,15 +16,34 @@
 <body id="fn-hesiveTop">
     
 
-    <div class="parallax-container">
-        <div class="parallax-logo hidden-xs">
-            <img src="<?php bloginfo( 'template_directory' ); ?>/img/logo2.png" alt="tixeeboxロゴ">
-        </div>
-        <div class="parallax">
-            <img src="<?php bloginfo( 'template_directory' ); ?>/img/key_visual1.png" alt="tixeeboxイメージ">
+    <!--#fn-parallax-1-->
+    <div class="c-parallax" id="fn-parallax-1">
+    <div class="c-parallax-overlay"></div>
+    <div class="c-parallax-content">
+        <div class="c-parallax-body">
+            <img class="c-parallax-logo" src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ">
+            <h2 class="heading-c">
+                電子チケットの発券、<br>及び入場管理！<br>
+                スマホユーザーに新たな<br>電子チケット入場体験を！
+            </h2>
+            <ul class="c-list-icons clearfix">
+                <li>
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/app-icon.png" alt="tixeeboxAPPロゴ">
+                </li>
+                <li>
+                    <a href="https://itunes.apple.com/jp/app/tixeebox-dian-zichiketto-kuponno/id1014457201?mt=8" target="_blank">
+                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/app-banner.png" alt="APP STORE BANNER">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://play.google.com/store/apps/details?id=tv.tixeebox.tixeeboxappli&hl=ja" target="_blank">
+                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/app-google-banner.png" alt="Google Play BANNER">
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
-
+</div>
     <div class="header">
     <nav class="hidden-xs">
         <ul class="left hide-on-med-and-down">
@@ -64,7 +83,7 @@
             <li><a target="_blank" href="http://livestyles.tv/contact">CONTACT</a></li>
         </ul>
         <a data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <a href="#top" class="brand-logo center"><img src="img/logo-white.png" alt="tixeeboxロゴ"></a>
+        <a href="#top" class="brand-logo center"><img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ"></a>
         <ul class="social-icons">
             <li>
                 <a href="https://twitter.com/tixeebox1" target="_blank">
@@ -75,15 +94,9 @@
     </nav>
 </div>
     <div class="wrapper">
-        <section class="row container">
+        <section class="row container section-str">
             <a id="fn-showHere"></a>
-            <div class="header u-text-center u-pt30">
-                <img src="/<?php bloginfo( 'template_directory' ); ?>/img/logo.png" alt="tixeeboxロゴ">
-            </div>
-            <h2 class="heading-a u-text-center">
-                電子チケットの発券、及び入場管理！<br>
-                スマホユーザーに新たな電子チケット入場体験を！
-            </h2>
+            <h2 class="heading-b">tixeeboxとは？</h2>
             <p class="grey-text text-darken-3 lighten-3">
                 “tixeebox”（ティクシーボックス）は電子チケットの発券に特化し、システム開発不要の主催者に導入しやすく、ユーザーにも利用しやすい電子チケットアプリサービスです。tixeeboxでは転売の抑制としてSMSでのユーザー認証、チケット譲渡の制限機能を備えている他、電子チケットならではのチケットデザイン、動画などのコンテンツの付与にも対応可能です！
             </p>
@@ -91,6 +104,15 @@
                 従来は紙で受取っていたチケットを、“tixeebox”アプリなら簡単に電子化＆スマホにダウンロード！コンビニや店頭に、チケットを受取に行く必要はありません。 イベント当日は、スマートフォンを見せてチケットを「もぎって」もらうだけ！紙チケットと同じ方法で入場できます！
             </p>
         </section>
+
+<div class="c-parallax c-parallax--2" id="fn-parallax-1">
+    <div class="c-parallax-content">
+        <div class="c-parallax-body c-parallax-body--second">
+            <h1 class="heading-c">チケットを簡単に<br>スマホで受け取り</h1>
+        </div>
+    </div>
+</div>
+
         <section class="row container u-pt60">
             <div class="col s6">
                 <section class="card">
@@ -159,6 +181,6 @@
                 </footer>
             <script src="<?php bloginfo( 'template_directory' ); ?>/js/lib.min.js"></script>
         <script src="<?php bloginfo( 'template_directory' ); ?>/js/all.min.js"></script>
-        <script src="<?php bloginfo( 'template_directory' ); ?>/js/common.min.js"></script>
+        <script src="<?php bloginfo( 'template_directory' ); ?>/js/run.js"></script>
     </body>
 </html>

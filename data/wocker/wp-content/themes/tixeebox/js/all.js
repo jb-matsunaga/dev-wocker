@@ -1787,64 +1787,6 @@ $(document).ready(function(){
 }( jQuery ));
 
 (function ($) {
-
-    $.fn.parallax = function () {
-      var window_width = $(window).width();
-      // Parallax Scripts
-      return this.each(function(i) {
-        var $this = $(this);
-        $this.addClass('parallax');
-
-        function updateParallax(initial) {
-          var container_height;
-          if (window_width < 601) {
-            container_height = ($this.height() > 0) ? $this.height() : $this.children("img").height();
-          }
-          else {
-            container_height = ($this.height() > 0) ? $this.height() : 500;
-          }
-          var $img = $this.children("img").first();
-          var img_height = $img.height();
-          var parallax_dist = img_height - container_height;
-          var bottom = $this.offset().top + container_height;
-          var top = $this.offset().top;
-          var scrollTop = $(window).scrollTop();
-          var windowHeight = window.innerHeight;
-          var windowBottom = scrollTop + windowHeight;
-          var percentScrolled = (windowBottom - top) / (container_height + windowHeight);
-          var parallax = Math.round((parallax_dist * percentScrolled));
-
-          if (initial) {
-            $img.css('display', 'block');
-          }
-          if ((bottom > scrollTop) && (top < (scrollTop + windowHeight))) {
-            $img.css('transform', "translate3D(-50%," + parallax + "px, 0)");
-          }
-
-        }
-
-        // Wait for image load
-        $this.children("img").one("load", function() {
-          updateParallax(true);
-        }).each(function() {
-          if(this.complete) $(this).load();
-        });
-
-        $(window).scroll(function() {
-          window_width = $(window).width();
-          updateParallax(false);
-        });
-
-        $(window).resize(function() {
-          window_width = $(window).width();
-          updateParallax(false);
-        });
-
-      });
-
-    };
-}( jQuery ));
-(function ($) {
   $(document).ready(function() {
 
     $.fn.pushpin = function (options) {
@@ -3776,6 +3718,1365 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
 
 })(window);
 
+/**
+ * jQuery.LocalScroll - Animated scrolling navigation, using anchors.
+ * Copyright (c) 2007-2009 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+ * Dual licensed under MIT and GPL.
+ * Date: 3/11/2009
+ * @author Ariel Flesler
+ * @version 1.2.7
+ **/
+;(function($){var l=location.href.replace(/#.*/,'');var g=$.localScroll=function(a){$('body').localScroll(a)};g.defaults={duration:1e3,axis:'y',event:'click',stop:true,target:window,reset:true};g.hash=function(a){if(location.hash){a=$.extend({},g.defaults,a);a.hash=false;if(a.reset){var e=a.duration;delete a.duration;$(a.target).scrollTo(0,a);a.duration=e}i(0,location,a)}};$.fn.localScroll=function(b){b=$.extend({},g.defaults,b);return b.lazy?this.bind(b.event,function(a){var e=$([a.target,a.target.parentNode]).filter(d)[0];if(e)i(a,e,b)}):this.find('a,area').filter(d).bind(b.event,function(a){i(a,this,b)}).end().end();function d(){return!!this.href&&!!this.hash&&this.href.replace(this.hash,'')==l&&(!b.filter||$(this).is(b.filter))}};function i(a,e,b){var d=e.hash.slice(1),f=document.getElementById(d)||document.getElementsByName(d)[0];if(!f)return;if(a)a.preventDefault();var h=$(b.target);if(b.lock&&h.is(':animated')||b.onBefore&&b.onBefore.call(b,a,f,h)===false)return;if(b.stop)h.stop(true);if(b.hash){var j=f.id==d?'id':'name',k=$('<a> </a>').attr(j,d).css({position:'absolute',top:$(window).scrollTop(),left:$(window).scrollLeft()});f[j]='';$('body').prepend(k);location=e.hash;k.remove();f[j]=d}h.scrollTo(f,b).trigger('notify.serialScroll',[f])}})(jQuery);
+/*
+Plugin: jQuery Parallax
+Version 1.1.3
+Author: Ian Lunn
+Twitter: @IanLunn
+Author URL: http://www.ianlunn.co.uk/
+Plugin URL: http://www.ianlunn.co.uk/plugins/jquery-parallax/
+
+Dual licensed under the MIT and GPL licenses:
+http://www.opensource.org/licenses/mit-license.php
+http://www.gnu.org/licenses/gpl.html
+*/
+
+(function( $ ){
+	var $window = $(window);
+	var windowHeight = $window.height();
+
+	$window.resize(function () {
+		windowHeight = $window.height();
+	});
+
+	$.fn.parallax = function(xpos, speedFactor, outerHeight) {
+		var $this = $(this);
+		var getHeight;
+		var firstTop;
+		var paddingTop = 0;
+		
+		//get the starting position of each element to have parallax applied to it		
+		$this.each(function(){
+		    firstTop = $this.offset().top;
+		});
+
+		if (outerHeight) {
+			getHeight = function(jqo) {
+				return jqo.outerHeight(true);
+			};
+		} else {
+			getHeight = function(jqo) {
+				return jqo.height();
+			};
+		}
+			
+		// setup defaults if arguments aren't specified
+		if (arguments.length < 1 || xpos === null) xpos = "50%";
+		if (arguments.length < 2 || speedFactor === null) speedFactor = 0.1;
+		if (arguments.length < 3 || outerHeight === null) outerHeight = true;
+		
+		// function to be called whenever the window is scrolled or resized
+		function update(){
+			var pos = $window.scrollTop();				
+
+			$this.each(function(){
+				var $element = $(this);
+				var top = $element.offset().top;
+				var height = getHeight($element);
+
+				// Check if totally above or totally below viewport
+				if (top + height < pos || top > pos + windowHeight) {
+					return;
+				}
+
+				$this.css('backgroundPosition', xpos + " " + Math.round((firstTop - pos) * speedFactor) + "px");
+			});
+		}		
+
+		$window.bind('scroll', update).resize(update);
+		update();
+	};
+})(jQuery);
+
+/**
+ * jQuery.ScrollTo - Easy element scrolling using jQuery.
+ * Copyright (c) 2007-2009 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+ * Dual licensed under MIT and GPL.
+ * Date: 5/25/2009
+ * @author Ariel Flesler
+ * @version 1.4.2
+ *
+ * http://flesler.blogspot.com/2007/10/jqueryscrollto.html
+ */
+;(function(d){var k=d.scrollTo=function(a,i,e){d(window).scrollTo(a,i,e)};k.defaults={axis:'xy',duration:parseFloat(d.fn.jquery)>=1.3?0:1};k.window=function(a){return d(window)._scrollable()};d.fn._scrollable=function(){return this.map(function(){var a=this,i=!a.nodeName||d.inArray(a.nodeName.toLowerCase(),['iframe','#document','html','body'])!=-1;if(!i)return a;var e=(a.contentWindow||a).document||a.ownerDocument||a;return d.browser.safari||e.compatMode=='BackCompat'?e.body:e.documentElement})};d.fn.scrollTo=function(n,j,b){if(typeof j=='object'){b=j;j=0}if(typeof b=='function')b={onAfter:b};if(n=='max')n=9e9;b=d.extend({},k.defaults,b);j=j||b.speed||b.duration;b.queue=b.queue&&b.axis.length>1;if(b.queue)j/=2;b.offset=p(b.offset);b.over=p(b.over);return this._scrollable().each(function(){var q=this,r=d(q),f=n,s,g={},u=r.is('html,body');switch(typeof f){case'number':case'string':if(/^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(f)){f=p(f);break}f=d(f,this);case'object':if(f.is||f.style)s=(f=d(f)).offset()}d.each(b.axis.split(''),function(a,i){var e=i=='x'?'Left':'Top',h=e.toLowerCase(),c='scroll'+e,l=q[c],m=k.max(q,i);if(s){g[c]=s[h]+(u?0:l-r.offset()[h]);if(b.margin){g[c]-=parseInt(f.css('margin'+e))||0;g[c]-=parseInt(f.css('border'+e+'Width'))||0}g[c]+=b.offset[h]||0;if(b.over[h])g[c]+=f[i=='x'?'width':'height']()*b.over[h]}else{var o=f[h];g[c]=o.slice&&o.slice(-1)=='%'?parseFloat(o)/100*m:o}if(/^\d+$/.test(g[c]))g[c]=g[c]<=0?0:Math.min(g[c],m);if(!a&&b.queue){if(l!=g[c])t(b.onAfterFirst);delete g[c]}});t(b.onAfter);function t(a){r.animate(g,j,b.easing,a&&function(){a.call(this,n,b)})}}).end()};k.max=function(a,i){var e=i=='x'?'Width':'Height',h='scroll'+e;if(!d(a).is('html,body'))return a[h]-d(a)[e.toLowerCase()]();var c='client'+e,l=a.ownerDocument.documentElement,m=a.ownerDocument.body;return Math.max(l[h],m[h])-Math.min(l[c],m[c])};function p(a){return typeof a=='object'?a:{top:a,left:a}}})(jQuery);
+/*
+
+	Supersized - Fullscreen Slideshow jQuery Plugin
+	Version : 3.2.7
+	Site	: www.buildinternet.com/project/supersized
+	
+	Author	: Sam Dunn
+	Company : One Mighty Roar (www.onemightyroar.com)
+	License : MIT License / GPL License
+	
+*/
+
+(function($){
+
+	/* Place Supersized Elements
+	----------------------------*/
+	$(document).ready(function() {
+		$('body').append('<div id="supersized-loader"></div><ul id="supersized"></ul>');
+	});
+
+
+    $.supersized = function(options){
+
+    	/* Variables
+		----------------------------*/
+    	var el = '#supersized',
+        	base = this;
+        // Access to jQuery and DOM versions of element
+        base.$el = $(el);
+        base.el = el;
+        vars = $.supersized.vars;
+        // Add a reverse reference to the DOM object
+        base.$el.data("supersized", base);
+        api = base.$el.data('supersized');
+		
+		base.init = function(){
+        	// Combine options and vars
+        	$.supersized.vars = $.extend($.supersized.vars, $.supersized.themeVars);
+        	$.supersized.vars.options = $.extend({},$.supersized.defaultOptions, $.supersized.themeOptions, options);
+            base.options = $.supersized.vars.options;
+            
+            base._build();
+        };
+        
+        
+        /* Build Elements
+		----------------------------*/
+        base._build = function(){
+        	// Add in slide markers
+        	var thisSlide = 0,
+        		slideSet = '',
+				markers = '',
+				markerContent,
+				thumbMarkers = '',
+				thumbImage;
+				
+			while(thisSlide <= base.options.slides.length-1){
+				//Determine slide link content
+				switch(base.options.slide_links){
+					case 'num':
+						markerContent = thisSlide;
+						break;
+					case 'name':
+						markerContent = base.options.slides[thisSlide].title;
+						break;
+					case 'blank':
+						markerContent = '';
+						break;
+				}
+				
+				slideSet = slideSet+'<li class="slide-'+thisSlide+'"></li>';
+				
+				if(thisSlide == base.options.start_slide-1){
+					// Slide links
+					if (base.options.slide_links)markers = markers+'<li class="slide-link-'+thisSlide+' current-slide"><a>'+markerContent+'</a></li>';
+					// Slide Thumbnail Links
+					if (base.options.thumb_links){
+						base.options.slides[thisSlide].thumb ? thumbImage = base.options.slides[thisSlide].thumb : thumbImage = base.options.slides[thisSlide].image;
+						thumbMarkers = thumbMarkers+'<li class="thumb'+thisSlide+' current-thumb"><img src="'+thumbImage+'"/></li>';
+					};
+				}else{
+					// Slide links
+					if (base.options.slide_links) markers = markers+'<li class="slide-link-'+thisSlide+'" ><a>'+markerContent+'</a></li>';
+					// Slide Thumbnail Links
+					if (base.options.thumb_links){
+						base.options.slides[thisSlide].thumb ? thumbImage = base.options.slides[thisSlide].thumb : thumbImage = base.options.slides[thisSlide].image;
+						thumbMarkers = thumbMarkers+'<li class="thumb'+thisSlide+'"><img src="'+thumbImage+'"/></li>';
+					};
+				}
+				thisSlide++;
+			}
+			
+			if (base.options.slide_links) $(vars.slide_list).html(markers);
+			if (base.options.thumb_links && vars.thumb_tray.length){
+				$(vars.thumb_tray).append('<ul id="'+vars.thumb_list.replace('#','')+'">'+thumbMarkers+'</ul>');
+			}
+			
+			$(base.el).append(slideSet);
+			
+			// Add in thumbnails
+			if (base.options.thumbnail_navigation){
+				// Load previous thumbnail
+				vars.current_slide - 1 < 0  ? prevThumb = base.options.slides.length - 1 : prevThumb = vars.current_slide - 1;
+				$(vars.prev_thumb).show().html($("<img/>").attr("src", base.options.slides[prevThumb].image));
+				
+				// Load next thumbnail
+				vars.current_slide == base.options.slides.length - 1 ? nextThumb = 0 : nextThumb = vars.current_slide + 1;
+				$(vars.next_thumb).show().html($("<img/>").attr("src", base.options.slides[nextThumb].image));
+			}
+			
+            base._start(); // Get things started
+        };
+        
+        
+        /* Initialize
+		----------------------------*/
+    	base._start = function(){
+			
+			// Determine if starting slide random
+			if (base.options.start_slide){
+				vars.current_slide = base.options.start_slide - 1;
+			}else{
+				vars.current_slide = Math.floor(Math.random()*base.options.slides.length);	// Generate random slide number
+			}
+			
+			// If links should open in new window
+			var linkTarget = base.options.new_window ? ' target="_blank"' : '';
+			
+			// Set slideshow quality (Supported only in FF and IE, no Webkit)
+			if (base.options.performance == 3){
+				base.$el.addClass('speed'); 		// Faster transitions
+			} else if ((base.options.performance == 1) || (base.options.performance == 2)){
+				base.$el.addClass('quality');	// Higher image quality
+			}
+						
+			// Shuffle slide order if needed		
+			if (base.options.random){
+				arr = base.options.slides;
+				for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);	// Fisher-Yates shuffle algorithm (jsfromhell.com/array/shuffle)
+			    base.options.slides = arr;
+			}
+			
+			/*-----Load initial set of images-----*/
+	
+			if (base.options.slides.length > 1){
+				if(base.options.slides.length > 2){
+					// Set previous image
+					vars.current_slide - 1 < 0  ? loadPrev = base.options.slides.length - 1 : loadPrev = vars.current_slide - 1;	// If slide is 1, load last slide as previous
+					var imageLink = (base.options.slides[loadPrev].url) ? "href='" + base.options.slides[loadPrev].url + "'" : "";
+				
+					var imgPrev = $('<img src="'+base.options.slides[loadPrev].image+'"/>');
+					var slidePrev = base.el+' li:eq('+loadPrev+')';
+					imgPrev.appendTo(slidePrev).wrap('<a ' + imageLink + linkTarget + '></a>').parent().parent().addClass('image-loading prevslide');
+				
+					imgPrev.load(function(){
+						$(this).data('origWidth', $(this).width()).data('origHeight', $(this).height());
+						base.resizeNow();	// Resize background image
+					});	// End Load
+				}
+			} else {
+				// Slideshow turned off if there is only one slide
+				base.options.slideshow = 0;
+			}
+			
+			// Set current image
+			imageLink = (api.getField('url')) ? "href='" + api.getField('url') + "'" : "";
+			var img = $('<img src="'+api.getField('image')+'"/>');
+			
+			var slideCurrent= base.el+' li:eq('+vars.current_slide+')';
+			img.appendTo(slideCurrent).wrap('<a ' + imageLink + linkTarget + '></a>').parent().parent().addClass('image-loading activeslide');
+			
+			img.load(function(){
+				base._origDim($(this));
+				base.resizeNow();	// Resize background image
+				base.launch();
+				if( typeof theme != 'undefined' && typeof theme._init == "function" ) theme._init();	// Load Theme
+			});
+			
+			if (base.options.slides.length > 1){
+				// Set next image
+				vars.current_slide == base.options.slides.length - 1 ? loadNext = 0 : loadNext = vars.current_slide + 1;	// If slide is last, load first slide as next
+				imageLink = (base.options.slides[loadNext].url) ? "href='" + base.options.slides[loadNext].url + "'" : "";
+				
+				var imgNext = $('<img src="'+base.options.slides[loadNext].image+'"/>');
+				var slideNext = base.el+' li:eq('+loadNext+')';
+				imgNext.appendTo(slideNext).wrap('<a ' + imageLink + linkTarget + '></a>').parent().parent().addClass('image-loading');
+				
+				imgNext.load(function(){
+					$(this).data('origWidth', $(this).width()).data('origHeight', $(this).height());
+					base.resizeNow();	// Resize background image
+				});	// End Load
+			}
+			/*-----End load initial images-----*/
+			
+			//  Hide elements to be faded in
+			base.$el.css('visibility','hidden');
+			$('.load-item').hide();
+			
+    	};
+		
+		
+		/* Launch Supersized
+		----------------------------*/
+		base.launch = function(){
+		
+			base.$el.css('visibility','visible');
+			$('#supersized-loader').remove();		//Hide loading animation
+			
+			// Call theme function for before slide transition
+			if( typeof theme != 'undefined' && typeof theme.beforeAnimation == "function" ) theme.beforeAnimation('next');
+			$('.load-item').show();
+			
+			// Keyboard Navigation
+			if (base.options.keyboard_nav){
+				$(document.documentElement).keyup(function (event) {
+				
+					if(vars.in_animation) return false;		// Abort if currently animating
+					if($(document.activeElement).is("input, textarea")) return false; // Abort if active element is an input or a textarea.
+					
+					// Left Arrow or Down Arrow
+					if ((event.keyCode == 37) || (event.keyCode == 40)) {
+						clearInterval(vars.slideshow_interval);	// Stop slideshow, prevent buildup
+						base.prevSlide();
+					
+					// Right Arrow or Up Arrow
+					} else if ((event.keyCode == 39) || (event.keyCode == 38)) {
+						clearInterval(vars.slideshow_interval);	// Stop slideshow, prevent buildup
+						base.nextSlide();
+					
+					// Spacebar	
+					} else if (event.keyCode == 32 && !vars.hover_pause) {
+						clearInterval(vars.slideshow_interval);	// Stop slideshow, prevent buildup
+						base.playToggle();
+					}
+				
+				});
+			}
+			
+			// Pause when hover on image
+			if (base.options.slideshow && base.options.pause_hover){
+				$(base.el).hover(function() {
+					if(vars.in_animation) return false;		// Abort if currently animating
+			   			vars.hover_pause = true;	// Mark slideshow paused from hover
+			   			if(!vars.is_paused){
+			   				vars.hover_pause = 'resume';	// It needs to resume afterwards
+			   				base.playToggle();
+			   			}
+			   	}, function() {
+					if(vars.hover_pause == 'resume'){
+						base.playToggle();
+						vars.hover_pause = false;
+					}
+			   	});
+			}
+			
+			if (base.options.slide_links){
+				// Slide marker clicked
+				$(vars.slide_list+'> li').click(function(){
+				
+					index = $(vars.slide_list+'> li').index(this);
+					targetSlide = index + 1;
+					
+					base.goTo(targetSlide);
+					return false;
+					
+				});
+			}
+			
+			// Thumb marker clicked
+			if (base.options.thumb_links){
+				$(vars.thumb_list+'> li').click(function(){
+				
+					index = $(vars.thumb_list+'> li').index(this);
+					targetSlide = index + 1;
+					
+					api.goTo(targetSlide);
+					return false;
+					
+				});
+			}
+			
+			// Start slideshow if enabled
+			if (base.options.slideshow && base.options.slides.length > 1){
+	    		
+	    		// Start slideshow if autoplay enabled
+	    		if (base.options.autoplay && base.options.slides.length > 1){
+	    			vars.slideshow_interval = setInterval(base.nextSlide, base.options.slide_interval);	// Initiate slide interval
+				}else{
+					vars.is_paused = true;	// Mark as paused
+				}
+				
+				//Prevent navigation items from being dragged					
+				$('.load-item img').bind("contextmenu mousedown",function(){
+					return false;
+				});
+								
+			}
+			
+			// Adjust image when browser is resized
+			$(window).resize(function(){
+	    		base.resizeNow();
+			});
+    		
+    	};
+        
+        
+        /* Resize Images
+		----------------------------*/
+		base.resizeNow = function(){
+			
+			return base.$el.each(function() {
+		  		//  Resize each image seperately
+		  		$('img', base.el).each(function(){
+		  			
+					thisSlide = $(this);
+					var ratio = (thisSlide.data('origHeight')/thisSlide.data('origWidth')).toFixed(2);	// Define image ratio
+					
+					// Gather browser size
+					var browserwidth = base.$el.width(),
+						browserheight = base.$el.height(),
+						offset;
+					
+					/*-----Resize Image-----*/
+					if (base.options.fit_always){	// Fit always is enabled
+						if ((browserheight/browserwidth) > ratio){
+							resizeWidth();
+						} else {
+							resizeHeight();
+						}
+					}else{	// Normal Resize
+						if ((browserheight <= base.options.min_height) && (browserwidth <= base.options.min_width)){	// If window smaller than minimum width and height
+						
+							if ((browserheight/browserwidth) > ratio){
+								base.options.fit_landscape && ratio < 1 ? resizeWidth(true) : resizeHeight(true);	// If landscapes are set to fit
+							} else {
+								base.options.fit_portrait && ratio >= 1 ? resizeHeight(true) : resizeWidth(true);		// If portraits are set to fit
+							}
+						
+						} else if (browserwidth <= base.options.min_width){		// If window only smaller than minimum width
+						
+							if ((browserheight/browserwidth) > ratio){
+								base.options.fit_landscape && ratio < 1 ? resizeWidth(true) : resizeHeight();	// If landscapes are set to fit
+							} else {
+								base.options.fit_portrait && ratio >= 1 ? resizeHeight() : resizeWidth(true);		// If portraits are set to fit
+							}
+							
+						} else if (browserheight <= base.options.min_height){	// If window only smaller than minimum height
+						
+							if ((browserheight/browserwidth) > ratio){
+								base.options.fit_landscape && ratio < 1 ? resizeWidth() : resizeHeight(true);	// If landscapes are set to fit
+							} else {
+								base.options.fit_portrait && ratio >= 1 ? resizeHeight(true) : resizeWidth();		// If portraits are set to fit
+							}
+						
+						} else {	// If larger than minimums
+							
+							if ((browserheight/browserwidth) > ratio){
+								base.options.fit_landscape && ratio < 1 ? resizeWidth() : resizeHeight();	// If landscapes are set to fit
+							} else {
+								base.options.fit_portrait && ratio >= 1 ? resizeHeight() : resizeWidth();		// If portraits are set to fit
+							}
+							
+						}
+					}
+					/*-----End Image Resize-----*/
+					
+					
+					/*-----Resize Functions-----*/
+					
+					function resizeWidth(minimum){
+						if (minimum){	// If minimum height needs to be considered
+							if(thisSlide.width() < browserwidth || thisSlide.width() < base.options.min_width ){
+								if (thisSlide.width() * ratio >= base.options.min_height){
+									thisSlide.width(base.options.min_width);
+						    		thisSlide.height(thisSlide.width() * ratio);
+						    	}else{
+						    		resizeHeight();
+						    	}
+						    }
+						}else{
+							if (base.options.min_height >= browserheight && !base.options.fit_landscape){	// If minimum height needs to be considered
+								if (browserwidth * ratio >= base.options.min_height || (browserwidth * ratio >= base.options.min_height && ratio <= 1)){	// If resizing would push below minimum height or image is a landscape
+									thisSlide.width(browserwidth);
+									thisSlide.height(browserwidth * ratio);
+								} else if (ratio > 1){		// Else the image is portrait
+									thisSlide.height(base.options.min_height);
+									thisSlide.width(thisSlide.height() / ratio);
+								} else if (thisSlide.width() < browserwidth) {
+									thisSlide.width(browserwidth);
+						    		thisSlide.height(thisSlide.width() * ratio);
+								}
+							}else{	// Otherwise, resize as normal
+								thisSlide.width(browserwidth);
+								thisSlide.height(browserwidth * ratio);
+							}
+						}
+					};
+					
+					function resizeHeight(minimum){
+						if (minimum){	// If minimum height needs to be considered
+							if(thisSlide.height() < browserheight){
+								if (thisSlide.height() / ratio >= base.options.min_width){
+									thisSlide.height(base.options.min_height);
+									thisSlide.width(thisSlide.height() / ratio);
+								}else{
+									resizeWidth(true);
+								}
+							}
+						}else{	// Otherwise, resized as normal
+							if (base.options.min_width >= browserwidth){	// If minimum width needs to be considered
+								if (browserheight / ratio >= base.options.min_width || ratio > 1){	// If resizing would push below minimum width or image is a portrait
+									thisSlide.height(browserheight);
+									thisSlide.width(browserheight / ratio);
+								} else if (ratio <= 1){		// Else the image is landscape
+									thisSlide.width(base.options.min_width);
+						    		thisSlide.height(thisSlide.width() * ratio);
+								}
+							}else{	// Otherwise, resize as normal
+								thisSlide.height(browserheight);
+								thisSlide.width(browserheight / ratio);
+							}
+						}
+					};
+					
+					/*-----End Resize Functions-----*/
+					
+					if (thisSlide.parents('li').hasClass('image-loading')){
+						$('.image-loading').removeClass('image-loading');
+					}
+					
+					// Horizontally Center
+					if (base.options.horizontal_center){
+						$(this).css('left', (browserwidth - $(this).width())/2);
+					}
+					
+					// Vertically Center
+					if (base.options.vertical_center){
+						$(this).css('top', (browserheight - $(this).height())/2);
+					}
+					
+				});
+				
+				// Basic image drag and right click protection
+				if (base.options.image_protect){
+					
+					$('img', base.el).bind("contextmenu mousedown",function(){
+						return false;
+					});
+				
+				}
+				
+				return false;
+				
+			});
+			
+		};
+        
+        
+        /* Next Slide
+		----------------------------*/
+		base.nextSlide = function(){
+			
+			if(vars.in_animation || !api.options.slideshow) return false;		// Abort if currently animating
+				else vars.in_animation = true;		// Otherwise set animation marker
+				
+		    clearInterval(vars.slideshow_interval);	// Stop slideshow
+		    
+		    var slides = base.options.slides,					// Pull in slides array
+				liveslide = base.$el.find('.activeslide');		// Find active slide
+				$('.prevslide').removeClass('prevslide');
+				liveslide.removeClass('activeslide').addClass('prevslide');	// Remove active class & update previous slide
+					
+			// Get the slide number of new slide
+			vars.current_slide + 1 == base.options.slides.length ? vars.current_slide = 0 : vars.current_slide++;
+			
+		    var nextslide = $(base.el+' li:eq('+vars.current_slide+')'),
+		    	prevslide = base.$el.find('.prevslide');
+			
+			// If hybrid mode is on drop quality for transition
+			if (base.options.performance == 1) base.$el.removeClass('quality').addClass('speed');	
+			
+			
+			/*-----Load Image-----*/
+			
+			loadSlide = false;
+
+			vars.current_slide == base.options.slides.length - 1 ? loadSlide = 0 : loadSlide = vars.current_slide + 1;	// Determine next slide
+
+			var targetList = base.el+' li:eq('+loadSlide+')';
+			if (!$(targetList).html()){
+				
+				// If links should open in new window
+				var linkTarget = base.options.new_window ? ' target="_blank"' : '';
+				
+				imageLink = (base.options.slides[loadSlide].url) ? "href='" + base.options.slides[loadSlide].url + "'" : "";	// If link exists, build it
+				var img = $('<img src="'+base.options.slides[loadSlide].image+'"/>'); 
+				
+				img.appendTo(targetList).wrap('<a ' + imageLink + linkTarget + '></a>').parent().parent().addClass('image-loading').css('visibility','hidden');
+				
+				img.load(function(){
+					base._origDim($(this));
+					base.resizeNow();
+				});	// End Load
+			};
+						
+			// Update thumbnails (if enabled)
+			if (base.options.thumbnail_navigation == 1){
+			
+				// Load previous thumbnail
+				vars.current_slide - 1 < 0  ? prevThumb = base.options.slides.length - 1 : prevThumb = vars.current_slide - 1;
+				$(vars.prev_thumb).html($("<img/>").attr("src", base.options.slides[prevThumb].image));
+			
+				// Load next thumbnail
+				nextThumb = loadSlide;
+				$(vars.next_thumb).html($("<img/>").attr("src", base.options.slides[nextThumb].image));
+				
+			}
+			
+			
+			
+			/*-----End Load Image-----*/
+			
+			
+			// Call theme function for before slide transition
+			if( typeof theme != 'undefined' && typeof theme.beforeAnimation == "function" ) theme.beforeAnimation('next');
+			
+			//Update slide markers
+			if (base.options.slide_links){
+				$('.current-slide').removeClass('current-slide');
+				$(vars.slide_list +'> li' ).eq(vars.current_slide).addClass('current-slide');
+			}
+		    
+		    nextslide.css('visibility','hidden').addClass('activeslide');	// Update active slide
+		    
+	    	switch(base.options.transition){
+	    		case 0: case 'none':	// No transition
+	    		    nextslide.css('visibility','visible'); vars.in_animation = false; base.afterAnimation();
+	    		    break;
+	    		case 1: case 'fade':	// Fade
+	    		    nextslide.css({opacity : 0, 'visibility': 'visible'}).animate({opacity : 1, avoidTransforms : false}, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    		    break;
+	    		case 2: case 'slideTop':	// Slide Top
+	    		    nextslide.css({top : -base.$el.height(), 'visibility': 'visible'}).animate({ top:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    		    break;
+	    		case 3: case 'slideRight':	// Slide Right
+	    			nextslide.css({left : base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    			break;
+	    		case 4: case 'slideBottom': // Slide Bottom
+	    			nextslide.css({top : base.$el.height(), 'visibility': 'visible'}).animate({ top:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    			break;
+	    		case 5: case 'slideLeft':  // Slide Left
+	    			nextslide.css({left : -base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    			break;
+	    		case 6: case 'carouselRight':	// Carousel Right
+	    			nextslide.css({left : base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+					liveslide.animate({ left: -base.$el.width(), avoidTransforms : false }, base.options.transition_speed );
+	    			break;
+	    		case 7: case 'carouselLeft':   // Carousel Left
+	    			nextslide.css({left : -base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+					liveslide.animate({ left: base.$el.width(), avoidTransforms : false }, base.options.transition_speed );
+	    			break;
+	    	}
+		    return false;	
+		};
+		
+		
+		/* Previous Slide
+		----------------------------*/
+		base.prevSlide = function(){
+		
+			if(vars.in_animation || !api.options.slideshow) return false;		// Abort if currently animating
+				else vars.in_animation = true;		// Otherwise set animation marker
+			
+			clearInterval(vars.slideshow_interval);	// Stop slideshow
+			
+			var slides = base.options.slides,					// Pull in slides array
+				liveslide = base.$el.find('.activeslide');		// Find active slide
+				$('.prevslide').removeClass('prevslide');
+				liveslide.removeClass('activeslide').addClass('prevslide');		// Remove active class & update previous slide
+			
+			// Get current slide number
+			vars.current_slide == 0 ?  vars.current_slide = base.options.slides.length - 1 : vars.current_slide-- ;
+				
+		    var nextslide =  $(base.el+' li:eq('+vars.current_slide+')'),
+		    	prevslide =  base.$el.find('.prevslide');
+			
+			// If hybrid mode is on drop quality for transition
+			if (base.options.performance == 1) base.$el.removeClass('quality').addClass('speed');	
+			
+			
+			/*-----Load Image-----*/
+			
+			loadSlide = vars.current_slide;
+			
+			var targetList = base.el+' li:eq('+loadSlide+')';
+			if (!$(targetList).html()){
+				// If links should open in new window
+				var linkTarget = base.options.new_window ? ' target="_blank"' : '';
+				imageLink = (base.options.slides[loadSlide].url) ? "href='" + base.options.slides[loadSlide].url + "'" : "";	// If link exists, build it
+				var img = $('<img src="'+base.options.slides[loadSlide].image+'"/>'); 
+				
+				img.appendTo(targetList).wrap('<a ' + imageLink + linkTarget + '></a>').parent().parent().addClass('image-loading').css('visibility','hidden');
+				
+				img.load(function(){
+					base._origDim($(this));
+					base.resizeNow();
+				});	// End Load
+			};
+			
+			// Update thumbnails (if enabled)
+			if (base.options.thumbnail_navigation == 1){
+			
+				// Load previous thumbnail
+				//prevThumb = loadSlide;
+				loadSlide == 0 ? prevThumb = base.options.slides.length - 1 : prevThumb = loadSlide - 1;
+				$(vars.prev_thumb).html($("<img/>").attr("src", base.options.slides[prevThumb].image));
+				
+				// Load next thumbnail
+				vars.current_slide == base.options.slides.length - 1 ? nextThumb = 0 : nextThumb = vars.current_slide + 1;
+				$(vars.next_thumb).html($("<img/>").attr("src", base.options.slides[nextThumb].image));
+			}
+			
+			/*-----End Load Image-----*/
+			
+			
+			// Call theme function for before slide transition
+			if( typeof theme != 'undefined' && typeof theme.beforeAnimation == "function" ) theme.beforeAnimation('prev');
+			
+			//Update slide markers
+			if (base.options.slide_links){
+				$('.current-slide').removeClass('current-slide');
+				$(vars.slide_list +'> li' ).eq(vars.current_slide).addClass('current-slide');
+			}
+			
+		    nextslide.css('visibility','hidden').addClass('activeslide');	// Update active slide
+		    
+		    switch(base.options.transition){
+	    		case 0: case 'none':	// No transition
+	    		    nextslide.css('visibility','visible'); vars.in_animation = false; base.afterAnimation();
+	    		    break;
+	    		case 1: case 'fade':	// Fade
+	    		  	nextslide.css({opacity : 0, 'visibility': 'visible'}).animate({opacity : 1, avoidTransforms : false}, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    		    break;
+	    		case 2: case 'slideTop':	// Slide Top (reverse)
+	    		    nextslide.css({top : base.$el.height(), 'visibility': 'visible'}).animate({ top:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    		    break;
+	    		case 3: case 'slideRight':	// Slide Right (reverse)
+	    			nextslide.css({left : -base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    			break;
+	    		case 4: case 'slideBottom': // Slide Bottom (reverse)
+	    			nextslide.css({top : -base.$el.height(), 'visibility': 'visible'}).animate({ top:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    			break;
+	    		case 5: case 'slideLeft':  // Slide Left (reverse)
+	    			nextslide.css({left : base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+	    			break;
+	    		case 6: case 'carouselRight':	// Carousel Right (reverse)
+	    			nextslide.css({left : -base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+					liveslide.css({left : 0}).animate({ left: base.$el.width(), avoidTransforms : false}, base.options.transition_speed );
+	    			break;
+	    		case 7: case 'carouselLeft':   // Carousel Left (reverse)
+	    			nextslide.css({left : base.$el.width(), 'visibility': 'visible'}).animate({ left:0, avoidTransforms : false }, base.options.transition_speed, function(){ base.afterAnimation(); });
+					liveslide.css({left : 0}).animate({ left: -base.$el.width(), avoidTransforms : false }, base.options.transition_speed );
+	    			break;
+	    	}
+		    return false;	
+		};
+		
+		
+		/* Play/Pause Toggle
+		----------------------------*/
+		base.playToggle = function(){
+		
+			if (vars.in_animation || !api.options.slideshow) return false;		// Abort if currently animating
+			
+			if (vars.is_paused){
+				
+				vars.is_paused = false;
+				
+				// Call theme function for play
+				if( typeof theme != 'undefined' && typeof theme.playToggle == "function" ) theme.playToggle('play');
+				
+				// Resume slideshow
+	        	vars.slideshow_interval = setInterval(base.nextSlide, base.options.slide_interval);
+	        	  
+        	}else{
+        		
+        		vars.is_paused = true;
+        		
+        		// Call theme function for pause
+        		if( typeof theme != 'undefined' && typeof theme.playToggle == "function" ) theme.playToggle('pause');
+        		
+        		// Stop slideshow
+        		clearInterval(vars.slideshow_interval);	
+       		
+       		}
+		    
+		    return false;
+    		
+    	};
+    	
+    	
+    	/* Go to specific slide
+		----------------------------*/
+    	base.goTo = function(targetSlide){
+			if (vars.in_animation || !api.options.slideshow) return false;		// Abort if currently animating
+			
+			var totalSlides = base.options.slides.length;
+			
+			// If target outside range
+			if(targetSlide < 0){
+				targetSlide = totalSlides;
+			}else if(targetSlide > totalSlides){
+				targetSlide = 1;
+			}
+			targetSlide = totalSlides - targetSlide + 1;
+			
+			clearInterval(vars.slideshow_interval);	// Stop slideshow, prevent buildup
+			
+			// Call theme function for goTo trigger
+			if (typeof theme != 'undefined' && typeof theme.goTo == "function" ) theme.goTo();
+			
+			if (vars.current_slide == totalSlides - targetSlide){
+				if(!(vars.is_paused)){
+					vars.slideshow_interval = setInterval(base.nextSlide, base.options.slide_interval);
+				} 
+				return false;
+			}
+			
+			// If ahead of current position
+			if(totalSlides - targetSlide > vars.current_slide ){
+				
+				// Adjust for new next slide
+				vars.current_slide = totalSlides-targetSlide-1;
+				vars.update_images = 'next';
+				base._placeSlide(vars.update_images);
+				
+			//Otherwise it's before current position
+			}else if(totalSlides - targetSlide < vars.current_slide){
+				
+				// Adjust for new prev slide
+				vars.current_slide = totalSlides-targetSlide+1;
+				vars.update_images = 'prev';
+			    base._placeSlide(vars.update_images);
+			    
+			}
+			
+			// set active markers
+			if (base.options.slide_links){
+				$(vars.slide_list +'> .current-slide').removeClass('current-slide');
+				$(vars.slide_list +'> li').eq((totalSlides-targetSlide)).addClass('current-slide');
+			}
+			
+			if (base.options.thumb_links){
+				$(vars.thumb_list +'> .current-thumb').removeClass('current-thumb');
+				$(vars.thumb_list +'> li').eq((totalSlides-targetSlide)).addClass('current-thumb');
+			}
+			
+		};
+        
+        
+        /* Place Slide
+		----------------------------*/
+        base._placeSlide = function(place){
+    			
+			// If links should open in new window
+			var linkTarget = base.options.new_window ? ' target="_blank"' : '';
+			
+			loadSlide = false;
+			
+			if (place == 'next'){
+				
+				vars.current_slide == base.options.slides.length - 1 ? loadSlide = 0 : loadSlide = vars.current_slide + 1;	// Determine next slide
+				
+				var targetList = base.el+' li:eq('+loadSlide+')';
+				
+				if (!$(targetList).html()){
+					// If links should open in new window
+					var linkTarget = base.options.new_window ? ' target="_blank"' : '';
+					
+					imageLink = (base.options.slides[loadSlide].url) ? "href='" + base.options.slides[loadSlide].url + "'" : "";	// If link exists, build it
+					var img = $('<img src="'+base.options.slides[loadSlide].image+'"/>'); 
+					
+					img.appendTo(targetList).wrap('<a ' + imageLink + linkTarget + '></a>').parent().parent().addClass('image-loading').css('visibility','hidden');
+					
+					img.load(function(){
+						base._origDim($(this));
+						base.resizeNow();
+					});	// End Load
+				};
+				
+				base.nextSlide();
+				
+			}else if (place == 'prev'){
+			
+				vars.current_slide - 1 < 0  ? loadSlide = base.options.slides.length - 1 : loadSlide = vars.current_slide - 1;	// Determine next slide
+				
+				var targetList = base.el+' li:eq('+loadSlide+')';
+				
+				if (!$(targetList).html()){
+					// If links should open in new window
+					var linkTarget = base.options.new_window ? ' target="_blank"' : '';
+					
+					imageLink = (base.options.slides[loadSlide].url) ? "href='" + base.options.slides[loadSlide].url + "'" : "";	// If link exists, build it
+					var img = $('<img src="'+base.options.slides[loadSlide].image+'"/>'); 
+					
+					img.appendTo(targetList).wrap('<a ' + imageLink + linkTarget + '></a>').parent().parent().addClass('image-loading').css('visibility','hidden');
+					
+					img.load(function(){
+						base._origDim($(this));
+						base.resizeNow();
+					});	// End Load
+				};
+				base.prevSlide();
+			}
+			
+		};
+		
+		
+		/* Get Original Dimensions
+		----------------------------*/
+		base._origDim = function(targetSlide){
+			targetSlide.data('origWidth', targetSlide.width()).data('origHeight', targetSlide.height());
+		};
+		
+		
+		/* After Slide Animation
+		----------------------------*/
+		base.afterAnimation = function(){
+			
+			// If hybrid mode is on swap back to higher image quality
+			if (base.options.performance == 1){
+		    	base.$el.removeClass('speed').addClass('quality');
+			}
+			
+			// Update previous slide
+			if (vars.update_images){
+				vars.current_slide - 1 < 0  ? setPrev = base.options.slides.length - 1 : setPrev = vars.current_slide-1;
+				vars.update_images = false;
+				$('.prevslide').removeClass('prevslide');
+				$(base.el+' li:eq('+setPrev+')').addClass('prevslide');
+			}
+			
+			vars.in_animation = false;
+			
+			// Resume slideshow
+			if (!vars.is_paused && base.options.slideshow){
+				vars.slideshow_interval = setInterval(base.nextSlide, base.options.slide_interval);
+				if (base.options.stop_loop && vars.current_slide == base.options.slides.length - 1 ) base.playToggle();
+			}
+			
+			// Call theme function for after slide transition
+			if (typeof theme != 'undefined' && typeof theme.afterAnimation == "function" ) theme.afterAnimation();
+			
+			return false;
+		
+		};
+		
+		base.getField = function(field){
+			return base.options.slides[vars.current_slide][field];
+		};
+		
+        // Make it go!
+        base.init();
+	};
+	
+	
+	/* Global Variables
+	----------------------------*/
+	$.supersized.vars = {
+	
+		// Elements							
+		thumb_tray			:	'#thumb-tray',	// Thumbnail tray
+		thumb_list			:	'#thumb-list',	// Thumbnail list
+		slide_list          :   '#slide-list',	// Slide link list
+		
+		// Internal variables
+		current_slide			:	0,			// Current slide number
+		in_animation 			:	false,		// Prevents animations from stacking
+		is_paused 				: 	false,		// Tracks paused on/off
+		hover_pause				:	false,		// If slideshow is paused from hover
+		slideshow_interval		:	false,		// Stores slideshow timer					
+		update_images 			: 	false,		// Trigger to update images after slide jump
+		options					:	{}			// Stores assembled options list
+		
+	};
+	
+	
+	/* Default Options
+	----------------------------*/
+	$.supersized.defaultOptions = {
+    
+    	// Functionality
+		slideshow               :   1,			// Slideshow on/off
+		autoplay				:	1,			// Slideshow starts playing automatically
+		start_slide             :   1,			// Start slide (0 is random)
+		stop_loop				:	0,			// Stops slideshow on last slide
+		random					: 	0,			// Randomize slide order (Ignores start slide)
+		slide_interval          :   5000,		// Length between transitions
+		transition              :   1, 			// 0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+		transition_speed		:	750,		// Speed of transition
+		new_window				:	1,			// Image links open in new window/tab
+		pause_hover             :   0,			// Pause slideshow on hover
+		keyboard_nav            :   1,			// Keyboard navigation on/off
+		performance				:	1,			// 0-Normal, 1-Hybrid speed/quality, 2-Optimizes image quality, 3-Optimizes transition speed //  (Only works for Firefox/IE, not Webkit)
+		image_protect			:	1,			// Disables image dragging and right click with Javascript
+												   
+		// Size & Position
+		fit_always				:	0,			// Image will never exceed browser width or height (Ignores min. dimensions)
+		fit_landscape			:   0,			// Landscape images will not exceed browser width
+		fit_portrait         	:   1,			// Portrait images will not exceed browser height  			   
+		min_width		        :   0,			// Min width allowed (in pixels)
+		min_height		        :   0,			// Min height allowed (in pixels)
+		horizontal_center       :   1,			// Horizontally center background
+		vertical_center         :   1,			// Vertically center background
+		
+												   
+		// Components							
+		slide_links				:	1,			// Individual links for each slide (Options: false, 'num', 'name', 'blank')
+		thumb_links				:	1,			// Individual thumb links for each slide
+		thumbnail_navigation    :   0			// Thumbnail navigation
+    	
+    };
+    
+    $.fn.supersized = function(options){
+        return this.each(function(){
+            (new $.supersized(options));
+        });
+    };
+		
+})(jQuery);
+
+
+/*
+
+	Supersized - Fullscreen Slideshow jQuery Plugin
+	Version : 3.2.7
+	Theme 	: Shutter 1.1
+	
+	Site	: www.buildinternet.com/project/supersized
+	Author	: Sam Dunn
+	Company : One Mighty Roar (www.onemightyroar.com)
+	License : MIT License / GPL License
+
+*/
+
+(function($){
+	
+	theme = {
+	 	
+	 	
+	 	/* Initial Placement
+		----------------------------*/
+	 	_init : function(){
+	 		
+	 		// Center Slide Links
+	 		if (api.options.slide_links) $(vars.slide_list).css('margin-left', -$(vars.slide_list).width()/2);
+	 		
+			// Start progressbar if autoplay enabled
+    		if (api.options.autoplay){
+    			if (api.options.progress_bar) theme.progressBar();
+			}else{
+				if ($(vars.play_button).attr('src')) $(vars.play_button).attr("src", vars.image_path + "play.png");	// If pause play button is image, swap src
+				if (api.options.progress_bar) $(vars.progress_bar).stop().css({left : -$(window).width()});	//  Place progress bar
+			}
+			
+			
+			/* Thumbnail Tray
+			----------------------------*/
+			// Hide tray off screen
+			$(vars.thumb_tray).css({bottom : -$(vars.thumb_tray).height()});
+			
+			// Thumbnail Tray Toggle
+			$(vars.tray_button).toggle(function(){
+				$(vars.thumb_tray).stop().animate({bottom : 0, avoidTransforms : true}, 300 );
+				if ($(vars.tray_arrow).attr('src')) $(vars.tray_arrow).attr("src", vars.image_path + "button-tray-down.png");
+				return false;
+			}, function() {
+				$(vars.thumb_tray).stop().animate({bottom : -$(vars.thumb_tray).height(), avoidTransforms : true}, 300 );
+				if ($(vars.tray_arrow).attr('src')) $(vars.tray_arrow).attr("src", vars.image_path + "button-tray-up.png");
+				return false;
+			});
+			
+			// Make thumb tray proper size
+			$(vars.thumb_list).width($('> li', vars.thumb_list).length * $('> li', vars.thumb_list).outerWidth(true));	//Adjust to true width of thumb markers
+			
+			// Display total slides
+			if ($(vars.slide_total).length){
+				$(vars.slide_total).html(api.options.slides.length);
+			}
+			
+			
+			/* Thumbnail Tray Navigation
+			----------------------------*/	
+			if (api.options.thumb_links){
+				//Hide thumb arrows if not needed
+				if ($(vars.thumb_list).width() <= $(vars.thumb_tray).width()){
+					$(vars.thumb_back +','+vars.thumb_forward).fadeOut(0);
+				}
+				
+				// Thumb Intervals
+        		vars.thumb_interval = Math.floor($(vars.thumb_tray).width() / $('> li', vars.thumb_list).outerWidth(true)) * $('> li', vars.thumb_list).outerWidth(true);
+        		vars.thumb_page = 0;
+        		
+        		// Cycle thumbs forward
+        		$(vars.thumb_forward).click(function(){
+        			if (vars.thumb_page - vars.thumb_interval <= -$(vars.thumb_list).width()){
+        				vars.thumb_page = 0;
+        				$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+        			}else{
+        				vars.thumb_page = vars.thumb_page - vars.thumb_interval;
+        				$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+        			}
+        		});
+        		
+        		// Cycle thumbs backwards
+        		$(vars.thumb_back).click(function(){
+        			if (vars.thumb_page + vars.thumb_interval > 0){
+        				vars.thumb_page = Math.floor($(vars.thumb_list).width() / vars.thumb_interval) * -vars.thumb_interval;
+        				if ($(vars.thumb_list).width() <= -vars.thumb_page) vars.thumb_page = vars.thumb_page + vars.thumb_interval;
+        				$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+					}else{
+        				vars.thumb_page = vars.thumb_page + vars.thumb_interval;
+        				$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+        			}
+        		});
+				
+			}
+			
+			
+			/* Navigation Items
+			----------------------------*/
+		    $(vars.next_slide).click(function() {
+		    	api.nextSlide();
+		    });
+		    
+		    $(vars.prev_slide).click(function() {
+		    	api.prevSlide();
+		    });
+		    
+		    	// Full Opacity on Hover
+		    	if(jQuery.support.opacity){
+			    	$(vars.prev_slide +','+vars.next_slide).mouseover(function() {
+					   $(this).stop().animate({opacity:1},100);
+					}).mouseout(function(){
+					   $(this).stop().animate({opacity:0.6},100);
+					});
+				}
+			
+			if (api.options.thumbnail_navigation){
+				// Next thumbnail clicked
+				$(vars.next_thumb).click(function() {
+			    	api.nextSlide();
+			    });
+			    // Previous thumbnail clicked
+			    $(vars.prev_thumb).click(function() {
+			    	api.prevSlide();
+			    });
+			}
+			
+		    $(vars.play_button).click(function() {
+				api.playToggle();						    
+		    });
+			
+			
+			/* Thumbnail Mouse Scrub
+			----------------------------*/
+    		if (api.options.mouse_scrub){
+				$(vars.thumb_tray).mousemove(function(e) {
+					var containerWidth = $(vars.thumb_tray).width(),
+						listWidth = $(vars.thumb_list).width();
+					if (listWidth > containerWidth){
+						var mousePos = 1,
+							diff = e.pageX - mousePos;
+						if (diff > 10 || diff < -10) { 
+						    mousePos = e.pageX; 
+						    newX = (containerWidth - listWidth) * (e.pageX/containerWidth);
+						    diff = parseInt(Math.abs(parseInt($(vars.thumb_list).css('left'))-newX )).toFixed(0);
+						    $(vars.thumb_list).stop().animate({'left':newX}, {duration:diff*3, easing:'easeOutExpo'});
+						}
+					}
+				});
+			}
+			
+			
+			/* Window Resize
+			----------------------------*/
+			$(window).resize(function(){
+				
+				// Delay progress bar on resize
+				if (api.options.progress_bar && !vars.in_animation){
+					if (vars.slideshow_interval) clearInterval(vars.slideshow_interval);
+					if (api.options.slides.length - 1 > 0) clearInterval(vars.slideshow_interval);
+					
+					$(vars.progress_bar).stop().css({left : -$(window).width()});
+					
+					if (!vars.progressDelay && api.options.slideshow){
+						// Delay slideshow from resuming so Chrome can refocus images
+						vars.progressDelay = setTimeout(function() {
+								if (!vars.is_paused){
+									theme.progressBar();
+									vars.slideshow_interval = setInterval(api.nextSlide, api.options.slide_interval);
+								}
+								vars.progressDelay = false;
+						}, 1000);
+					}
+				}
+				
+				// Thumb Links
+				if (api.options.thumb_links && vars.thumb_tray.length){
+					// Update Thumb Interval & Page
+					vars.thumb_page = 0;	
+					vars.thumb_interval = Math.floor($(vars.thumb_tray).width() / $('> li', vars.thumb_list).outerWidth(true)) * $('> li', vars.thumb_list).outerWidth(true);
+					
+					// Adjust thumbnail markers
+					if ($(vars.thumb_list).width() > $(vars.thumb_tray).width()){
+						$(vars.thumb_back +','+vars.thumb_forward).fadeIn('fast');
+						$(vars.thumb_list).stop().animate({'left':0}, 200);
+					}else{
+						$(vars.thumb_back +','+vars.thumb_forward).fadeOut('fast');
+					}
+					
+				}
+			});	
+			
+								
+	 	},
+	 	
+	 	
+	 	/* Go To Slide
+		----------------------------*/
+	 	goTo : function(){
+	 		if (api.options.progress_bar && !vars.is_paused){
+				$(vars.progress_bar).stop().css({left : -$(window).width()});
+				theme.progressBar();
+			}
+		},
+	 	
+	 	/* Play & Pause Toggle
+		----------------------------*/
+	 	playToggle : function(state){
+	 		
+	 		if (state =='play'){
+	 			// If image, swap to pause
+	 			if ($(vars.play_button).attr('src')) $(vars.play_button).attr("src", vars.image_path + "pause.png");
+				if (api.options.progress_bar && !vars.is_paused) theme.progressBar();
+	 		}else if (state == 'pause'){
+	 			// If image, swap to play
+	 			if ($(vars.play_button).attr('src')) $(vars.play_button).attr("src", vars.image_path + "play.png");
+        		if (api.options.progress_bar && vars.is_paused)$(vars.progress_bar).stop().css({left : -$(window).width()});
+	 		}
+	 		
+	 	},
+	 	
+	 	
+	 	/* Before Slide Transition
+		----------------------------*/
+	 	beforeAnimation : function(direction){
+		    if (api.options.progress_bar && !vars.is_paused) $(vars.progress_bar).stop().css({left : -$(window).width()});
+		  	
+		  	/* Update Fields
+		  	----------------------------*/
+		  	// Update slide caption
+		   	if ($(vars.slide_caption).length){
+		   		(api.getField('title')) ? $(vars.slide_caption).html(api.getField('title')) : $(vars.slide_caption).html('');
+		   	}
+		    // Update slide number
+			if (vars.slide_current.length){
+			    $(vars.slide_current).html(vars.current_slide + 1);
+			}
+		    
+		    
+		    // Highlight current thumbnail and adjust row position
+		    if (api.options.thumb_links){
+		    
+				$('.current-thumb').removeClass('current-thumb');
+				$('li', vars.thumb_list).eq(vars.current_slide).addClass('current-thumb');
+				
+				// If thumb out of view
+				if ($(vars.thumb_list).width() > $(vars.thumb_tray).width()){
+					// If next slide direction
+					if (direction == 'next'){
+						if (vars.current_slide == 0){
+							vars.thumb_page = 0;
+							$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+						} else if ($('.current-thumb').offset().left - $(vars.thumb_tray).offset().left >= vars.thumb_interval){
+	        				vars.thumb_page = vars.thumb_page - vars.thumb_interval;
+	        				$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+						}
+					// If previous slide direction
+					}else if(direction == 'prev'){
+						if (vars.current_slide == api.options.slides.length - 1){
+							vars.thumb_page = Math.floor($(vars.thumb_list).width() / vars.thumb_interval) * -vars.thumb_interval;
+							if ($(vars.thumb_list).width() <= -vars.thumb_page) vars.thumb_page = vars.thumb_page + vars.thumb_interval;
+							$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+						} else if ($('.current-thumb').offset().left - $(vars.thumb_tray).offset().left < 0){
+							if (vars.thumb_page + vars.thumb_interval > 0) return false;
+	        				vars.thumb_page = vars.thumb_page + vars.thumb_interval;
+	        				$(vars.thumb_list).stop().animate({'left': vars.thumb_page}, {duration:500, easing:'easeOutExpo'});
+						}
+					}
+				}
+				
+				
+			}
+		    
+	 	},
+	 	
+	 	
+	 	/* After Slide Transition
+		----------------------------*/
+	 	afterAnimation : function(){
+	 		if (api.options.progress_bar && !vars.is_paused) theme.progressBar();	//  Start progress bar
+	 	},
+	 	
+	 	
+	 	/* Progress Bar
+		----------------------------*/
+		progressBar : function(){
+    		$(vars.progress_bar).stop().css({left : -$(window).width()}).animate({ left:0 }, api.options.slide_interval);
+    	}
+	 	
+	 
+	 };
+	 
+	 
+	 /* Theme Specific Variables
+	 ----------------------------*/
+	 $.supersized.themeVars = {
+	 	
+	 	// Internal Variables
+		progress_delay		:	false,				// Delay after resize before resuming slideshow
+		thumb_page 			: 	false,				// Thumbnail page
+		thumb_interval 		: 	false,				// Thumbnail interval
+		image_path			:	'img/',				// Default image path
+													
+		// General Elements							
+		play_button			:	'#pauseplay',		// Play/Pause button
+		next_slide			:	'#nextslide',		// Next slide button
+		prev_slide			:	'#prevslide',		// Prev slide button
+		next_thumb			:	'#nextthumb',		// Next slide thumb button
+		prev_thumb			:	'#prevthumb',		// Prev slide thumb button
+		
+		slide_caption		:	'#slidecaption',	// Slide caption
+		slide_current		:	'.slidenumber',		// Current slide number
+		slide_total			:	'.totalslides',		// Total Slides
+		slide_list			:	'#slide-list',		// Slide jump list							
+		
+		thumb_tray			:	'#thumb-tray',		// Thumbnail tray
+		thumb_list			:	'#thumb-list',		// Thumbnail list
+		thumb_forward		:	'#thumb-forward',	// Cycles forward through thumbnail list
+		thumb_back			:	'#thumb-back',		// Cycles backwards through thumbnail list
+		tray_arrow			:	'#tray-arrow',		// Thumbnail tray button arrow
+		tray_button			:	'#tray-button',		// Thumbnail tray button
+		
+		progress_bar		:	'#progress-bar'		// Progress bar
+	 												
+	 };												
+	
+	 /* Theme Specific Options
+	 ----------------------------*/												
+	 $.supersized.themeOptions = {					
+	 						   
+		progress_bar		:	1,		// Timer for each slide											
+		mouse_scrub			:	0		// Thumbnails move with mouse
+		
+	 };
+	
+	
+})(jQuery);
 /*!
  * Materialize v0.97.0 (http://materializecss.com)
  * Copyright 2014-2015 Materialize
@@ -9945,2557 +11246,3 @@ jQuery.easing.jswing=jQuery.easing.swing,jQuery.extend(jQuery.easing,{def:"easeO
 N*=1/e[R+"ToPx"]}}switch(T){case"+":L=N+L;break;case"-":L=N-L;break;case"*":L=N*L;break;case"/":L=N/L}i[H]={rootPropertyValue:P,startValue:N,currentValue:N,endValue:L,unitType:R,easing:M},t.debug&&console.log("tweensContainer ("+H+"): "+JSON.stringify(i[H]),f)}else t.debug&&console.log("Skipping ["+O+"] due to a lack of browser support.")}i.element=f}i.element&&(v.Values.addClass(f,"velocity-animating"),J.push(i),""===h.queue&&(g(f).tweensContainer=i,g(f).opts=h),g(f).isAnimating=!0,y===x-1?(t.State.calls.push([J,o,h,null,B.resolver]),t.State.isTicking===!1&&(t.State.isTicking=!0,k())):y++)}var e,f=this,h=m.extend({},t.defaults,s),i={};switch(g(f)===d&&t.init(f),parseFloat(h.delay)&&h.queue!==!1&&m.queue(f,h.queue,function(a){t.velocityQueueEntryFlag=!0,g(f).delayTimer={setTimeout:setTimeout(a,parseFloat(h.delay)),next:a}}),h.duration.toString().toLowerCase()){case"fast":h.duration=200;break;case"normal":h.duration=r;break;case"slow":h.duration=600;break;default:h.duration=parseFloat(h.duration)||1}t.mock!==!1&&(t.mock===!0?h.duration=h.delay=1:(h.duration*=parseFloat(t.mock)||1,h.delay*=parseFloat(t.mock)||1)),h.easing=j(h.easing,h.duration),h.begin&&!p.isFunction(h.begin)&&(h.begin=null),h.progress&&!p.isFunction(h.progress)&&(h.progress=null),h.complete&&!p.isFunction(h.complete)&&(h.complete=null),h.display!==d&&null!==h.display&&(h.display=h.display.toString().toLowerCase(),"auto"===h.display&&(h.display=t.CSS.Values.getDisplayType(f))),h.visibility!==d&&null!==h.visibility&&(h.visibility=h.visibility.toString().toLowerCase()),h.mobileHA=h.mobileHA&&t.State.isMobile&&!t.State.isGingerbread,h.queue===!1?h.delay?setTimeout(a,h.delay):a():m.queue(f,h.queue,function(b,c){return c===!0?(B.promise&&B.resolver(o),!0):(t.velocityQueueEntryFlag=!0,void a(b))}),""!==h.queue&&"fx"!==h.queue||"inprogress"===m.queue(f)[0]||m.dequeue(f)}var h,i,n,o,q,s,u=arguments[0]&&(arguments[0].p||m.isPlainObject(arguments[0].properties)&&!arguments[0].properties.names||p.isString(arguments[0].properties));if(p.isWrapped(this)?(h=!1,n=0,o=this,i=this):(h=!0,n=1,o=u?arguments[0].elements||arguments[0].e:arguments[0]),o=f(o)){u?(q=arguments[0].properties||arguments[0].p,s=arguments[0].options||arguments[0].o):(q=arguments[n],s=arguments[n+1]);var x=o.length,y=0;if(!/^(stop|finish)$/i.test(q)&&!m.isPlainObject(s)){var z=n+1;s={};for(var A=z;A<arguments.length;A++)p.isArray(arguments[A])||!/^(fast|normal|slow)$/i.test(arguments[A])&&!/^\d/.test(arguments[A])?p.isString(arguments[A])||p.isArray(arguments[A])?s.easing=arguments[A]:p.isFunction(arguments[A])&&(s.complete=arguments[A]):s.duration=arguments[A]}var B={promise:null,resolver:null,rejecter:null};h&&t.Promise&&(B.promise=new t.Promise(function(a,b){B.resolver=a,B.rejecter=b}));var C;switch(q){case"scroll":C="scroll";break;case"reverse":C="reverse";break;case"finish":case"stop":m.each(o,function(a,b){g(b)&&g(b).delayTimer&&(clearTimeout(g(b).delayTimer.setTimeout),g(b).delayTimer.next&&g(b).delayTimer.next(),delete g(b).delayTimer)});var D=[];return m.each(t.State.calls,function(a,b){b&&m.each(b[1],function(c,e){var f=s===d?"":s;return f===!0||b[2].queue===f||s===d&&b[2].queue===!1?void m.each(o,function(c,d){d===e&&((s===!0||p.isString(s))&&(m.each(m.queue(d,p.isString(s)?s:""),function(a,b){p.isFunction(b)&&b(null,!0)}),m.queue(d,p.isString(s)?s:"",[])),"stop"===q?(g(d)&&g(d).tweensContainer&&f!==!1&&m.each(g(d).tweensContainer,function(a,b){b.endValue=b.currentValue}),D.push(a)):"finish"===q&&(b[2].duration=1))}):!0})}),"stop"===q&&(m.each(D,function(a,b){l(b,!0)}),B.promise&&B.resolver(o)),a();default:if(!m.isPlainObject(q)||p.isEmptyObject(q)){if(p.isString(q)&&t.Redirects[q]){var E=m.extend({},s),F=E.duration,G=E.delay||0;return E.backwards===!0&&(o=m.extend(!0,[],o).reverse()),m.each(o,function(a,b){parseFloat(E.stagger)?E.delay=G+parseFloat(E.stagger)*a:p.isFunction(E.stagger)&&(E.delay=G+E.stagger.call(b,a,x)),E.drag&&(E.duration=parseFloat(F)||(/^(callout|transition)/.test(q)?1e3:r),E.duration=Math.max(E.duration*(E.backwards?1-a/x:(a+1)/x),.75*E.duration,200)),t.Redirects[q].call(b,b,E||{},a,x,o,B.promise?B:d)}),a()}var H="Velocity: First argument ("+q+") was not a property map, a known action, or a registered redirect. Aborting.";return B.promise?B.rejecter(new Error(H)):console.log(H),a()}C="start"}var I={lastParent:null,lastPosition:null,lastFontSize:null,lastPercentToPxWidth:null,lastPercentToPxHeight:null,lastEmToPx:null,remToPx:null,vwToPx:null,vhToPx:null},J=[];m.each(o,function(a,b){p.isNode(b)&&e.call(b)});var K,E=m.extend({},t.defaults,s);if(E.loop=parseInt(E.loop),K=2*E.loop-1,E.loop)for(var L=0;K>L;L++){var M={delay:E.delay,progress:E.progress};L===K-1&&(M.display=E.display,M.visibility=E.visibility,M.complete=E.complete),w(o,"reverse",M)}return a()}};t=m.extend(w,t),t.animate=w;var x=b.requestAnimationFrame||o;return t.State.isMobile||c.hidden===d||c.addEventListener("visibilitychange",function(){c.hidden?(x=function(a){return setTimeout(function(){a(!0)},16)},k()):x=b.requestAnimationFrame||o}),a.Velocity=t,a!==b&&(a.fn.velocity=w,a.fn.velocity.defaults=t.defaults),m.each(["Down","Up"],function(a,b){t.Redirects["slide"+b]=function(a,c,e,f,g,h){var i=m.extend({},c),j=i.begin,k=i.complete,l={height:"",marginTop:"",marginBottom:"",paddingTop:"",paddingBottom:""},n={};i.display===d&&(i.display="Down"===b?"inline"===t.CSS.Values.getDisplayType(a)?"inline-block":"block":"none"),i.begin=function(){j&&j.call(g,g);for(var c in l){n[c]=a.style[c];var d=t.CSS.getPropertyValue(a,c);l[c]="Down"===b?[d,0]:[0,d]}n.overflow=a.style.overflow,a.style.overflow="hidden"},i.complete=function(){for(var b in n)a.style[b]=n[b];k&&k.call(g,g),h&&h.resolver(g)},t(a,l,i)}}),m.each(["In","Out"],function(a,b){t.Redirects["fade"+b]=function(a,c,e,f,g,h){var i=m.extend({},c),j={opacity:"In"===b?1:0},k=i.complete;i.complete=e!==f-1?i.begin=null:function(){k&&k.call(g,g),h&&h.resolver(g)},i.display===d&&(i.display="In"===b?"auto":"none"),t(this,j,i)}}),t}(window.jQuery||window.Zepto||window,window,document)}),!function(a,b,c,d){"use strict";function e(a,b,c){return setTimeout(k(a,c),b)}function f(a,b,c){return Array.isArray(a)?(g(a,c[b],c),!0):!1}function g(a,b,c){var e;if(a)if(a.forEach)a.forEach(b,c);else if(a.length!==d)for(e=0;e<a.length;)b.call(c,a[e],e,a),e++;else for(e in a)a.hasOwnProperty(e)&&b.call(c,a[e],e,a)}function h(a,b,c){for(var e=Object.keys(b),f=0;f<e.length;)(!c||c&&a[e[f]]===d)&&(a[e[f]]=b[e[f]]),f++;return a}function i(a,b){return h(a,b,!0)}function j(a,b,c){var d,e=b.prototype;d=a.prototype=Object.create(e),d.constructor=a,d._super=e,c&&h(d,c)}function k(a,b){return function(){return a.apply(b,arguments)}}function l(a,b){return typeof a==ka?a.apply(b?b[0]||d:d,b):a}function m(a,b){return a===d?b:a}function n(a,b,c){g(r(b),function(b){a.addEventListener(b,c,!1)})}function o(a,b,c){g(r(b),function(b){a.removeEventListener(b,c,!1)})}function p(a,b){for(;a;){if(a==b)return!0;a=a.parentNode}return!1}function q(a,b){return a.indexOf(b)>-1}function r(a){return a.trim().split(/\s+/g)}function s(a,b,c){if(a.indexOf&&!c)return a.indexOf(b);for(var d=0;d<a.length;){if(c&&a[d][c]==b||!c&&a[d]===b)return d;d++}return-1}function t(a){return Array.prototype.slice.call(a,0)}function u(a,b,c){for(var d=[],e=[],f=0;f<a.length;){var g=b?a[f][b]:a[f];s(e,g)<0&&d.push(a[f]),e[f]=g,f++}return c&&(d=b?d.sort(function(a,c){return a[b]>c[b]}):d.sort()),d}function v(a,b){for(var c,e,f=b[0].toUpperCase()+b.slice(1),g=0;g<ia.length;){if(c=ia[g],e=c?c+f:b,e in a)return e;g++}return d}function w(){return oa++}function x(a){var b=a.ownerDocument;return b.defaultView||b.parentWindow}function y(a,b){var c=this;this.manager=a,this.callback=b,this.element=a.element,this.target=a.options.inputTarget,this.domHandler=function(b){l(a.options.enable,[a])&&c.handler(b)},this.init()}function z(a){var b,c=a.options.inputClass;return new(b=c?c:ra?N:sa?Q:qa?S:M)(a,A)}function A(a,b,c){var d=c.pointers.length,e=c.changedPointers.length,f=b&ya&&0===d-e,g=b&(Aa|Ba)&&0===d-e;c.isFirst=!!f,c.isFinal=!!g,f&&(a.session={}),c.eventType=b,B(a,c),a.emit("hammer.input",c),a.recognize(c),a.session.prevInput=c}function B(a,b){var c=a.session,d=b.pointers,e=d.length;c.firstInput||(c.firstInput=E(b)),e>1&&!c.firstMultiple?c.firstMultiple=E(b):1===e&&(c.firstMultiple=!1);var f=c.firstInput,g=c.firstMultiple,h=g?g.center:f.center,i=b.center=F(d);b.timeStamp=na(),b.deltaTime=b.timeStamp-f.timeStamp,b.angle=J(h,i),b.distance=I(h,i),C(c,b),b.offsetDirection=H(b.deltaX,b.deltaY),b.scale=g?L(g.pointers,d):1,b.rotation=g?K(g.pointers,d):0,D(c,b);var j=a.element;p(b.srcEvent.target,j)&&(j=b.srcEvent.target),b.target=j}function C(a,b){var c=b.center,d=a.offsetDelta||{},e=a.prevDelta||{},f=a.prevInput||{};(b.eventType===ya||f.eventType===Aa)&&(e=a.prevDelta={x:f.deltaX||0,y:f.deltaY||0},d=a.offsetDelta={x:c.x,y:c.y}),b.deltaX=e.x+(c.x-d.x),b.deltaY=e.y+(c.y-d.y)}function D(a,b){var c,e,f,g,h=a.lastInterval||b,i=b.timeStamp-h.timeStamp;if(b.eventType!=Ba&&(i>xa||h.velocity===d)){var j=h.deltaX-b.deltaX,k=h.deltaY-b.deltaY,l=G(i,j,k);e=l.x,f=l.y,c=ma(l.x)>ma(l.y)?l.x:l.y,g=H(j,k),a.lastInterval=b}else c=h.velocity,e=h.velocityX,f=h.velocityY,g=h.direction;b.velocity=c,b.velocityX=e,b.velocityY=f,b.direction=g}function E(a){for(var b=[],c=0;c<a.pointers.length;)b[c]={clientX:la(a.pointers[c].clientX),clientY:la(a.pointers[c].clientY)},c++;return{timeStamp:na(),pointers:b,center:F(b),deltaX:a.deltaX,deltaY:a.deltaY}}function F(a){var b=a.length;if(1===b)return{x:la(a[0].clientX),y:la(a[0].clientY)};for(var c=0,d=0,e=0;b>e;)c+=a[e].clientX,d+=a[e].clientY,e++;return{x:la(c/b),y:la(d/b)}}function G(a,b,c){return{x:b/a||0,y:c/a||0}}function H(a,b){return a===b?Ca:ma(a)>=ma(b)?a>0?Da:Ea:b>0?Fa:Ga}function I(a,b,c){c||(c=Ka);var d=b[c[0]]-a[c[0]],e=b[c[1]]-a[c[1]];return Math.sqrt(d*d+e*e)}function J(a,b,c){c||(c=Ka);var d=b[c[0]]-a[c[0]],e=b[c[1]]-a[c[1]];return 180*Math.atan2(e,d)/Math.PI}function K(a,b){return J(b[1],b[0],La)-J(a[1],a[0],La)}function L(a,b){return I(b[0],b[1],La)/I(a[0],a[1],La)}function M(){this.evEl=Na,this.evWin=Oa,this.allow=!0,this.pressed=!1,y.apply(this,arguments)}function N(){this.evEl=Ra,this.evWin=Sa,y.apply(this,arguments),this.store=this.manager.session.pointerEvents=[]}function O(){this.evTarget=Ua,this.evWin=Va,this.started=!1,y.apply(this,arguments)}function P(a,b){var c=t(a.touches),d=t(a.changedTouches);return b&(Aa|Ba)&&(c=u(c.concat(d),"identifier",!0)),[c,d]}function Q(){this.evTarget=Xa,this.targetIds={},y.apply(this,arguments)}function R(a,b){var c=t(a.touches),d=this.targetIds;if(b&(ya|za)&&1===c.length)return d[c[0].identifier]=!0,[c,c];var e,f,g=t(a.changedTouches),h=[],i=this.target;if(f=c.filter(function(a){return p(a.target,i)}),b===ya)for(e=0;e<f.length;)d[f[e].identifier]=!0,e++;for(e=0;e<g.length;)d[g[e].identifier]&&h.push(g[e]),b&(Aa|Ba)&&delete d[g[e].identifier],e++;return h.length?[u(f.concat(h),"identifier",!0),h]:void 0}function S(){y.apply(this,arguments);var a=k(this.handler,this);this.touch=new Q(this.manager,a),this.mouse=new M(this.manager,a)}function T(a,b){this.manager=a,this.set(b)}function U(a){if(q(a,bb))return bb;var b=q(a,cb),c=q(a,db);return b&&c?cb+" "+db:b||c?b?cb:db:q(a,ab)?ab:_a}function V(a){this.id=w(),this.manager=null,this.options=i(a||{},this.defaults),this.options.enable=m(this.options.enable,!0),this.state=eb,this.simultaneous={},this.requireFail=[]}function W(a){return a&jb?"cancel":a&hb?"end":a&gb?"move":a&fb?"start":""}function X(a){return a==Ga?"down":a==Fa?"up":a==Da?"left":a==Ea?"right":""}function Y(a,b){var c=b.manager;return c?c.get(a):a}function Z(){V.apply(this,arguments)}function $(){Z.apply(this,arguments),this.pX=null,this.pY=null}function _(){Z.apply(this,arguments)}function aa(){V.apply(this,arguments),this._timer=null,this._input=null}function ba(){Z.apply(this,arguments)}function ca(){Z.apply(this,arguments)}function da(){V.apply(this,arguments),this.pTime=!1,this.pCenter=!1,this._timer=null,this._input=null,this.count=0}function ea(a,b){return b=b||{},b.recognizers=m(b.recognizers,ea.defaults.preset),new fa(a,b)}function fa(a,b){b=b||{},this.options=i(b,ea.defaults),this.options.inputTarget=this.options.inputTarget||a,this.handlers={},this.session={},this.recognizers=[],this.element=a,this.input=z(this),this.touchAction=new T(this,this.options.touchAction),ga(this,!0),g(b.recognizers,function(a){var b=this.add(new a[0](a[1]));a[2]&&b.recognizeWith(a[2]),a[3]&&b.requireFailure(a[3])},this)}function ga(a,b){var c=a.element;g(a.options.cssProps,function(a,d){c.style[v(c.style,d)]=b?a:""})}function ha(a,c){var d=b.createEvent("Event");d.initEvent(a,!0,!0),d.gesture=c,c.target.dispatchEvent(d)}var ia=["","webkit","moz","MS","ms","o"],ja=b.createElement("div"),ka="function",la=Math.round,ma=Math.abs,na=Date.now,oa=1,pa=/mobile|tablet|ip(ad|hone|od)|android/i,qa="ontouchstart"in a,ra=v(a,"PointerEvent")!==d,sa=qa&&pa.test(navigator.userAgent),ta="touch",ua="pen",va="mouse",wa="kinect",xa=25,ya=1,za=2,Aa=4,Ba=8,Ca=1,Da=2,Ea=4,Fa=8,Ga=16,Ha=Da|Ea,Ia=Fa|Ga,Ja=Ha|Ia,Ka=["x","y"],La=["clientX","clientY"];y.prototype={handler:function(){},init:function(){this.evEl&&n(this.element,this.evEl,this.domHandler),this.evTarget&&n(this.target,this.evTarget,this.domHandler),this.evWin&&n(x(this.element),this.evWin,this.domHandler)},destroy:function(){this.evEl&&o(this.element,this.evEl,this.domHandler),this.evTarget&&o(this.target,this.evTarget,this.domHandler),this.evWin&&o(x(this.element),this.evWin,this.domHandler)}};var Ma={mousedown:ya,mousemove:za,mouseup:Aa},Na="mousedown",Oa="mousemove mouseup";j(M,y,{handler:function(a){var b=Ma[a.type];b&ya&&0===a.button&&(this.pressed=!0),b&za&&1!==a.which&&(b=Aa),this.pressed&&this.allow&&(b&Aa&&(this.pressed=!1),this.callback(this.manager,b,{pointers:[a],changedPointers:[a],pointerType:va,srcEvent:a}))}});var Pa={pointerdown:ya,pointermove:za,pointerup:Aa,pointercancel:Ba,pointerout:Ba},Qa={2:ta,3:ua,4:va,5:wa},Ra="pointerdown",Sa="pointermove pointerup pointercancel";a.MSPointerEvent&&(Ra="MSPointerDown",Sa="MSPointerMove MSPointerUp MSPointerCancel"),j(N,y,{handler:function(a){var b=this.store,c=!1,d=a.type.toLowerCase().replace("ms",""),e=Pa[d],f=Qa[a.pointerType]||a.pointerType,g=f==ta,h=s(b,a.pointerId,"pointerId");e&ya&&(0===a.button||g)?0>h&&(b.push(a),h=b.length-1):e&(Aa|Ba)&&(c=!0),0>h||(b[h]=a,this.callback(this.manager,e,{pointers:b,changedPointers:[a],pointerType:f,srcEvent:a}),c&&b.splice(h,1))}});var Ta={touchstart:ya,touchmove:za,touchend:Aa,touchcancel:Ba},Ua="touchstart",Va="touchstart touchmove touchend touchcancel";j(O,y,{handler:function(a){var b=Ta[a.type];if(b===ya&&(this.started=!0),this.started){var c=P.call(this,a,b);b&(Aa|Ba)&&0===c[0].length-c[1].length&&(this.started=!1),this.callback(this.manager,b,{pointers:c[0],changedPointers:c[1],pointerType:ta,srcEvent:a})}}});var Wa={touchstart:ya,touchmove:za,touchend:Aa,touchcancel:Ba},Xa="touchstart touchmove touchend touchcancel";j(Q,y,{handler:function(a){var b=Wa[a.type],c=R.call(this,a,b);c&&this.callback(this.manager,b,{pointers:c[0],changedPointers:c[1],pointerType:ta,srcEvent:a})}}),j(S,y,{handler:function(a,b,c){var d=c.pointerType==ta,e=c.pointerType==va;if(d)this.mouse.allow=!1;else if(e&&!this.mouse.allow)return;b&(Aa|Ba)&&(this.mouse.allow=!0),this.callback(a,b,c)},destroy:function(){this.touch.destroy(),this.mouse.destroy()}});var Ya=v(ja.style,"touchAction"),Za=Ya!==d,$a="compute",_a="auto",ab="manipulation",bb="none",cb="pan-x",db="pan-y";T.prototype={set:function(a){a==$a&&(a=this.compute()),Za&&(this.manager.element.style[Ya]=a),this.actions=a.toLowerCase().trim()},update:function(){this.set(this.manager.options.touchAction)},compute:function(){var a=[];return g(this.manager.recognizers,function(b){l(b.options.enable,[b])&&(a=a.concat(b.getTouchAction()))}),U(a.join(" "))},preventDefaults:function(a){if(!Za){var b=a.srcEvent,c=a.offsetDirection;if(this.manager.session.prevented)return void b.preventDefault();var d=this.actions,e=q(d,bb),f=q(d,db),g=q(d,cb);return e||f&&c&Ha||g&&c&Ia?this.preventSrc(b):void 0}},preventSrc:function(a){this.manager.session.prevented=!0,a.preventDefault()}};var eb=1,fb=2,gb=4,hb=8,ib=hb,jb=16,kb=32;V.prototype={defaults:{},set:function(a){return h(this.options,a),this.manager&&this.manager.touchAction.update(),this},recognizeWith:function(a){if(f(a,"recognizeWith",this))return this;var b=this.simultaneous;return a=Y(a,this),b[a.id]||(b[a.id]=a,a.recognizeWith(this)),this},dropRecognizeWith:function(a){return f(a,"dropRecognizeWith",this)?this:(a=Y(a,this),delete this.simultaneous[a.id],this)},requireFailure:function(a){if(f(a,"requireFailure",this))return this;var b=this.requireFail;return a=Y(a,this),-1===s(b,a)&&(b.push(a),a.requireFailure(this)),this},dropRequireFailure:function(a){if(f(a,"dropRequireFailure",this))return this;a=Y(a,this);var b=s(this.requireFail,a);return b>-1&&this.requireFail.splice(b,1),this},hasRequireFailures:function(){return this.requireFail.length>0},canRecognizeWith:function(a){return!!this.simultaneous[a.id]},emit:function(a){function b(b){c.manager.emit(c.options.event+(b?W(d):""),a)}var c=this,d=this.state;hb>d&&b(!0),b(),d>=hb&&b(!0)},tryEmit:function(a){return this.canEmit()?this.emit(a):void(this.state=kb)},canEmit:function(){for(var a=0;a<this.requireFail.length;){if(!(this.requireFail[a].state&(kb|eb)))return!1;a++}return!0},recognize:function(a){var b=h({},a);return l(this.options.enable,[this,b])?(this.state&(ib|jb|kb)&&(this.state=eb),this.state=this.process(b),void(this.state&(fb|gb|hb|jb)&&this.tryEmit(b))):(this.reset(),void(this.state=kb))},process:function(){},getTouchAction:function(){},reset:function(){}},j(Z,V,{defaults:{pointers:1},attrTest:function(a){var b=this.options.pointers;return 0===b||a.pointers.length===b},process:function(a){var b=this.state,c=a.eventType,d=b&(fb|gb),e=this.attrTest(a);return d&&(c&Ba||!e)?b|jb:d||e?c&Aa?b|hb:b&fb?b|gb:fb:kb}}),j($,Z,{defaults:{event:"pan",threshold:10,pointers:1,direction:Ja},getTouchAction:function(){var a=this.options.direction,b=[];return a&Ha&&b.push(db),a&Ia&&b.push(cb),b},directionTest:function(a){var b=this.options,c=!0,d=a.distance,e=a.direction,f=a.deltaX,g=a.deltaY;return e&b.direction||(b.direction&Ha?(e=0===f?Ca:0>f?Da:Ea,c=f!=this.pX,d=Math.abs(a.deltaX)):(e=0===g?Ca:0>g?Fa:Ga,c=g!=this.pY,d=Math.abs(a.deltaY))),a.direction=e,c&&d>b.threshold&&e&b.direction},attrTest:function(a){return Z.prototype.attrTest.call(this,a)&&(this.state&fb||!(this.state&fb)&&this.directionTest(a))},emit:function(a){this.pX=a.deltaX,this.pY=a.deltaY;var b=X(a.direction);b&&this.manager.emit(this.options.event+b,a),this._super.emit.call(this,a)}}),j(_,Z,{defaults:{event:"pinch",threshold:0,pointers:2},getTouchAction:function(){return[bb]},attrTest:function(a){return this._super.attrTest.call(this,a)&&(Math.abs(a.scale-1)>this.options.threshold||this.state&fb)},emit:function(a){if(this._super.emit.call(this,a),1!==a.scale){var b=a.scale<1?"in":"out";this.manager.emit(this.options.event+b,a)}}}),j(aa,V,{defaults:{event:"press",pointers:1,time:500,threshold:5},getTouchAction:function(){return[_a]},process:function(a){var b=this.options,c=a.pointers.length===b.pointers,d=a.distance<b.threshold,f=a.deltaTime>b.time;if(this._input=a,!d||!c||a.eventType&(Aa|Ba)&&!f)this.reset();else if(a.eventType&ya)this.reset(),this._timer=e(function(){this.state=ib,this.tryEmit()},b.time,this);else if(a.eventType&Aa)return ib;return kb},reset:function(){clearTimeout(this._timer)},emit:function(a){this.state===ib&&(a&&a.eventType&Aa?this.manager.emit(this.options.event+"up",a):(this._input.timeStamp=na(),this.manager.emit(this.options.event,this._input)))}}),j(ba,Z,{defaults:{event:"rotate",threshold:0,pointers:2},getTouchAction:function(){return[bb]},attrTest:function(a){return this._super.attrTest.call(this,a)&&(Math.abs(a.rotation)>this.options.threshold||this.state&fb)}}),j(ca,Z,{defaults:{event:"swipe",threshold:10,velocity:.65,direction:Ha|Ia,pointers:1},getTouchAction:function(){return $.prototype.getTouchAction.call(this)},attrTest:function(a){var b,c=this.options.direction;return c&(Ha|Ia)?b=a.velocity:c&Ha?b=a.velocityX:c&Ia&&(b=a.velocityY),this._super.attrTest.call(this,a)&&c&a.direction&&a.distance>this.options.threshold&&ma(b)>this.options.velocity&&a.eventType&Aa},emit:function(a){var b=X(a.direction);b&&this.manager.emit(this.options.event+b,a),this.manager.emit(this.options.event,a)}}),j(da,V,{defaults:{event:"tap",pointers:1,taps:1,interval:300,time:250,threshold:2,posThreshold:10},getTouchAction:function(){return[ab]},process:function(a){var b=this.options,c=a.pointers.length===b.pointers,d=a.distance<b.threshold,f=a.deltaTime<b.time;if(this.reset(),a.eventType&ya&&0===this.count)return this.failTimeout();if(d&&f&&c){if(a.eventType!=Aa)return this.failTimeout();var g=this.pTime?a.timeStamp-this.pTime<b.interval:!0,h=!this.pCenter||I(this.pCenter,a.center)<b.posThreshold;this.pTime=a.timeStamp,this.pCenter=a.center,h&&g?this.count+=1:this.count=1,this._input=a;var i=this.count%b.taps;if(0===i)return this.hasRequireFailures()?(this._timer=e(function(){this.state=ib,this.tryEmit()},b.interval,this),fb):ib}return kb},failTimeout:function(){return this._timer=e(function(){this.state=kb},this.options.interval,this),kb},reset:function(){clearTimeout(this._timer)},emit:function(){this.state==ib&&(this._input.tapCount=this.count,this.manager.emit(this.options.event,this._input))}}),ea.VERSION="2.0.4",ea.defaults={domEvents:!1,touchAction:$a,enable:!0,inputTarget:null,inputClass:null,preset:[[ba,{enable:!1}],[_,{enable:!1},["rotate"]],[ca,{direction:Ha}],[$,{direction:Ha},["swipe"]],[da],[da,{event:"doubletap",taps:2},["tap"]],[aa]],cssProps:{userSelect:"default",touchSelect:"none",touchCallout:"none",contentZooming:"none",userDrag:"none",tapHighlightColor:"rgba(0,0,0,0)"}};var lb=1,mb=2;fa.prototype={set:function(a){return h(this.options,a),a.touchAction&&this.touchAction.update(),a.inputTarget&&(this.input.destroy(),this.input.target=a.inputTarget,this.input.init()),this},stop:function(a){this.session.stopped=a?mb:lb},recognize:function(a){var b=this.session;if(!b.stopped){this.touchAction.preventDefaults(a);var c,d=this.recognizers,e=b.curRecognizer;(!e||e&&e.state&ib)&&(e=b.curRecognizer=null);for(var f=0;f<d.length;)c=d[f],b.stopped===mb||e&&c!=e&&!c.canRecognizeWith(e)?c.reset():c.recognize(a),!e&&c.state&(fb|gb|hb)&&(e=b.curRecognizer=c),f++}},get:function(a){if(a instanceof V)return a;for(var b=this.recognizers,c=0;c<b.length;c++)if(b[c].options.event==a)return b[c];return null},add:function(a){if(f(a,"add",this))return this;var b=this.get(a.options.event);return b&&this.remove(b),this.recognizers.push(a),a.manager=this,this.touchAction.update(),a},remove:function(a){if(f(a,"remove",this))return this;var b=this.recognizers;return a=this.get(a),b.splice(s(b,a),1),this.touchAction.update(),this},on:function(a,b){var c=this.handlers;return g(r(a),function(a){c[a]=c[a]||[],c[a].push(b)}),this},off:function(a,b){var c=this.handlers;return g(r(a),function(a){b?c[a].splice(s(c[a],b),1):delete c[a]}),this},emit:function(a,b){this.options.domEvents&&ha(a,b);var c=this.handlers[a]&&this.handlers[a].slice();if(c&&c.length){b.type=a,b.preventDefault=function(){b.srcEvent.preventDefault()};for(var d=0;d<c.length;)c[d](b),d++}},destroy:function(){this.element&&ga(this,!1),this.handlers={},this.session={},this.input.destroy(),this.element=null}},h(ea,{INPUT_START:ya,INPUT_MOVE:za,INPUT_END:Aa,INPUT_CANCEL:Ba,STATE_POSSIBLE:eb,STATE_BEGAN:fb,STATE_CHANGED:gb,STATE_ENDED:hb,STATE_RECOGNIZED:ib,STATE_CANCELLED:jb,STATE_FAILED:kb,DIRECTION_NONE:Ca,DIRECTION_LEFT:Da,DIRECTION_RIGHT:Ea,DIRECTION_UP:Fa,DIRECTION_DOWN:Ga,DIRECTION_HORIZONTAL:Ha,DIRECTION_VERTICAL:Ia,DIRECTION_ALL:Ja,Manager:fa,Input:y,TouchAction:T,TouchInput:Q,MouseInput:M,PointerEventInput:N,TouchMouseInput:S,SingleTouchInput:O,Recognizer:V,AttrRecognizer:Z,Tap:da,Pan:$,Swipe:ca,Pinch:_,Rotate:ba,Press:aa,on:n,off:o,each:g,merge:i,extend:h,inherit:j,bindFn:k,prefixed:v}),typeof define==ka&&define.amd?define(function(){return ea}):"undefined"!=typeof module&&module.exports?module.exports=ea:a[c]=ea}(window,document,"Hammer"),function(a){"function"==typeof define&&define.amd?define(["jquery","hammerjs"],a):"object"==typeof exports?a(require("jquery"),require("hammerjs")):a(jQuery,Hammer)}(function(a,b){function c(c,d){var e=a(c);e.data("hammer")||e.data("hammer",new b(e[0],d))}a.fn.hammer=function(a){return this.each(function(){c(this,a)})},b.Manager.prototype.emit=function(b){return function(c,d){b.call(this,c,d),a(this.element).trigger({type:c,gesture:d})}}(b.Manager.prototype.emit)}),Materialize={},Materialize.guid=function(){function a(){return Math.floor(65536*(1+Math.random())).toString(16).substring(1)}return function(){return a()+a()+"-"+a()+"-"+a()+"-"+a()+"-"+a()+a()+a()}}(),Materialize.elementOrParentIsFixed=function(a){var b=$(a),c=b.add(b.parents()),d=!1;return c.each(function(){return"fixed"===$(this).css("position")?(d=!0,!1):void 0}),d};var Vel;Vel=$?$.Velocity:Velocity,function(a){a.fn.collapsible=function(b){var c={accordion:void 0};return b=a.extend(c,b),this.each(function(){function c(b){h=g.find("> li > .collapsible-header"),b.hasClass("active")?b.parent().addClass("active"):b.parent().removeClass("active"),b.parent().hasClass("active")?b.siblings(".collapsible-body").stop(!0,!1).slideDown({duration:350,easing:"easeOutQuart",queue:!1,complete:function(){a(this).css("height","")}}):b.siblings(".collapsible-body").stop(!0,!1).slideUp({duration:350,easing:"easeOutQuart",queue:!1,complete:function(){a(this).css("height","")}}),h.not(b).removeClass("active").parent().removeClass("active"),h.not(b).parent().children(".collapsible-body").stop(!0,!1).slideUp({duration:350,easing:"easeOutQuart",queue:!1,complete:function(){a(this).css("height","")}})}function d(b){b.hasClass("active")?b.parent().addClass("active"):b.parent().removeClass("active"),b.parent().hasClass("active")?b.siblings(".collapsible-body").stop(!0,!1).slideDown({duration:350,easing:"easeOutQuart",queue:!1,complete:function(){a(this).css("height","")}}):b.siblings(".collapsible-body").stop(!0,!1).slideUp({duration:350,easing:"easeOutQuart",queue:!1,complete:function(){a(this).css("height","")}})}function e(a){var b=f(a);return b.length>0}function f(a){return a.closest("li > .collapsible-header")}var g=a(this),h=a(this).find("> li > .collapsible-header"),i=g.data("collapsible");g.off("click.collapse",".collapsible-header"),h.off("click.collapse"),b.accordion||"accordion"===i||void 0===i?(h=g.find("> li > .collapsible-header"),h.on("click.collapse",function(b){var d=a(b.target);e(d)&&(d=f(d)),d.toggleClass("active"),c(d)}),c(h.filter(".active").first())):h.each(function(){a(this).on("click.collapse",function(b){var c=a(b.target);e(c)&&(c=f(c)),c.toggleClass("active"),d(c)}),a(this).hasClass("active")&&d(a(this))})})},a(document).ready(function(){a(".collapsible").collapsible()})}(jQuery),function(a){a.fn.scrollTo=function(b){return a(this).scrollTop(a(this).scrollTop()-a(this).offset().top+a(b).offset().top),this},a.fn.dropdown=function(b){var c={inDuration:300,outDuration:225,constrain_width:!0,hover:!1,gutter:0,belowOrigin:!1};this.each(function(){function d(){void 0!==g.data("induration")&&(h.inDuration=g.data("inDuration")),void 0!==g.data("outduration")&&(h.outDuration=g.data("outDuration")),void 0!==g.data("constrainwidth")&&(h.constrain_width=g.data("constrainwidth")),void 0!==g.data("hover")&&(h.hover=g.data("hover")),void 0!==g.data("gutter")&&(h.gutter=g.data("gutter")),void 0!==g.data("beloworigin")&&(h.belowOrigin=g.data("beloworigin"))}function e(){d(),i.addClass("active"),h.constrain_width===!0&&i.css("width",g.outerWidth());var b=0;h.belowOrigin===!0&&(b=g.height());var c=g.offset().left,e=0,f=h.gutter;c+i.innerWidth()>a(window).width()&&(e=g.innerWidth()-i.innerWidth(),f=-1*f),i.css({position:"absolute",top:g.position().top+b,left:g.position().left+e+f}),i.stop(!0,!0).css("opacity",0).slideDown({queue:!1,duration:h.inDuration,easing:"easeOutCubic",complete:function(){a(this).css("height","")}}).animate({opacity:1},{queue:!1,duration:h.inDuration,easing:"easeOutSine"})}function f(){i.fadeOut(h.outDuration),i.removeClass("active")}var g=a(this),h=a.extend({},c,b),i=a("#"+g.attr("data-activates"));if(d(),g.after(i),h.hover){var j=!1;g.unbind("click."+g.attr("id")),g.on("mouseenter",function(){j===!1&&(e(),j=!0)}),g.on("mouseleave",function(b){var c=b.toElement||b.relatedTarget;a(c).closest(".dropdown-content").is(i)||(i.stop(!0,!0),f(),j=!1)}),i.on("mouseleave",function(b){var c=b.toElement||b.relatedTarget;a(c).closest(".dropdown-button").is(g)||(i.stop(!0,!0),f(),j=!1)})}else g.unbind("click."+g.attr("id")),g.bind("click."+g.attr("id"),function(b){g[0]==b.currentTarget&&0===a(b.target).closest(".dropdown-content").length?(b.preventDefault(),e()):g.hasClass("active")&&(f(),a(document).unbind("click."+i.attr("id"))),i.hasClass("active")&&a(document).bind("click."+i.attr("id"),function(b){!i.is(b.target)&&!g.is(b.target)&&!g.find(b.target).length>0&&(f(),a(document).unbind("click."+i.attr("id")))})});g.on("open",e),g.on("close",f)})},a(document).ready(function(){a(".dropdown-button").dropdown()})}(jQuery),function(a){var b=0,c=0,d=function(){return c++,"materialize-lean-overlay-"+c};a.fn.extend({openModal:function(c){a("body").css("overflow","hidden");var e={opacity:.5,in_duration:350,out_duration:250,ready:void 0,complete:void 0,dismissible:!0,starting_top:"4%"},f=d(),g=a(this),h=a('<div class="lean-overlay"></div>'),i=++b;h.attr("id",f).css("z-index",1e3+2*i),g.data("overlay-id",f).css("z-index",1e3+2*i+1),a("body").append(h),c=a.extend(e,c),c.dismissible&&(h.click(function(){g.closeModal(c)}),a(document).on("keyup.leanModal"+f,function(a){27===a.keyCode&&g.closeModal(c)})),g.find(".modal-close").on("click.close",function(){g.closeModal(c)}),h.css({display:"block",opacity:0}),g.css({display:"block",opacity:0}),h.velocity({opacity:c.opacity},{duration:c.in_duration,queue:!1,ease:"easeOutCubic"}),g.data("associated-overlay",h[0]),g.hasClass("bottom-sheet")?g.velocity({bottom:"0",opacity:1},{duration:c.in_duration,queue:!1,ease:"easeOutCubic",complete:function(){"function"==typeof c.ready&&c.ready()}}):(a.Velocity.hook(g,"scaleX",.7),g.css({top:c.starting_top}),g.velocity({top:"10%",opacity:1,scaleX:"1"},{duration:c.in_duration,queue:!1,ease:"easeOutCubic",complete:function(){"function"==typeof c.ready&&c.ready()}}))}}),a.fn.extend({closeModal:function(c){var d={out_duration:250,complete:void 0},e=a(this),f=e.data("overlay-id"),g=a("#"+f);c=a.extend(d,c),a("body").css("overflow",""),e.find(".modal-close").off("click.close"),a(document).off("keyup.leanModal"+f),g.velocity({opacity:0},{duration:c.out_duration,queue:!1,ease:"easeOutQuart"}),e.hasClass("bottom-sheet")?e.velocity({bottom:"-100%",opacity:0},{duration:c.out_duration,queue:!1,ease:"easeOutCubic",complete:function(){g.css({display:"none"}),"function"==typeof c.complete&&c.complete(),g.remove(),b--}}):e.velocity({top:c.starting_top,opacity:0,scaleX:.7},{duration:c.out_duration,complete:function(){a(this).css("display","none"),"function"==typeof c.complete&&c.complete(),g.remove(),b--}})}}),a.fn.extend({leanModal:function(b){return this.each(function(){var c={starting_top:"4%"},d=a.extend(c,b);a(this).click(function(b){d.starting_top=(a(this).offset().top-a(window).scrollTop())/1.15;var c=a(this).attr("href")||"#"+a(this).data("target");a(c).openModal(d),b.preventDefault()})})}})}(jQuery),function(a){a.fn.materialbox=function(){return this.each(function(){function b(){d=!1;var b=g.parent(".material-placeholder"),e=(window.innerWidth,window.innerHeight,g.data("width")),h=g.data("height");g.velocity("stop",!0),a("#materialbox-overlay").velocity("stop",!0),a(".materialbox-caption").velocity("stop",!0),a("#materialbox-overlay").velocity({opacity:0},{duration:f,queue:!1,easing:"easeOutQuad",complete:function(){
 c=!1,a(this).remove()}}),g.velocity({width:e,height:h,left:0,top:0},{duration:f,queue:!1,easing:"easeOutQuad"}),a(".materialbox-caption").velocity({opacity:0},{duration:f,queue:!1,easing:"easeOutQuad",complete:function(){b.css({height:"",width:"",position:"",top:"",left:""}),g.css({height:"",top:"",left:"",width:"","max-width":"",position:"","z-index":""}),g.removeClass("active"),d=!0,a(this).remove()}})}if(!a(this).hasClass("initialized")){a(this).addClass("initialized");var c=!1,d=!0,e=275,f=200,g=a(this),h=a("<div></div>").addClass("material-placeholder");g.wrap(h),g.on("click",function(){var f=g.parent(".material-placeholder"),h=window.innerWidth,i=window.innerHeight,j=g.width(),k=g.height();if(d===!1)return b(),!1;if(c&&d===!0)return b(),!1;d=!1,g.addClass("active"),c=!0,f.css({width:f[0].getBoundingClientRect().width,height:f[0].getBoundingClientRect().height,position:"relative",top:0,left:0}),g.css({position:"absolute","z-index":1e3}).data("width",j).data("height",k);var l=a('<div id="materialbox-overlay"></div>').css({opacity:0}).click(function(){d===!0&&b()});if(a("body").append(l),l.velocity({opacity:1},{duration:e,queue:!1,easing:"easeOutQuad"}),""!==g.data("caption")){var m=a('<div class="materialbox-caption"></div>');m.text(g.data("caption")),a("body").append(m),m.css({display:"inline"}),m.velocity({opacity:1},{duration:e,queue:!1,easing:"easeOutQuad"})}var n=0,o=j/h,p=k/i,q=0,r=0;o>p?(n=k/j,q=.9*h,r=.9*h*n):(n=j/k,q=.9*i*n,r=.9*i),g.hasClass("responsive-img")?g.velocity({"max-width":q,width:j},{duration:0,queue:!1,complete:function(){g.css({left:0,top:0}).velocity({height:r,width:q,left:a(document).scrollLeft()+h/2-g.parent(".material-placeholder").offset().left-q/2,top:a(document).scrollTop()+i/2-g.parent(".material-placeholder").offset().top-r/2},{duration:e,queue:!1,easing:"easeOutQuad",complete:function(){d=!0}})}}):g.css("left",0).css("top",0).velocity({height:r,width:q,left:a(document).scrollLeft()+h/2-g.parent(".material-placeholder").offset().left-q/2,top:a(document).scrollTop()+i/2-g.parent(".material-placeholder").offset().top-r/2},{duration:e,queue:!1,easing:"easeOutQuad",complete:function(){d=!0}})}),a(window).scroll(function(){c&&b()}),a(document).keyup(function(a){27===a.keyCode&&d===!0&&c&&b()})}})},a(document).ready(function(){a(".materialboxed").materialbox()})}(jQuery),function(a){a.fn.parallax=function(){var b=a(window).width();return this.each(function(){function c(c){var e;e=601>b?d.height()>0?d.height():d.children("img").height():d.height()>0?d.height():500;var f=d.children("img").first(),g=f.height(),h=g-e,i=d.offset().top+e,j=d.offset().top,k=a(window).scrollTop(),l=window.innerHeight,m=k+l,n=(m-j)/(e+l),o=Math.round(h*n);c&&f.css("display","block"),i>k&&k+l>j&&f.css("transform","translate3D(-50%,"+o+"px, 0)")}var d=a(this);d.addClass("parallax"),d.children("img").one("load",function(){c(!0)}).each(function(){this.complete&&a(this).load()}),a(window).scroll(function(){b=a(window).width(),c(!1)}),a(window).resize(function(){b=a(window).width(),c(!1)})})}}(jQuery),function(a){var b={init:function(){return this.each(function(){{var b=a(this);a(window).width()}b.width("100%");var c=a(this).children("li").length;b.children("li").each(function(){a(this).width(100/c+"%")});var d,e,f=b.find("li.tab a"),g=b.width(),h=b.find("li").first().outerWidth(),i=0;d=a(f.filter('[href="'+location.hash+'"]')),0===d.length&&(d=a(this).find("li.tab a.active").first()),0===d.length&&(d=a(this).find("li.tab a").first()),d.addClass("active"),i=f.index(d),0>i&&(i=0),e=a(d[0].hash),b.append('<div class="indicator"></div>');var j=b.find(".indicator");b.is(":visible")&&(j.css({right:g-(i+1)*h}),j.css({left:i*h})),a(window).resize(function(){g=b.width(),h=b.find("li").first().outerWidth(),0>i&&(i=0),0!==h&&0!==g&&(j.css({right:g-(i+1)*h}),j.css({left:i*h}))}),f.not(d).each(function(){a(this.hash).hide()}),b.on("click","a",function(c){if(a(this).parent().hasClass("disabled"))return void c.preventDefault();g=b.width(),h=b.find("li").first().outerWidth(),d.removeClass("active"),e.hide(),d=a(this),e=a(this.hash),f=b.find("li.tab a"),d.addClass("active");var k=i;i=f.index(a(this)),0>i&&(i=0),e.show(),i-k>=0?(j.velocity({right:g-(i+1)*h},{duration:300,queue:!1,easing:"easeOutQuad"}),j.velocity({left:i*h},{duration:300,queue:!1,easing:"easeOutQuad",delay:90})):(j.velocity({left:i*h},{duration:300,queue:!1,easing:"easeOutQuad"}),j.velocity({right:g-(i+1)*h},{duration:300,queue:!1,easing:"easeOutQuad",delay:90})),c.preventDefault()})})},select_tab:function(a){this.find('a[href="#'+a+'"]').trigger("click")}};a.fn.tabs=function(c){return b[c]?b[c].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof c&&c?void a.error("Method "+c+" does not exist on jQuery.tooltip"):b.init.apply(this,arguments)},a(document).ready(function(){a("ul.tabs").tabs()})}(jQuery),function(a){a.fn.tooltip=function(b){var c=null,d=!1,e=null,f=5,g={delay:350};return b=a.extend(g,b),a(".material-tooltip").remove(),this.each(function(){var g=a(this),h=a("<span></span>").text(g.attr("data-tooltip")),i=a("<div></div>");i.addClass("material-tooltip").append(h),i.appendTo(a("body"));var j=a("<div></div>").addClass("backdrop");j.appendTo(i),j.css({top:0,left:0}),a(this).off("mouseenter mouseleave"),a(this).on({mouseenter:function(){var a=g.data("delay");a=void 0===a||""===a?b.delay:a,c=0,e=setInterval(function(){if(c+=10,c>=a&&d===!1){d=!0,i.css({display:"block",left:"0px",top:"0px"}),i.children("span").text(g.attr("data-tooltip"));var b=g.outerWidth(),e=g.outerHeight(),h=g.attr("data-position"),k=i.outerHeight(),l=i.outerWidth(),m="0px",n="0px",o=8;"top"===h?(i.css({top:g.offset().top-k-f,left:g.offset().left+b/2-l/2}),m="-10px",j.css({borderRadius:"14px 14px 0 0",transformOrigin:"50% 90%",marginTop:k,marginLeft:l/2-j.width()/2})):"left"===h?(i.css({top:g.offset().top+e/2-k/2,left:g.offset().left-l-f}),n="-10px",j.css({width:"14px",height:"14px",borderRadius:"14px 0 0 14px",transformOrigin:"95% 50%",marginTop:k/2,marginLeft:l})):"right"===h?(i.css({top:g.offset().top+e/2-k/2,left:g.offset().left+b+f}),n="+10px",j.css({width:"14px",height:"14px",borderRadius:"0 14px 14px 0",transformOrigin:"5% 50%",marginTop:k/2,marginLeft:"0px"})):(i.css({top:g.offset().top+g.outerHeight()+f,left:g.offset().left+b/2-l/2}),m="+10px",j.css({marginLeft:l/2-j.width()/2})),o=l/8,8>o&&(o=8),("right"===h||"left"===h)&&(o=l/10,6>o&&(o=6)),i.velocity({opacity:1,marginTop:m,marginLeft:n},{duration:350,queue:!1}),j.css({display:"block"}).velocity({opacity:1},{duration:55,delay:0,queue:!1}).velocity({scale:o},{duration:300,delay:0,queue:!1,easing:"easeInOutQuad"})}},10)},mouseleave:function(){clearInterval(e),c=0,i.velocity({opacity:0,marginTop:0,marginLeft:0},{duration:225,queue:!1,delay:275}),j.velocity({opacity:0,scale:1},{duration:225,delay:275,queue:!1,complete:function(){j.css("display","none"),i.css("display","none"),d=!1}})}})})},a(document).ready(function(){a(".tooltipped").tooltip()})}(jQuery),function(a){"use strict";function b(a){return null!==a&&a===a.window}function c(a){return b(a)?a:9===a.nodeType&&a.defaultView}function d(a){var b,d,e={top:0,left:0},f=a&&a.ownerDocument;return b=f.documentElement,"undefined"!=typeof a.getBoundingClientRect&&(e=a.getBoundingClientRect()),d=c(f),{top:e.top+d.pageYOffset-b.clientTop,left:e.left+d.pageXOffset-b.clientLeft}}function e(a){var b="";for(var c in a)a.hasOwnProperty(c)&&(b+=c+":"+a[c]+";");return b}function f(a){if(k.allowEvent(a)===!1)return null;for(var b=null,c=a.target||a.srcElement;null!==c.parentElement;){if(!(c instanceof SVGElement||-1===c.className.indexOf("waves-effect"))){b=c;break}if(c.classList.contains("waves-effect")){b=c;break}c=c.parentElement}return b}function g(b){var c=f(b);null!==c&&(j.show(b,c),"ontouchstart"in a&&(c.addEventListener("touchend",j.hide,!1),c.addEventListener("touchcancel",j.hide,!1)),c.addEventListener("mouseup",j.hide,!1),c.addEventListener("mouseleave",j.hide,!1))}var h=h||{},i=document.querySelectorAll.bind(document),j={duration:750,show:function(a,b){if(2===a.button)return!1;var c=b||this,f=document.createElement("div");f.className="waves-ripple",c.appendChild(f);var g=d(c),h=a.pageY-g.top,i=a.pageX-g.left,k="scale("+c.clientWidth/100*10+")";"touches"in a&&(h=a.touches[0].pageY-g.top,i=a.touches[0].pageX-g.left),f.setAttribute("data-hold",Date.now()),f.setAttribute("data-scale",k),f.setAttribute("data-x",i),f.setAttribute("data-y",h);var l={top:h+"px",left:i+"px"};f.className=f.className+" waves-notransition",f.setAttribute("style",e(l)),f.className=f.className.replace("waves-notransition",""),l["-webkit-transform"]=k,l["-moz-transform"]=k,l["-ms-transform"]=k,l["-o-transform"]=k,l.transform=k,l.opacity="1",l["-webkit-transition-duration"]=j.duration+"ms",l["-moz-transition-duration"]=j.duration+"ms",l["-o-transition-duration"]=j.duration+"ms",l["transition-duration"]=j.duration+"ms",l["-webkit-transition-timing-function"]="cubic-bezier(0.250, 0.460, 0.450, 0.940)",l["-moz-transition-timing-function"]="cubic-bezier(0.250, 0.460, 0.450, 0.940)",l["-o-transition-timing-function"]="cubic-bezier(0.250, 0.460, 0.450, 0.940)",l["transition-timing-function"]="cubic-bezier(0.250, 0.460, 0.450, 0.940)",f.setAttribute("style",e(l))},hide:function(a){k.touchup(a);var b=this,c=(1.4*b.clientWidth,null),d=b.getElementsByClassName("waves-ripple");if(!(d.length>0))return!1;c=d[d.length-1];var f=c.getAttribute("data-x"),g=c.getAttribute("data-y"),h=c.getAttribute("data-scale"),i=Date.now()-Number(c.getAttribute("data-hold")),l=350-i;0>l&&(l=0),setTimeout(function(){var a={top:g+"px",left:f+"px",opacity:"0","-webkit-transition-duration":j.duration+"ms","-moz-transition-duration":j.duration+"ms","-o-transition-duration":j.duration+"ms","transition-duration":j.duration+"ms","-webkit-transform":h,"-moz-transform":h,"-ms-transform":h,"-o-transform":h,transform:h};c.setAttribute("style",e(a)),setTimeout(function(){try{b.removeChild(c)}catch(a){return!1}},j.duration)},l)},wrapInput:function(a){for(var b=0;b<a.length;b++){var c=a[b];if("input"===c.tagName.toLowerCase()){var d=c.parentNode;if("i"===d.tagName.toLowerCase()&&-1!==d.className.indexOf("waves-effect"))continue;var e=document.createElement("i");e.className=c.className+" waves-input-wrapper";var f=c.getAttribute("style");f||(f=""),e.setAttribute("style",f),c.className="waves-button-input",c.removeAttribute("style"),d.replaceChild(e,c),e.appendChild(c)}}}},k={touches:0,allowEvent:function(a){var b=!0;return"touchstart"===a.type?k.touches+=1:"touchend"===a.type||"touchcancel"===a.type?setTimeout(function(){k.touches>0&&(k.touches-=1)},500):"mousedown"===a.type&&k.touches>0&&(b=!1),b},touchup:function(a){k.allowEvent(a)}};h.displayEffect=function(b){b=b||{},"duration"in b&&(j.duration=b.duration),j.wrapInput(i(".waves-effect")),"ontouchstart"in a&&document.body.addEventListener("touchstart",g,!1),document.body.addEventListener("mousedown",g,!1)},h.attach=function(b){"input"===b.tagName.toLowerCase()&&(j.wrapInput([b]),b=b.parentElement),"ontouchstart"in a&&b.addEventListener("touchstart",g,!1),b.addEventListener("mousedown",g,!1)},a.Waves=h,document.addEventListener("DOMContentLoaded",function(){h.displayEffect()},!1)}(window),Materialize.toast=function(a,b,c,d){function e(a){var b=document.createElement("div");if(b.classList.add("toast"),c)for(var e=c.split(" "),f=0,g=e.length;g>f;f++)b.classList.add(e[f]);b.innerHTML=a;var h=new Hammer(b,{prevent_default:!1});return h.on("pan",function(a){var c=a.deltaX,d=80;b.classList.contains("panning")||b.classList.add("panning");var e=1-Math.abs(c/d);0>e&&(e=0),Vel(b,{left:c,opacity:e},{duration:50,queue:!1,easing:"easeOutQuad"})}),h.on("panend",function(a){var c=a.deltaX,e=80;Math.abs(c)>e?Vel(b,{marginTop:"-40px"},{duration:375,easing:"easeOutExpo",queue:!1,complete:function(){"function"==typeof d&&d(),b.parentNode.removeChild(b)}}):(b.classList.remove("panning"),Vel(b,{left:0,opacity:1},{duration:300,easing:"easeOutExpo",queue:!1}))}),b}c=c||"";var f=document.getElementById("toast-container");null===f&&(f=document.createElement("div"),f.id="toast-container",document.body.appendChild(f));var g=e(a);a&&f.appendChild(g),g.style.top="35px",g.style.opacity=0,Vel(g,{top:"0px",opacity:1},{duration:300,easing:"easeOutCubic",queue:!1});var h=b,i=setInterval(function(){null===g.parentNode&&window.clearInterval(i),g.classList.contains("panning")||(h-=20),0>=h&&(Vel(g,{opacity:0,marginTop:"-40px"},{duration:375,easing:"easeOutExpo",queue:!1,complete:function(){"function"==typeof d&&d(),this[0].parentNode.removeChild(this[0])}}),window.clearInterval(i))},20)},function(a){var b={init:function(b){var c={menuWidth:240,edge:"left",closeOnClick:!1};b=a.extend(c,b),a(this).each(function(){function c(c){f=!1,g=!1,a("body").css("overflow",""),a("#sidenav-overlay").velocity({opacity:0},{duration:200,queue:!1,easing:"easeOutQuad",complete:function(){a(this).remove()}}),"left"===b.edge?(a(".drag-target").css({width:"",right:"",left:"0"}),e.velocity({left:-1*(b.menuWidth+10)},{duration:200,queue:!1,easing:"easeOutCubic",complete:function(){c===!0&&(e.removeAttr("style"),e.css("width",b.menuWidth))}})):(a(".drag-target").css({width:"",right:"0",left:""}),e.velocity({right:-1*(b.menuWidth+10)},{duration:200,queue:!1,easing:"easeOutCubic",complete:function(){c===!0&&(e.removeAttr("style"),e.css("width",b.menuWidth))}}))}var d=a(this),e=a("#"+d.attr("data-activates"));240!=b.menuWidth&&e.css("width",b.menuWidth),a("body").append(a('<div class="drag-target"></div>')),"left"==b.edge?(e.css("left",-1*(b.menuWidth+10)),a(".drag-target").css({left:0})):(e.addClass("right-aligned").css("right",-1*(b.menuWidth+10)).css("left",""),a(".drag-target").css({right:0})),e.hasClass("fixed")&&window.innerWidth>992&&e.css("left",0),e.hasClass("fixed")&&a(window).resize(function(){window.innerWidth>992?0!==a("#sidenav-overlay").css("opacity")&&g?c(!0):(e.removeAttr("style"),e.css("width",b.menuWidth)):g===!1&&("left"===b.edge?e.css("left",-1*(b.menuWidth+10)):e.css("right",-1*(b.menuWidth+10)))}),b.closeOnClick===!0&&e.on("click.itemclick","a:not(.collapsible-header)",function(){c()});var f=!1,g=!1;a(".drag-target").on("click",function(){c()}),a(".drag-target").hammer({prevent_default:!1}).bind("pan",function(d){if("touch"==d.gesture.pointerType){{var f=(d.gesture.direction,d.gesture.center.x);d.gesture.center.y,d.gesture.velocityX}if(a("body").css("overflow","hidden"),0===a("#sidenav-overlay").length){var h=a('<div id="sidenav-overlay"></div>');h.css("opacity",0).click(function(){c()}),a("body").append(h)}if("left"===b.edge&&(f>b.menuWidth?f=b.menuWidth:0>f&&(f=0)),"left"===b.edge)f<b.menuWidth/2?g=!1:f>=b.menuWidth/2&&(g=!0),e.css("left",f-b.menuWidth);else{f<window.innerWidth-b.menuWidth/2?g=!0:f>=window.innerWidth-b.menuWidth/2&&(g=!1);var i=-1*(f-b.menuWidth/2);i>0&&(i=0),e.css("right",i)}var j;"left"===b.edge?(j=f/b.menuWidth,a("#sidenav-overlay").velocity({opacity:j},{duration:50,queue:!1,easing:"easeOutQuad"})):(j=Math.abs((f-window.innerWidth)/b.menuWidth),a("#sidenav-overlay").velocity({opacity:j},{duration:50,queue:!1,easing:"easeOutQuad"}))}}).bind("panend",function(c){if("touch"==c.gesture.pointerType){var d=c.gesture.velocityX;f=!1,"left"===b.edge?g&&.3>=d||-.5>d?(e.velocity({left:0},{duration:300,queue:!1,easing:"easeOutQuad"}),a("#sidenav-overlay").velocity({opacity:1},{duration:50,queue:!1,easing:"easeOutQuad"}),a(".drag-target").css({width:"50%",right:0,left:""})):(!g||d>.3)&&(a("body").css("overflow",""),e.velocity({left:-1*(b.menuWidth+10)},{duration:200,queue:!1,easing:"easeOutQuad"}),a("#sidenav-overlay").velocity({opacity:0},{duration:200,queue:!1,easing:"easeOutQuad",complete:function(){a(this).remove()}}),a(".drag-target").css({width:"10px",right:"",left:0})):g&&d>=-.3||d>.5?(e.velocity({right:0},{duration:300,queue:!1,easing:"easeOutQuad"}),a("#sidenav-overlay").velocity({opacity:1},{duration:50,queue:!1,easing:"easeOutQuad"}),a(".drag-target").css({width:"50%",right:"",left:0})):(!g||-.3>d)&&(a("body").css("overflow",""),e.velocity({right:-1*(b.menuWidth+10)},{duration:200,queue:!1,easing:"easeOutQuad"}),a("#sidenav-overlay").velocity({opacity:0},{duration:200,queue:!1,easing:"easeOutQuad",complete:function(){a(this).remove()}}),a(".drag-target").css({width:"10px",right:0,left:""}))}}),d.click(function(){if(g===!0)g=!1,f=!1,c();else{a("body").css("overflow","hidden"),"left"===b.edge?(a(".drag-target").css({width:"50%",right:0,left:""}),e.velocity({left:0},{duration:300,queue:!1,easing:"easeOutQuad"})):(a(".drag-target").css({width:"50%",right:"",left:0}),e.velocity({right:0},{duration:300,queue:!1,easing:"easeOutQuad"}),e.css("left",""));var d=a('<div id="sidenav-overlay"></div>');d.css("opacity",0).click(function(){g=!1,f=!1,c(),d.velocity({opacity:0},{duration:300,queue:!1,easing:"easeOutQuad",complete:function(){a(this).remove()}})}),a("body").append(d),d.velocity({opacity:1},{duration:300,queue:!1,easing:"easeOutQuad",complete:function(){g=!0,f=!1}})}return!1})})},show:function(){this.trigger("click")},hide:function(){a("#sidenav-overlay").trigger("click")}};a.fn.sideNav=function(c){return b[c]?b[c].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof c&&c?void a.error("Method "+c+" does not exist on jQuery.sideNav"):b.init.apply(this,arguments)}}(jQuery),function(a){function b(b,c,d,e){var f=a();return a.each(g,function(a,g){if(g.height()>0){var h=g.offset().top,i=g.offset().left,j=i+g.width(),k=h+g.height(),l=!(i>c||e>j||h>d||b>k);l&&f.push(g)}}),f}function c(){++j;var c=f.scrollTop(),d=f.scrollLeft(),e=d+f.width(),g=c+f.height(),i=b(c+k.top+200,e+k.right,g+k.bottom,d+k.left);a.each(i,function(a,b){var c=b.data("scrollSpy:ticks");"number"!=typeof c&&b.triggerHandler("scrollSpy:enter"),b.data("scrollSpy:ticks",j)}),a.each(h,function(a,b){var c=b.data("scrollSpy:ticks");"number"==typeof c&&c!==j&&(b.triggerHandler("scrollSpy:exit"),b.data("scrollSpy:ticks",null))}),h=i}function d(){f.trigger("scrollSpy:winSize")}function e(a,b,c){var d,e,f,g=null,h=0;c||(c={});var i=function(){h=c.leading===!1?0:l(),g=null,f=a.apply(d,e),d=e=null};return function(){var j=l();h||c.leading!==!1||(h=j);var k=b-(j-h);return d=this,e=arguments,0>=k?(clearTimeout(g),g=null,h=j,f=a.apply(d,e),d=e=null):g||c.trailing===!1||(g=setTimeout(i,k)),f}}var f=a(window),g=[],h=[],i=!1,j=0,k={top:0,right:0,bottom:0,left:0},l=Date.now||function(){return(new Date).getTime()};a.scrollSpy=function(b,d){var h=[];b=a(b),b.each(function(b,c){g.push(a(c)),a(c).data("scrollSpy:id",b),a("a[href=#"+a(c).attr("id")+"]").click(function(b){b.preventDefault();var c=a(this.hash).offset().top+1;a("html, body").animate({scrollTop:c-200},{duration:400,queue:!1,easing:"easeOutCubic"})})}),d=d||{throttle:100},k.top=d.offsetTop||0,k.right=d.offsetRight||0,k.bottom=d.offsetBottom||0,k.left=d.offsetLeft||0;var j=e(c,d.throttle||100),l=function(){a(document).ready(j)};return i||(f.on("scroll",l),f.on("resize",l),i=!0),setTimeout(l,0),b.on("scrollSpy:enter",function(){h=a.grep(h,function(a){return 0!=a.height()});var b=a(this);h[0]?(a("a[href=#"+h[0].attr("id")+"]").removeClass("active"),b.data("scrollSpy:id")<h[0].data("scrollSpy:id")?h.unshift(a(this)):h.push(a(this))):h.push(a(this)),a("a[href=#"+h[0].attr("id")+"]").addClass("active")}),b.on("scrollSpy:exit",function(){if(h=a.grep(h,function(a){return 0!=a.height()}),h[0]){a("a[href=#"+h[0].attr("id")+"]").removeClass("active");var b=a(this);h=a.grep(h,function(a){return a.attr("id")!=b.attr("id")}),h[0]&&a("a[href=#"+h[0].attr("id")+"]").addClass("active")}}),b},a.winSizeSpy=function(b){return a.winSizeSpy=function(){return f},b=b||{throttle:100},f.on("resize",e(d,b.throttle||100))},a.fn.scrollSpy=function(b){return a.scrollSpy(a(this),b)}}(jQuery),function(a){a(document).ready(function(){function b(b){var c=b.css("font-family"),e=b.css("font-size");e&&d.css("font-size",e),c&&d.css("font-family",c),"off"===b.attr("wrap")&&d.css("overflow-wrap","normal").css("white-space","pre"),d.text(b.val()+"\n");var f=d.html().replace(/\n/g,"<br>");d.html(f),b.is(":visible")?d.css("width",b.width()):d.css("width",a(window).width()/2),b.css("height",d.height())}Materialize.updateTextFields=function(){var b="input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea";a(b).each(function(b,c){a(c).val().length>0||void 0!==a(this).attr("placeholder")||a(c)[0].validity.badInput===!0?a(this).siblings("label, i").addClass("active"):a(this).siblings("label, i").removeClass("active")})};var c="input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea";a("input[autofocus]").siblings("label, i").addClass("active"),a(document).on("change",c,function(){(0!==a(this).val().length||void 0!==a(this).attr("placeholder"))&&a(this).siblings("label, i").addClass("active"),validate_field(a(this))}),a(document).ready(function(){Materialize.updateTextFields()}),a(document).on("reset",function(b){var d=a(b.target);d.is("form")&&(d.find(c).removeClass("valid").removeClass("invalid"),d.find(c).each(function(){""===a(this).attr("value")&&a(this).siblings("label, i").removeClass("active")}),d.find("select.initialized").each(function(){var a=d.find("option[selected]").text();d.siblings("input.select-dropdown").val(a)}))}),a(document).on("focus",c,function(){a(this).siblings("label, i").addClass("active")}),a(document).on("blur",c,function(){var b=a(this);0===b.val().length&&b[0].validity.badInput!==!0&&void 0===b.attr("placeholder")&&b.siblings("label, i").removeClass("active"),validate_field(b)}),validate_field=function(a){var b=void 0!==a.attr("length"),c=parseInt(a.attr("length")),d=a.val().length;0===a.val().length&&a[0].validity.badInput===!1?a.hasClass("validate")&&(a.removeClass("valid"),a.removeClass("invalid")):a.hasClass("validate")&&(a.is(":valid")&&b&&c>d||a.is(":valid")&&!b?(a.removeClass("invalid"),a.addClass("valid")):(a.removeClass("valid"),a.addClass("invalid")))};var d=a(".hiddendiv").first();d.length||(d=a('<div class="hiddendiv common"></div>'),a("body").append(d));var e=".materialize-textarea";a(e).each(function(){var c=a(this);c.val().length&&b(c)}),a("body").on("keyup keydown",e,function(){b(a(this))}),a(".file-field").each(function(){var b=a(this).find("input.file-path");a(this).find('input[type="file"]').change(function(){b.val(a(this)[0].files[0].name),b.trigger("change")})});var f,g="input[type=range]",h=!1;a(g).each(function(){var b=a('<span class="thumb"><span class="value"></span></span>');a(this).after(b)});var i=".range-field";a(document).on("change",g,function(){var b=a(this).siblings(".thumb");b.find(".value").html(a(this).val())}),a(document).on("mousedown touchstart",g,function(b){var c=a(this).siblings(".thumb");c.length<=0&&(c=a('<span class="thumb"><span class="value"></span></span>'),a(this).append(c)),c.find(".value").html(a(this).val()),h=!0,a(this).addClass("active"),c.hasClass("active")||c.velocity({height:"30px",width:"30px",top:"-20px",marginLeft:"-15px"},{duration:300,easing:"easeOutExpo"}),f=void 0===b.pageX||null===b.pageX?b.originalEvent.touches[0].pageX-a(this).offset().left:b.pageX-a(this).offset().left;var d=a(this).outerWidth();0>f?f=0:f>d&&(f=d),c.addClass("active").css("left",f),c.find(".value").html(a(this).val())}),a(document).on("mouseup touchend",i,function(){h=!1,a(this).removeClass("active")}),a(document).on("mousemove touchmove",i,function(b){var c,d=a(this).children(".thumb");if(h){d.hasClass("active")||d.velocity({height:"30px",width:"30px",top:"-20px",marginLeft:"-15px"},{duration:300,easing:"easeOutExpo"}),c=void 0===b.pageX||null===b.pageX?b.originalEvent.touches[0].pageX-a(this).offset().left:b.pageX-a(this).offset().left;var e=a(this).outerWidth();0>c?c=0:c>e&&(c=e),d.addClass("active").css("left",c)}}),a(document).on("mouseout touchleave",i,function(){if(!h){var b=a(this).children(".thumb");b.hasClass("active")&&b.velocity({height:"0",width:"0",top:"10px",marginLeft:"-6px"},{duration:100}),b.removeClass("active")}})}),a.fn.material_select=function(b){a(this).each(function(){if($select=a(this),!$select.hasClass("browser-default")){var c=$select.data("select-id");if(c&&($select.parent().find("i").remove(),$select.parent().find("input").remove(),$select.unwrap(),a("ul#select-options-"+c).remove()),"destroy"===b)return void $select.data("select-id",null).removeClass("initialized");var d=Materialize.guid();$select.data("select-id",d);var e=a('<div class="select-wrapper"></div>');e.addClass($select.attr("class"));var f,g=a('<ul id="select-options-'+d+'" class="dropdown-content select-dropdown"></ul>'),h=$select.children("option");f=void 0!==$select.find("option:selected")?$select.find("option:selected"):g.first(),h.each(function(){g.append(a('<li class="'+(a(this).is(":disabled")?"disabled":"")+'"><span>'+a(this).html()+"</span></li>"))}),g.find("li").each(function(c){var d=$select;a(this).click(function(){a(this).hasClass("disabled")||(d.find("option").eq(c).prop("selected",!0),d.trigger("change"),d.siblings("input.select-dropdown").val(a(this).text()),"undefined"!=typeof b&&b())})}),$select.wrap(e);var i=a('<span class="caret">&#9660;</span>');$select.is(":disabled")&&i.addClass("disabled");var j=a('<input type="text" class="select-dropdown" readonly="true" '+($select.is(":disabled")?"disabled":"")+' data-activates="select-options-'+d+'" value="'+f.html()+'"/>');$select.before(j),j.before(i),a("body").append(g),$select.is(":disabled")||j.dropdown({hover:!1}),$select.attr("tabindex")&&a(j[0]).attr("tabindex",$select.attr("tabindex")),$select.addClass("initialized"),j.on("focus",function(){a(this).trigger("open"),f=a(this).val(),selectedOption=g.find("li").filter(function(){return a(this).text().toLowerCase()===f.toLowerCase()})[0],activateOption(g,selectedOption)}),j.on("blur",function(){a(this).trigger("close")}),activateOption=function(b,c){b.find("li.active").removeClass("active"),a(c).addClass("active"),b.scrollTo(c)},filterQuery=[],onKeyDown=function(b){if(9==b.which)return void j.trigger("close");if(40==b.which&&!g.is(":visible"))return void j.trigger("open");if(13!=b.which||g.is(":visible")){b.preventDefault(),letter=String.fromCharCode(b.which).toLowerCase();var c=[9,13,27,38,40];letter&&-1===c.indexOf(b.which)&&(filterQuery.push(letter),string=filterQuery.join(""),newOption=g.find("li").filter(function(){return 0===a(this).text().toLowerCase().indexOf(string)})[0],newOption&&activateOption(g,newOption)),13==b.which&&(activeOption=g.find("li.active:not(.disabled)")[0],activeOption&&(a(activeOption).trigger("click"),j.trigger("close"))),40==b.which&&(newOption=g.find("li.active").next("li:not(.disabled)")[0],newOption&&activateOption(g,newOption)),27==b.which&&j.trigger("close"),38==b.which&&(newOption=g.find("li.active").prev("li:not(.disabled)")[0],newOption&&activateOption(g,newOption)),setTimeout(function(){filterQuery=[]},1e3)}},j.on("keydown",onKeyDown)}})}}(jQuery),function(a){var b={init:function(b){var c={indicators:!0,height:400,transition:500,interval:6e3};return b=a.extend(c,b),this.each(function(){function c(a,b){a.hasClass("center-align")?a.velocity({opacity:0,translateY:-100},{duration:b,queue:!1}):a.hasClass("right-align")?a.velocity({opacity:0,translateX:100},{duration:b,queue:!1}):a.hasClass("left-align")&&a.velocity({opacity:0,translateX:-100},{duration:b,queue:!1})}function d(a){a>=h.length?a=0:0>a&&(a=h.length-1),i=g.find(".active").index(),i!=a&&(e=h.eq(i),$caption=e.find(".caption"),e.removeClass("active"),e.velocity({opacity:0},{duration:b.transition,queue:!1,easing:"easeOutQuad",complete:function(){h.not(".active").velocity({opacity:0,translateX:0,translateY:0},{duration:0,queue:!1})}}),c($caption,b.transition),b.indicators&&j.eq(i).removeClass("active"),h.eq(a).velocity({opacity:1},{duration:b.transition,queue:!1,easing:"easeOutQuad"}),h.eq(a).find(".caption").velocity({opacity:1,translateX:0,translateY:0},{duration:b.transition,delay:b.transition,queue:!1,easing:"easeOutQuad"}),h.eq(a).addClass("active"),b.indicators&&j.eq(a).addClass("active"))}var e,f=a(this),g=f.find("ul.slides").first(),h=g.find("li"),i=g.find(".active").index();if(-1!=i&&(e=h.eq(i)),f.hasClass("fullscreen")||(f.height(b.indicators?b.height+40:b.height),g.height(b.height)),h.find(".caption").each(function(){c(a(this),0)}),h.find("img").each(function(){a(this).css("background-image","url("+a(this).attr("src")+")"),a(this).attr("src","data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")}),b.indicators){var j=a('<ul class="indicators"></ul>');h.each(function(){var c=a('<li class="indicator-item"></li>');c.click(function(){var c=g.parent(),e=c.find(a(this)).index();d(e),clearInterval($interval),$interval=setInterval(function(){i=g.find(".active").index(),h.length==i+1?i=0:i+=1,d(i)},b.transition+b.interval)}),j.append(c)}),f.append(j),j=f.find("ul.indicators").find("li.indicator-item")}e?e.show():(h.first().addClass("active").velocity({opacity:1},{duration:b.transition,queue:!1,easing:"easeOutQuad"}),i=0,e=h.eq(i),b.indicators&&j.eq(i).addClass("active")),e.find("img").each(function(){e.find(".caption").velocity({opacity:1,translateX:0,translateY:0},{duration:b.transition,queue:!1,easing:"easeOutQuad"})}),$interval=setInterval(function(){i=g.find(".active").index(),d(i+1)},b.transition+b.interval);var k=!1,l=!1,m=!1;f.hammer({prevent_default:!1}).bind("pan",function(a){if("touch"===a.gesture.pointerType){clearInterval($interval);var b=a.gesture.direction,c=a.gesture.deltaX,d=a.gesture.velocityX;$curr_slide=g.find(".active"),$curr_slide.velocity({translateX:c},{duration:50,queue:!1,easing:"easeOutQuad"}),4===b&&(c>f.innerWidth()/2||-.65>d)?m=!0:2===b&&(c<-1*f.innerWidth()/2||d>.65)&&(l=!0);var e;l&&(e=$curr_slide.next(),0===e.length&&(e=h.first()),e.velocity({opacity:1},{duration:300,queue:!1,easing:"easeOutQuad"})),m&&(e=$curr_slide.prev(),0===e.length&&(e=h.last()),e.velocity({opacity:1},{duration:300,queue:!1,easing:"easeOutQuad"}))}}).bind("panend",function(a){"touch"===a.gesture.pointerType&&($curr_slide=g.find(".active"),k=!1,curr_index=g.find(".active").index(),m||l?l?(d(curr_index+1),$curr_slide.velocity({translateX:-1*f.innerWidth()},{duration:300,queue:!1,easing:"easeOutQuad",complete:function(){$curr_slide.velocity({opacity:0,translateX:0},{duration:0,queue:!1})}})):m&&(d(curr_index-1),$curr_slide.velocity({translateX:f.innerWidth()},{duration:300,queue:!1,easing:"easeOutQuad",complete:function(){$curr_slide.velocity({opacity:0,translateX:0},{duration:0,queue:!1})}})):$curr_slide.velocity({translateX:0},{duration:300,queue:!1,easing:"easeOutQuad"}),l=!1,m=!1,clearInterval($interval),$interval=setInterval(function(){i=g.find(".active").index(),h.length==i+1?i=0:i+=1,d(i)},b.transition+b.interval))}),f.on("sliderPause",function(){clearInterval($interval)}),f.on("sliderStart",function(){clearInterval($interval),$interval=setInterval(function(){i=g.find(".active").index(),h.length==i+1?i=0:i+=1,d(i)},b.transition+b.interval)})})},pause:function(){a(this).trigger("sliderPause")},start:function(){a(this).trigger("sliderStart")}};a.fn.slider=function(c){return b[c]?b[c].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof c&&c?void a.error("Method "+c+" does not exist on jQuery.tooltip"):b.init.apply(this,arguments)}}(jQuery),function(a){a(document).ready(function(){a(document).on("click.card",".card",function(b){a(this).find(".card-reveal").length&&(a(b.target).is(a(".card-reveal .card-title"))||a(b.target).is(a(".card-reveal .card-title i"))?a(this).find(".card-reveal").velocity({translateY:0},{duration:225,queue:!1,easing:"easeInOutQuad",complete:function(){a(this).css({display:"none"})}}):(a(b.target).is(a(".card .activator"))||a(b.target).is(a(".card .activator i")))&&a(this).find(".card-reveal").css({display:"block"}).velocity("stop",!1).velocity({translateY:"-100%"},{duration:300,queue:!1,easing:"easeInOutQuad"}))})})}(jQuery),
 function(a){a(document).ready(function(){a.fn.pushpin=function(b){var c={top:0,bottom:1/0,offset:0};return b=a.extend(c,b),$index=0,this.each(function(){function c(a){a.removeClass("pin-top"),a.removeClass("pinned"),a.removeClass("pin-bottom")}function d(d,e){d.each(function(){b.top<=e&&b.bottom>=e&&!a(this).hasClass("pinned")&&(c(a(this)),a(this).css("top",b.offset),a(this).addClass("pinned")),e<b.top&&!a(this).hasClass("pin-top")&&(c(a(this)),a(this).css("top",0),a(this).addClass("pin-top")),e>b.bottom&&!a(this).hasClass("pin-bottom")&&(c(a(this)),a(this).addClass("pin-bottom"),a(this).css("top",b.bottom-g))})}var e=Materialize.guid(),f=a(this),g=a(this).offset().top;d(f,a(window).scrollTop()),a(window).on("scroll."+e,function(){var c=a(window).scrollTop()+b.offset;d(f,c)})})}})}(jQuery),function(a){a(document).ready(function(){a.fn.reverse=[].reverse,a(document).on("mouseenter.fixedActionBtn",".fixed-action-btn",function(){var c=a(this);b(c)}),a(document).on("mouseleave.fixedActionBtn",".fixed-action-btn",function(){var b=a(this);c(b)})}),a.fn.extend({openFAB:function(){var c=a(this);b(c)},closeFAB:function(){c($this)}});var b=function(b){if($this=b,$this.hasClass("active")===!1){$this.addClass("active"),$this.find("ul .btn-floating").velocity({scaleY:".4",scaleX:".4",translateY:"40px"},{duration:0});var c=0;$this.find("ul .btn-floating").reverse().each(function(){a(this).velocity({opacity:"1",scaleX:"1",scaleY:"1",translateY:"0"},{duration:80,delay:c}),c+=40})}},c=function(a){$this=a,$this.removeClass("active");$this.find("ul .btn-floating").velocity("stop",!0),$this.find("ul .btn-floating").velocity({opacity:"0",scaleX:".4",scaleY:".4",translateY:"40px"},{duration:80})}}(jQuery),function(a){Materialize.fadeInImage=function(b){var c=a(b);c.css({opacity:0}),a(c).velocity({opacity:1},{duration:650,queue:!1,easing:"easeOutSine"}),a(c).velocity({opacity:1},{duration:1300,queue:!1,easing:"swing",step:function(b,c){c.start=100;var d=b/100,e=150-(100-b)/1.75;100>e&&(e=100),b>=0&&a(this).css({"-webkit-filter":"grayscale("+d+")brightness("+e+"%)",filter:"grayscale("+d+")brightness("+e+"%)"})}})},Materialize.showStaggeredList=function(b){var c=0;a(b).find("li").velocity({translateX:"-100px"},{duration:0}),a(b).find("li").each(function(){a(this).velocity({opacity:"1",translateX:"0"},{duration:800,delay:c,easing:[60,10]}),c+=120})},a(document).ready(function(){var b=!1,c=!1;a(".dismissable").each(function(){a(this).hammer({prevent_default:!1}).bind("pan",function(d){if("touch"===d.gesture.pointerType){var e=a(this),f=d.gesture.direction,g=d.gesture.deltaX,h=d.gesture.velocityX;e.velocity({translateX:g},{duration:50,queue:!1,easing:"easeOutQuad"}),4===f&&(g>e.innerWidth()/2||-.75>h)&&(b=!0),2===f&&(g<-1*e.innerWidth()/2||h>.75)&&(c=!0)}}).bind("panend",function(d){if(Math.abs(d.gesture.deltaX)<a(this).innerWidth()/2&&(c=!1,b=!1),"touch"===d.gesture.pointerType){var e=a(this);if(b||c){var f;f=b?e.innerWidth():-1*e.innerWidth(),e.velocity({translateX:f},{duration:100,queue:!1,easing:"easeOutQuad",complete:function(){e.css("border","none"),e.velocity({height:0,padding:0},{duration:200,queue:!1,easing:"easeOutQuad",complete:function(){e.remove()}})}})}else e.velocity({translateX:0},{duration:100,queue:!1,easing:"easeOutQuad"});b=!1,c=!1}})})})}(jQuery),function(){Materialize.scrollFire=function(a){var b=!1;window.addEventListener("scroll",function(){b=!0}),setInterval(function(){if(b){b=!1;for(var c=window.pageYOffset+window.innerHeight,d=0;d<a.length;d++){var e=a[d],f=e.selector,g=e.offset,h=e.callback,i=document.querySelector(f);if(null!==i){var j=i.getBoundingClientRect().top+document.body.scrollTop;if(c>j+g&&e.done!==!0){var k=new Function(h);k(),e.done=!0}}}}},100)}}(jQuery),function(a){"function"==typeof define&&define.amd?define("picker",["jquery"],a):"object"==typeof exports?module.exports=a(require("jquery")):this.Picker=a(jQuery)}(function(a){function b(f,g,i,l){function m(){return b._.node("div",b._.node("div",b._.node("div",b._.node("div",y.component.nodes(t.open),v.box),v.wrap),v.frame),v.holder)}function n(){w.data(g,y).addClass(v.input).attr("tabindex",-1).val(w.data("value")?y.get("select",u.format):f.value),u.editable||w.on("focus."+t.id+" click."+t.id,function(a){a.preventDefault(),y.$root[0].focus()}).on("keydown."+t.id,q),e(f,{haspopup:!0,expanded:!1,readonly:!1,owns:f.id+"_root"})}function o(){y.$root.on({keydown:q,focusin:function(a){y.$root.removeClass(v.focused),a.stopPropagation()},"mousedown click":function(b){var c=b.target;c!=y.$root.children()[0]&&(b.stopPropagation(),"mousedown"!=b.type||a(c).is("input, select, textarea, button, option")||(b.preventDefault(),y.$root[0].focus()))}}).on({focus:function(){w.addClass(v.target)},blur:function(){w.removeClass(v.target)}}).on("focus.toOpen",r).on("click","[data-pick], [data-nav], [data-clear], [data-close]",function(){var b=a(this),c=b.data(),d=b.hasClass(v.navDisabled)||b.hasClass(v.disabled),e=h();e=e&&(e.type||e.href),(d||e&&!a.contains(y.$root[0],e))&&y.$root[0].focus(),!d&&c.nav?y.set("highlight",y.component.item.highlight,{nav:c.nav}):!d&&"pick"in c?y.set("select",c.pick):c.clear?y.clear().close(!0):c.close&&y.close(!0)}),e(y.$root[0],"hidden",!0)}function p(){var b;u.hiddenName===!0?(b=f.name,f.name=""):(b=["string"==typeof u.hiddenPrefix?u.hiddenPrefix:"","string"==typeof u.hiddenSuffix?u.hiddenSuffix:"_submit"],b=b[0]+f.name+b[1]),y._hidden=a('<input type=hidden name="'+b+'"'+(w.data("value")||f.value?' value="'+y.get("select",u.formatSubmit)+'"':"")+">")[0],w.on("change."+t.id,function(){y._hidden.value=f.value?y.get("select",u.formatSubmit):""}),u.container?a(u.container).append(y._hidden):w.after(y._hidden)}function q(a){var b=a.keyCode,c=/^(8|46)$/.test(b);return 27==b?(y.close(),!1):void((32==b||c||!t.open&&y.component.key[b])&&(a.preventDefault(),a.stopPropagation(),c?y.clear().close():y.open()))}function r(a){a.stopPropagation(),"focus"==a.type&&y.$root.addClass(v.focused),y.open()}if(!f)return b;var s=!1,t={id:f.id||"P"+Math.abs(~~(Math.random()*new Date))},u=i?a.extend(!0,{},i.defaults,l):l||{},v=a.extend({},b.klasses(),u.klass),w=a(f),x=function(){return this.start()},y=x.prototype={constructor:x,$node:w,start:function(){return t&&t.start?y:(t.methods={},t.start=!0,t.open=!1,t.type=f.type,f.autofocus=f==h(),f.readOnly=!u.editable,f.id=f.id||t.id,"text"!=f.type&&(f.type="text"),y.component=new i(y,u),y.$root=a(b._.node("div",m(),v.picker,'id="'+f.id+'_root" tabindex="0"')),o(),u.formatSubmit&&p(),n(),u.container?a(u.container).append(y.$root):w.after(y.$root),y.on({start:y.component.onStart,render:y.component.onRender,stop:y.component.onStop,open:y.component.onOpen,close:y.component.onClose,set:y.component.onSet}).on({start:u.onStart,render:u.onRender,stop:u.onStop,open:u.onOpen,close:u.onClose,set:u.onSet}),s=c(y.$root.children()[0]),f.autofocus&&y.open(),y.trigger("start").trigger("render"))},render:function(a){return a?y.$root.html(m()):y.$root.find("."+v.box).html(y.component.nodes(t.open)),y.trigger("render")},stop:function(){return t.start?(y.close(),y._hidden&&y._hidden.parentNode.removeChild(y._hidden),y.$root.remove(),w.removeClass(v.input).removeData(g),setTimeout(function(){w.off("."+t.id)},0),f.type=t.type,f.readOnly=!1,y.trigger("stop"),t.methods={},t.start=!1,y):y},open:function(c){return t.open?y:(w.addClass(v.active),e(f,"expanded",!0),setTimeout(function(){y.$root.addClass(v.opened),e(y.$root[0],"hidden",!1)},0),c!==!1&&(t.open=!0,s&&k.css("overflow","hidden").css("padding-right","+="+d()),y.$root[0].focus(),j.on("click."+t.id+" focusin."+t.id,function(a){var b=a.target;b!=f&&b!=document&&3!=a.which&&y.close(b===y.$root.children()[0])}).on("keydown."+t.id,function(c){var d=c.keyCode,e=y.component.key[d],f=c.target;27==d?y.close(!0):f!=y.$root[0]||!e&&13!=d?a.contains(y.$root[0],f)&&13==d&&(c.preventDefault(),f.click()):(c.preventDefault(),e?b._.trigger(y.component.key.go,y,[b._.trigger(e)]):y.$root.find("."+v.highlighted).hasClass(v.disabled)||y.set("select",y.component.item.highlight).close())})),y.trigger("open"))},close:function(a){return a&&(y.$root.off("focus.toOpen")[0].focus(),setTimeout(function(){y.$root.on("focus.toOpen",r)},0)),w.removeClass(v.active),e(f,"expanded",!1),setTimeout(function(){y.$root.removeClass(v.opened+" "+v.focused),e(y.$root[0],"hidden",!0)},0),t.open?(t.open=!1,s&&k.css("overflow","").css("padding-right","-="+d()),j.off("."+t.id),y.trigger("close")):y},clear:function(a){return y.set("clear",null,a)},set:function(b,c,d){var e,f,g=a.isPlainObject(b),h=g?b:{};if(d=g&&a.isPlainObject(c)?c:d||{},b){g||(h[b]=c);for(e in h)f=h[e],e in y.component.item&&(void 0===f&&(f=null),y.component.set(e,f,d)),("select"==e||"clear"==e)&&w.val("clear"==e?"":y.get(e,u.format)).trigger("change");y.render()}return d.muted?y:y.trigger("set",h)},get:function(a,c){if(a=a||"value",null!=t[a])return t[a];if("valueSubmit"==a){if(y._hidden)return y._hidden.value;a="value"}if("value"==a)return f.value;if(a in y.component.item){if("string"==typeof c){var d=y.component.get(a);return d?b._.trigger(y.component.formats.toString,y.component,[c,d]):""}return y.component.get(a)}},on:function(b,c,d){var e,f,g=a.isPlainObject(b),h=g?b:{};if(b){g||(h[b]=c);for(e in h)f=h[e],d&&(e="_"+e),t.methods[e]=t.methods[e]||[],t.methods[e].push(f)}return y},off:function(){var a,b,c=arguments;for(a=0,namesCount=c.length;a<namesCount;a+=1)b=c[a],b in t.methods&&delete t.methods[b];return y},trigger:function(a,c){var d=function(a){var d=t.methods[a];d&&d.map(function(a){b._.trigger(a,y,[c])})};return d("_"+a),d(a),y}};return new x}function c(a){var b,c="position";return a.currentStyle?b=a.currentStyle[c]:window.getComputedStyle&&(b=getComputedStyle(a)[c]),"fixed"==b}function d(){if(k.height()<=i.height())return 0;var b=a('<div style="visibility:hidden;width:100px" />').appendTo("body"),c=b[0].offsetWidth;b.css("overflow","scroll");var d=a('<div style="width:100%" />').appendTo(b),e=d[0].offsetWidth;return b.remove(),c-e}function e(b,c,d){if(a.isPlainObject(c))for(var e in c)f(b,e,c[e]);else f(b,c,d)}function f(a,b,c){a.setAttribute(("role"==b?"":"aria-")+b,c)}function g(b,c){a.isPlainObject(b)||(b={attribute:c}),c="";for(var d in b){var e=("role"==d?"":"aria-")+d,f=b[d];c+=null==f?"":e+'="'+b[d]+'"'}return c}function h(){try{return document.activeElement}catch(a){}}var i=a(window),j=a(document),k=a(document.documentElement);return b.klasses=function(a){return a=a||"picker",{picker:a,opened:a+"--opened",focused:a+"--focused",input:a+"__input",active:a+"__input--active",target:a+"__input--target",holder:a+"__holder",frame:a+"__frame",wrap:a+"__wrap",box:a+"__box"}},b._={group:function(a){for(var c,d="",e=b._.trigger(a.min,a);e<=b._.trigger(a.max,a,[e]);e+=a.i)c=b._.trigger(a.item,a,[e]),d+=b._.node(a.node,c[0],c[1],c[2]);return d},node:function(b,c,d,e){return c?(c=a.isArray(c)?c.join(""):c,d=d?' class="'+d+'"':"",e=e?" "+e:"","<"+b+d+e+">"+c+"</"+b+">"):""},lead:function(a){return(10>a?"0":"")+a},trigger:function(a,b,c){return"function"==typeof a?a.apply(b,c||[]):a},digits:function(a){return/\d/.test(a[1])?2:1},isDate:function(a){return{}.toString.call(a).indexOf("Date")>-1&&this.isInteger(a.getDate())},isInteger:function(a){return{}.toString.call(a).indexOf("Number")>-1&&a%1===0},ariaAttr:g},b.extend=function(c,d){a.fn[c]=function(e,f){var g=this.data(c);return"picker"==e?g:g&&"string"==typeof e?b._.trigger(g[e],g,[f]):this.each(function(){var f=a(this);f.data(c)||new b(this,c,d,e)})},a.fn[c].defaults=d.defaults},b}),function(a){"function"==typeof define&&define.amd?define(["picker","jquery"],a):"object"==typeof exports?module.exports=a(require("./picker.js"),require("jquery")):a(Picker,jQuery)}(function(a,b){function c(a,b){var c=this,d=a.$node[0],e=d.value,f=a.$node.data("value"),g=f||e,h=f?b.formatSubmit:b.format,i=function(){return d.currentStyle?"rtl"==d.currentStyle.direction:"rtl"==getComputedStyle(a.$root[0]).direction};c.settings=b,c.$node=a.$node,c.queue={min:"measure create",max:"measure create",now:"now create",select:"parse create validate",highlight:"parse navigate create validate",view:"parse create validate viewset",disable:"deactivate",enable:"activate"},c.item={},c.item.clear=null,c.item.disable=(b.disable||[]).slice(0),c.item.enable=-function(a){return a[0]===!0?a.shift():-1}(c.item.disable),c.set("min",b.min).set("max",b.max).set("now"),g?c.set("select",g,{format:h}):c.set("select",null).set("highlight",c.item.now),c.key={40:7,38:-7,39:function(){return i()?-1:1},37:function(){return i()?1:-1},go:function(a){var b=c.item.highlight,d=new Date(b.year,b.month,b.date+a);c.set("highlight",d,{interval:a}),this.render()}},a.on("render",function(){a.$root.find("."+b.klass.selectMonth).on("change",function(){var c=this.value;c&&(a.set("highlight",[a.get("view").year,c,a.get("highlight").date]),a.$root.find("."+b.klass.selectMonth).trigger("focus"))}),a.$root.find("."+b.klass.selectYear).on("change",function(){var c=this.value;c&&(a.set("highlight",[c,a.get("view").month,a.get("highlight").date]),a.$root.find("."+b.klass.selectYear).trigger("focus"))})},1).on("open",function(){var d="";c.disabled(c.get("now"))&&(d=":not(."+b.klass.buttonToday+")"),a.$root.find("button"+d+", select").attr("disabled",!1)},1).on("close",function(){a.$root.find("button, select").attr("disabled",!0)},1)}var d=7,e=6,f=a._;c.prototype.set=function(a,b,c){var d=this,e=d.item;return null===b?("clear"==a&&(a="select"),e[a]=b,d):(e["enable"==a?"disable":"flip"==a?"enable":a]=d.queue[a].split(" ").map(function(e){return b=d[e](a,b,c)}).pop(),"select"==a?d.set("highlight",e.select,c):"highlight"==a?d.set("view",e.highlight,c):a.match(/^(flip|min|max|disable|enable)$/)&&(e.select&&d.disabled(e.select)&&d.set("select",e.select,c),e.highlight&&d.disabled(e.highlight)&&d.set("highlight",e.highlight,c)),d)},c.prototype.get=function(a){return this.item[a]},c.prototype.create=function(a,c,d){var e,g=this;return c=void 0===c?a:c,c==-(1/0)||c==1/0?e=c:b.isPlainObject(c)&&f.isInteger(c.pick)?c=c.obj:b.isArray(c)?(c=new Date(c[0],c[1],c[2]),c=f.isDate(c)?c:g.create().obj):c=f.isInteger(c)||f.isDate(c)?g.normalize(new Date(c),d):g.now(a,c,d),{year:e||c.getFullYear(),month:e||c.getMonth(),date:e||c.getDate(),day:e||c.getDay(),obj:e||c,pick:e||c.getTime()}},c.prototype.createRange=function(a,c){var d=this,e=function(a){return a===!0||b.isArray(a)||f.isDate(a)?d.create(a):a};return f.isInteger(a)||(a=e(a)),f.isInteger(c)||(c=e(c)),f.isInteger(a)&&b.isPlainObject(c)?a=[c.year,c.month,c.date+a]:f.isInteger(c)&&b.isPlainObject(a)&&(c=[a.year,a.month,a.date+c]),{from:e(a),to:e(c)}},c.prototype.withinRange=function(a,b){return a=this.createRange(a.from,a.to),b.pick>=a.from.pick&&b.pick<=a.to.pick},c.prototype.overlapRanges=function(a,b){var c=this;return a=c.createRange(a.from,a.to),b=c.createRange(b.from,b.to),c.withinRange(a,b.from)||c.withinRange(a,b.to)||c.withinRange(b,a.from)||c.withinRange(b,a.to)},c.prototype.now=function(a,b,c){return b=new Date,c&&c.rel&&b.setDate(b.getDate()+c.rel),this.normalize(b,c)},c.prototype.navigate=function(a,c,d){var e,f,g,h,i=b.isArray(c),j=b.isPlainObject(c),k=this.item.view;if(i||j){for(j?(f=c.year,g=c.month,h=c.date):(f=+c[0],g=+c[1],h=+c[2]),d&&d.nav&&k&&k.month!==g&&(f=k.year,g=k.month),e=new Date(f,g+(d&&d.nav?d.nav:0),1),f=e.getFullYear(),g=e.getMonth();new Date(f,g,h).getMonth()!==g;)h-=1;c=[f,g,h]}return c},c.prototype.normalize=function(a){return a.setHours(0,0,0,0),a},c.prototype.measure=function(a,b){var c=this;return b?"string"==typeof b?b=c.parse(a,b):f.isInteger(b)&&(b=c.now(a,b,{rel:b})):b="min"==a?-(1/0):1/0,b},c.prototype.viewset=function(a,b){return this.create([b.year,b.month,1])},c.prototype.validate=function(a,c,d){var e,g,h,i,j=this,k=c,l=d&&d.interval?d.interval:1,m=-1===j.item.enable,n=j.item.min,o=j.item.max,p=m&&j.item.disable.filter(function(a){if(b.isArray(a)){var d=j.create(a).pick;d<c.pick?e=!0:d>c.pick&&(g=!0)}return f.isInteger(a)}).length;if((!d||!d.nav)&&(!m&&j.disabled(c)||m&&j.disabled(c)&&(p||e||g)||!m&&(c.pick<=n.pick||c.pick>=o.pick)))for(m&&!p&&(!g&&l>0||!e&&0>l)&&(l*=-1);j.disabled(c)&&(Math.abs(l)>1&&(c.month<k.month||c.month>k.month)&&(c=k,l=l>0?1:-1),c.pick<=n.pick?(h=!0,l=1,c=j.create([n.year,n.month,n.date+(c.pick===n.pick?0:-1)])):c.pick>=o.pick&&(i=!0,l=-1,c=j.create([o.year,o.month,o.date+(c.pick===o.pick?0:1)])),!h||!i);)c=j.create([c.year,c.month,c.date+l]);return c},c.prototype.disabled=function(a){var c=this,d=c.item.disable.filter(function(d){return f.isInteger(d)?a.day===(c.settings.firstDay?d:d-1)%7:b.isArray(d)||f.isDate(d)?a.pick===c.create(d).pick:b.isPlainObject(d)?c.withinRange(d,a):void 0});return d=d.length&&!d.filter(function(a){return b.isArray(a)&&"inverted"==a[3]||b.isPlainObject(a)&&a.inverted}).length,-1===c.item.enable?!d:d||a.pick<c.item.min.pick||a.pick>c.item.max.pick},c.prototype.parse=function(a,b,c){var d=this,e={};return b&&"string"==typeof b?(c&&c.format||(c=c||{},c.format=d.settings.format),d.formats.toArray(c.format).map(function(a){var c=d.formats[a],g=c?f.trigger(c,d,[b,e]):a.replace(/^!/,"").length;c&&(e[a]=b.substr(0,g)),b=b.substr(g)}),[e.yyyy||e.yy,+(e.mm||e.m)-1,e.dd||e.d]):b},c.prototype.formats=function(){function a(a,b,c){var d=a.match(/\w+/)[0];return c.mm||c.m||(c.m=b.indexOf(d)+1),d.length}function b(a){return a.match(/\w+/)[0].length}return{d:function(a,b){return a?f.digits(a):b.date},dd:function(a,b){return a?2:f.lead(b.date)},ddd:function(a,c){return a?b(a):this.settings.weekdaysShort[c.day]},dddd:function(a,c){return a?b(a):this.settings.weekdaysFull[c.day]},m:function(a,b){return a?f.digits(a):b.month+1},mm:function(a,b){return a?2:f.lead(b.month+1)},mmm:function(b,c){var d=this.settings.monthsShort;return b?a(b,d,c):d[c.month]},mmmm:function(b,c){var d=this.settings.monthsFull;return b?a(b,d,c):d[c.month]},yy:function(a,b){return a?2:(""+b.year).slice(2)},yyyy:function(a,b){return a?4:b.year},toArray:function(a){return a.split(/(d{1,4}|m{1,4}|y{4}|yy|!.)/g)},toString:function(a,b){var c=this;return c.formats.toArray(a).map(function(a){return f.trigger(c.formats[a],c,[0,b])||a.replace(/^!/,"")}).join("")}}}(),c.prototype.isDateExact=function(a,c){var d=this;return f.isInteger(a)&&f.isInteger(c)||"boolean"==typeof a&&"boolean"==typeof c?a===c:(f.isDate(a)||b.isArray(a))&&(f.isDate(c)||b.isArray(c))?d.create(a).pick===d.create(c).pick:b.isPlainObject(a)&&b.isPlainObject(c)?d.isDateExact(a.from,c.from)&&d.isDateExact(a.to,c.to):!1},c.prototype.isDateOverlap=function(a,c){var d=this,e=d.settings.firstDay?1:0;return f.isInteger(a)&&(f.isDate(c)||b.isArray(c))?(a=a%7+e,a===d.create(c).day+1):f.isInteger(c)&&(f.isDate(a)||b.isArray(a))?(c=c%7+e,c===d.create(a).day+1):b.isPlainObject(a)&&b.isPlainObject(c)?d.overlapRanges(a,c):!1},c.prototype.flipEnable=function(a){var b=this.item;b.enable=a||(-1==b.enable?1:-1)},c.prototype.deactivate=function(a,c){var d=this,e=d.item.disable.slice(0);return"flip"==c?d.flipEnable():c===!1?(d.flipEnable(1),e=[]):c===!0?(d.flipEnable(-1),e=[]):c.map(function(a){for(var c,g=0;g<e.length;g+=1)if(d.isDateExact(a,e[g])){c=!0;break}c||(f.isInteger(a)||f.isDate(a)||b.isArray(a)||b.isPlainObject(a)&&a.from&&a.to)&&e.push(a)}),e},c.prototype.activate=function(a,c){var d=this,e=d.item.disable,g=e.length;return"flip"==c?d.flipEnable():c===!0?(d.flipEnable(1),e=[]):c===!1?(d.flipEnable(-1),e=[]):c.map(function(a){var c,h,i,j;for(i=0;g>i;i+=1){if(h=e[i],d.isDateExact(h,a)){c=e[i]=null,j=!0;break}if(d.isDateOverlap(h,a)){b.isPlainObject(a)?(a.inverted=!0,c=a):b.isArray(a)?(c=a,c[3]||c.push("inverted")):f.isDate(a)&&(c=[a.getFullYear(),a.getMonth(),a.getDate(),"inverted"]);break}}if(c)for(i=0;g>i;i+=1)if(d.isDateExact(e[i],a)){e[i]=null;break}if(j)for(i=0;g>i;i+=1)if(d.isDateOverlap(e[i],a)){e[i]=null;break}c&&e.push(c)}),e.filter(function(a){return null!=a})},c.prototype.nodes=function(a){var b=this,c=b.settings,g=b.item,h=g.now,i=g.select,j=g.highlight,k=g.view,l=g.disable,m=g.min,n=g.max,o=function(a,b){return c.firstDay&&(a.push(a.shift()),b.push(b.shift())),f.node("thead",f.node("tr",f.group({min:0,max:d-1,i:1,node:"th",item:function(d){return[a[d],c.klass.weekdays,'scope=col title="'+b[d]+'"']}})))}((c.showWeekdaysFull?c.weekdaysFull:c.weekdaysLetter).slice(0),c.weekdaysFull.slice(0)),p=function(a){return f.node("div"," ",c.klass["nav"+(a?"Next":"Prev")]+(a&&k.year>=n.year&&k.month>=n.month||!a&&k.year<=m.year&&k.month<=m.month?" "+c.klass.navDisabled:""),"data-nav="+(a||-1)+" "+f.ariaAttr({role:"button",controls:b.$node[0].id+"_table"})+' title="'+(a?c.labelMonthNext:c.labelMonthPrev)+'"')},q=function(d){var e=c.showMonthsShort?c.monthsShort:c.monthsFull;return"short_months"==d&&(e=c.monthsShort),c.selectMonths&&void 0==d?f.node("select",f.group({min:0,max:11,i:1,node:"option",item:function(a){return[e[a],0,"value="+a+(k.month==a?" selected":"")+(k.year==m.year&&a<m.month||k.year==n.year&&a>n.month?" disabled":"")]}}),c.klass.selectMonth+" browser-default",(a?"":"disabled")+" "+f.ariaAttr({controls:b.$node[0].id+"_table"})+' title="'+c.labelMonthSelect+'"'):"short_months"==d?null!=i?f.node("div",e[i.month]):f.node("div",e[k.month]):f.node("div",e[k.month],c.klass.month)},r=function(d){var e=k.year,g=c.selectYears===!0?5:~~(c.selectYears/2);if(g){var h=m.year,i=n.year,j=e-g,l=e+g;if(h>j&&(l+=h-j,j=h),l>i){var o=j-h,p=l-i;j-=o>p?p:o,l=i}if(c.selectYears&&void 0==d)return f.node("select",f.group({min:j,max:l,i:1,node:"option",item:function(a){return[a,0,"value="+a+(e==a?" selected":"")]}}),c.klass.selectYear+" browser-default",(a?"":"disabled")+" "+f.ariaAttr({controls:b.$node[0].id+"_table"})+' title="'+c.labelYearSelect+'"')}return"raw"==d?f.node("div",e):f.node("div",e,c.klass.year)};return createDayLabel=function(){return null!=i?f.node("div",i.date):f.node("div",h.date)},createWeekdayLabel=function(){var a;a=null!=i?i.day:h.day;var b=c.weekdaysFull[a];return b},f.node("div",f.node("div",createWeekdayLabel(),"picker__weekday-display")+f.node("div",q("short_months"),c.klass.month_display)+f.node("div",createDayLabel(),c.klass.day_display)+f.node("div",r("raw"),c.klass.year_display),c.klass.date_display)+f.node("div",f.node("div",(c.selectYears?q()+r():q()+r())+p()+p(1),c.klass.header)+f.node("table",o+f.node("tbody",f.group({min:0,max:e-1,i:1,node:"tr",item:function(a){var e=c.firstDay&&0===b.create([k.year,k.month,1]).day?-7:0;return[f.group({min:d*a-k.day+e+1,max:function(){return this.min+d-1},i:1,node:"td",item:function(a){a=b.create([k.year,k.month,a+(c.firstDay?1:0)]);var d=i&&i.pick==a.pick,e=j&&j.pick==a.pick,g=l&&b.disabled(a)||a.pick<m.pick||a.pick>n.pick,o=f.trigger(b.formats.toString,b,[c.format,a]);return[f.node("div",a.date,function(b){return b.push(k.month==a.month?c.klass.infocus:c.klass.outfocus),h.pick==a.pick&&b.push(c.klass.now),d&&b.push(c.klass.selected),e&&b.push(c.klass.highlighted),g&&b.push(c.klass.disabled),b.join(" ")}([c.klass.day]),"data-pick="+a.pick+" "+f.ariaAttr({role:"gridcell",label:o,selected:d&&b.$node.val()===o?!0:null,activedescendant:e?!0:null,disabled:g?!0:null})),"",f.ariaAttr({role:"presentation"})]}})]}})),c.klass.table,'id="'+b.$node[0].id+'_table" '+f.ariaAttr({role:"grid",controls:b.$node[0].id,readonly:!0})),c.klass.calendar_container)+f.node("div",f.node("button",c.today,"btn-flat picker__today","type=button data-pick="+h.pick+(a&&!b.disabled(h)?"":" disabled")+" "+f.ariaAttr({controls:b.$node[0].id}))+f.node("button",c.clear,"btn-flat picker__clear","type=button data-clear=1"+(a?"":" disabled")+" "+f.ariaAttr({controls:b.$node[0].id}))+f.node("button",c.close,"btn-flat picker__close","type=button data-close=true "+(a?"":" disabled")+" "+f.ariaAttr({controls:b.$node[0].id})),c.klass.footer)},c.defaults=function(a){return{labelMonthNext:"Next month",labelMonthPrev:"Previous month",labelMonthSelect:"Select a month",labelYearSelect:"Select a year",monthsFull:["January","February","March","April","May","June","July","August","September","October","November","December"],monthsShort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],weekdaysFull:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],weekdaysShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],weekdaysLetter:["S","M","T","W","T","F","S"],today:"Today",clear:"Clear",close:"Close",format:"d mmmm, yyyy",klass:{table:a+"table",header:a+"header",date_display:a+"date-display",day_display:a+"day-display",month_display:a+"month-display",year_display:a+"year-display",calendar_container:a+"calendar-container",navPrev:a+"nav--prev",navNext:a+"nav--next",navDisabled:a+"nav--disabled",month:a+"month",year:a+"year",selectMonth:a+"select--month",selectYear:a+"select--year",weekdays:a+"weekday",day:a+"day",disabled:a+"day--disabled",selected:a+"day--selected",highlighted:a+"day--highlighted",now:a+"day--today",infocus:a+"day--infocus",outfocus:a+"day--outfocus",footer:a+"footer",buttonClear:a+"button--clear",buttonToday:a+"button--today",buttonClose:a+"button--close"}}}(a.klasses().picker+"__"),a.extend("pickadate",c)}),function(a){function b(){var b=+a(this).attr("length"),c=+a(this).val().length,d=b>=c;a(this).parent().find('span[class="character-counter"]').html(c+"/"+b),e(d,a(this))}function c(b){var c=a("<span/>").addClass("character-counter").css("float","right").css("font-size","12px").css("height",1);b.parent().append(c)}function d(){a(this).parent().find('span[class="character-counter"]').html("")}function e(a,b){var c=b.hasClass("invalid");a&&c?b.removeClass("invalid"):a||c||(b.removeClass("valid"),b.addClass("invalid"))}a.fn.characterCounter=function(){return this.each(function(){var e=void 0!==a(this).attr("length");e&&(a(this).on("input",b),a(this).on("focus",b),a(this).on("blur",d),c(a(this)))})},a(document).ready(function(){a("input, textarea").characterCounter()})}(jQuery);
-/*!
- * Date picker for pickadate.js v3.5.0
- * http://amsul.github.io/pickadate.js/date.htm
- */
-
-(function ( factory ) {
-
-    // AMD.
-    if ( typeof define == 'function' && define.amd )
-        define( ['picker', 'jquery'], factory )
-
-    // Node.js/browserify.
-    else if ( typeof exports == 'object' )
-        module.exports = factory( require('./picker.js'), require('jquery') )
-
-    // Browser globals.
-    else factory( Picker, jQuery )
-
-}(function( Picker, $ ) {
-
-
-/**
- * Globals and constants
- */
-var DAYS_IN_WEEK = 7,
-    WEEKS_IN_CALENDAR = 6,
-    _ = Picker._
-
-
-
-/**
- * The date picker constructor
- */
-function DatePicker( picker, settings ) {
-
-    var calendar = this,
-        element = picker.$node[ 0 ],
-        elementValue = element.value,
-        elementDataValue = picker.$node.data( 'value' ),
-        valueString = elementDataValue || elementValue,
-        formatString = elementDataValue ? settings.formatSubmit : settings.format,
-        isRTL = function() {
-
-            return element.currentStyle ?
-
-                // For IE.
-                element.currentStyle.direction == 'rtl' :
-
-                // For normal browsers.
-                getComputedStyle( picker.$root[0] ).direction == 'rtl'
-        }
-
-    calendar.settings = settings
-    calendar.$node = picker.$node
-
-    // The queue of methods that will be used to build item objects.
-    calendar.queue = {
-        min: 'measure create',
-        max: 'measure create',
-        now: 'now create',
-        select: 'parse create validate',
-        highlight: 'parse navigate create validate',
-        view: 'parse create validate viewset',
-        disable: 'deactivate',
-        enable: 'activate'
-    }
-
-    // The component's item object.
-    calendar.item = {}
-
-    calendar.item.clear = null
-    calendar.item.disable = ( settings.disable || [] ).slice( 0 )
-    calendar.item.enable = -(function( collectionDisabled ) {
-        return collectionDisabled[ 0 ] === true ? collectionDisabled.shift() : -1
-    })( calendar.item.disable )
-
-    calendar.
-        set( 'min', settings.min ).
-        set( 'max', settings.max ).
-        set( 'now' )
-
-    // When there’s a value, set the `select`, which in turn
-    // also sets the `highlight` and `view`.
-    if ( valueString ) {
-        calendar.set( 'select', valueString, { format: formatString })
-    }
-
-    // If there’s no value, default to highlighting “today”.
-    else {
-        calendar.
-            set( 'select', null ).
-            set( 'highlight', calendar.item.now )
-    }
-
-
-    // The keycode to movement mapping.
-    calendar.key = {
-        40: 7, // Down
-        38: -7, // Up
-        39: function() { return isRTL() ? -1 : 1 }, // Right
-        37: function() { return isRTL() ? 1 : -1 }, // Left
-        go: function( timeChange ) {
-            var highlightedObject = calendar.item.highlight,
-                targetDate = new Date( highlightedObject.year, highlightedObject.month, highlightedObject.date + timeChange )
-            calendar.set(
-                'highlight',
-                targetDate,
-                { interval: timeChange }
-            )
-            this.render()
-        }
-    }
-
-
-    // Bind some picker events.
-    picker.
-        on( 'render', function() {
-            picker.$root.find( '.' + settings.klass.selectMonth ).on( 'change', function() {
-                var value = this.value
-                if ( value ) {
-                    picker.set( 'highlight', [ picker.get( 'view' ).year, value, picker.get( 'highlight' ).date ] )
-                    picker.$root.find( '.' + settings.klass.selectMonth ).trigger( 'focus' )
-                }
-            })
-            picker.$root.find( '.' + settings.klass.selectYear ).on( 'change', function() {
-                var value = this.value
-                if ( value ) {
-                    picker.set( 'highlight', [ value, picker.get( 'view' ).month, picker.get( 'highlight' ).date ] )
-                    picker.$root.find( '.' + settings.klass.selectYear ).trigger( 'focus' )
-                }
-            })
-        }, 1 ).
-        on( 'open', function() {
-            var includeToday = ''
-            if ( calendar.disabled( calendar.get('now') ) ) {
-                includeToday = ':not(.' + settings.klass.buttonToday + ')'
-            }
-            picker.$root.find( 'button' + includeToday + ', select' ).attr( 'disabled', false )
-        }, 1 ).
-        on( 'close', function() {
-            picker.$root.find( 'button, select' ).attr( 'disabled', true )
-        }, 1 )
-
-} //DatePicker
-
-
-/**
- * Set a datepicker item object.
- */
-DatePicker.prototype.set = function( type, value, options ) {
-
-    var calendar = this,
-        calendarItem = calendar.item
-
-    // If the value is `null` just set it immediately.
-    if ( value === null ) {
-        if ( type == 'clear' ) type = 'select'
-        calendarItem[ type ] = value
-        return calendar
-    }
-
-    // Otherwise go through the queue of methods, and invoke the functions.
-    // Update this as the time unit, and set the final value as this item.
-    // * In the case of `enable`, keep the queue but set `disable` instead.
-    //   And in the case of `flip`, keep the queue but set `enable` instead.
-    calendarItem[ ( type == 'enable' ? 'disable' : type == 'flip' ? 'enable' : type ) ] = calendar.queue[ type ].split( ' ' ).map( function( method ) {
-        value = calendar[ method ]( type, value, options )
-        return value
-    }).pop()
-
-    // Check if we need to cascade through more updates.
-    if ( type == 'select' ) {
-        calendar.set( 'highlight', calendarItem.select, options )
-    }
-    else if ( type == 'highlight' ) {
-        calendar.set( 'view', calendarItem.highlight, options )
-    }
-    else if ( type.match( /^(flip|min|max|disable|enable)$/ ) ) {
-        if ( calendarItem.select && calendar.disabled( calendarItem.select ) ) {
-            calendar.set( 'select', calendarItem.select, options )
-        }
-        if ( calendarItem.highlight && calendar.disabled( calendarItem.highlight ) ) {
-            calendar.set( 'highlight', calendarItem.highlight, options )
-        }
-    }
-
-    return calendar
-} //DatePicker.prototype.set
-
-
-/**
- * Get a datepicker item object.
- */
-DatePicker.prototype.get = function( type ) {
-    return this.item[ type ]
-} //DatePicker.prototype.get
-
-
-/**
- * Create a picker date object.
- */
-DatePicker.prototype.create = function( type, value, options ) {
-
-    var isInfiniteValue,
-        calendar = this
-
-    // If there’s no value, use the type as the value.
-    value = value === undefined ? type : value
-
-
-    // If it’s infinity, update the value.
-    if ( value == -Infinity || value == Infinity ) {
-        isInfiniteValue = value
-    }
-
-    // If it’s an object, use the native date object.
-    else if ( $.isPlainObject( value ) && _.isInteger( value.pick ) ) {
-        value = value.obj
-    }
-
-    // If it’s an array, convert it into a date and make sure
-    // that it’s a valid date – otherwise default to today.
-    else if ( $.isArray( value ) ) {
-        value = new Date( value[ 0 ], value[ 1 ], value[ 2 ] )
-        value = _.isDate( value ) ? value : calendar.create().obj
-    }
-
-    // If it’s a number or date object, make a normalized date.
-    else if ( _.isInteger( value ) || _.isDate( value ) ) {
-        value = calendar.normalize( new Date( value ), options )
-    }
-
-    // If it’s a literal true or any other case, set it to now.
-    else /*if ( value === true )*/ {
-        value = calendar.now( type, value, options )
-    }
-
-    // Return the compiled object.
-    return {
-        year: isInfiniteValue || value.getFullYear(),
-        month: isInfiniteValue || value.getMonth(),
-        date: isInfiniteValue || value.getDate(),
-        day: isInfiniteValue || value.getDay(),
-        obj: isInfiniteValue || value,
-        pick: isInfiniteValue || value.getTime()
-    }
-} //DatePicker.prototype.create
-
-
-/**
- * Create a range limit object using an array, date object,
- * literal “true”, or integer relative to another time.
- */
-DatePicker.prototype.createRange = function( from, to ) {
-
-    var calendar = this,
-        createDate = function( date ) {
-            if ( date === true || $.isArray( date ) || _.isDate( date ) ) {
-                return calendar.create( date )
-            }
-            return date
-        }
-
-    // Create objects if possible.
-    if ( !_.isInteger( from ) ) {
-        from = createDate( from )
-    }
-    if ( !_.isInteger( to ) ) {
-        to = createDate( to )
-    }
-
-    // Create relative dates.
-    if ( _.isInteger( from ) && $.isPlainObject( to ) ) {
-        from = [ to.year, to.month, to.date + from ];
-    }
-    else if ( _.isInteger( to ) && $.isPlainObject( from ) ) {
-        to = [ from.year, from.month, from.date + to ];
-    }
-
-    return {
-        from: createDate( from ),
-        to: createDate( to )
-    }
-} //DatePicker.prototype.createRange
-
-
-/**
- * Check if a date unit falls within a date range object.
- */
-DatePicker.prototype.withinRange = function( range, dateUnit ) {
-    range = this.createRange(range.from, range.to)
-    return dateUnit.pick >= range.from.pick && dateUnit.pick <= range.to.pick
-}
-
-
-/**
- * Check if two date range objects overlap.
- */
-DatePicker.prototype.overlapRanges = function( one, two ) {
-
-    var calendar = this
-
-    // Convert the ranges into comparable dates.
-    one = calendar.createRange( one.from, one.to )
-    two = calendar.createRange( two.from, two.to )
-
-    return calendar.withinRange( one, two.from ) || calendar.withinRange( one, two.to ) ||
-        calendar.withinRange( two, one.from ) || calendar.withinRange( two, one.to )
-}
-
-
-/**
- * Get the date today.
- */
-DatePicker.prototype.now = function( type, value, options ) {
-    value = new Date()
-    if ( options && options.rel ) {
-        value.setDate( value.getDate() + options.rel )
-    }
-    return this.normalize( value, options )
-}
-
-
-/**
- * Navigate to next/prev month.
- */
-DatePicker.prototype.navigate = function( type, value, options ) {
-
-    var targetDateObject,
-        targetYear,
-        targetMonth,
-        targetDate,
-        isTargetArray = $.isArray( value ),
-        isTargetObject = $.isPlainObject( value ),
-        viewsetObject = this.item.view/*,
-        safety = 100*/
-
-
-    if ( isTargetArray || isTargetObject ) {
-
-        if ( isTargetObject ) {
-            targetYear = value.year
-            targetMonth = value.month
-            targetDate = value.date
-        }
-        else {
-            targetYear = +value[0]
-            targetMonth = +value[1]
-            targetDate = +value[2]
-        }
-
-        // If we’re navigating months but the view is in a different
-        // month, navigate to the view’s year and month.
-        if ( options && options.nav && viewsetObject && viewsetObject.month !== targetMonth ) {
-            targetYear = viewsetObject.year
-            targetMonth = viewsetObject.month
-        }
-
-        // Figure out the expected target year and month.
-        targetDateObject = new Date( targetYear, targetMonth + ( options && options.nav ? options.nav : 0 ), 1 )
-        targetYear = targetDateObject.getFullYear()
-        targetMonth = targetDateObject.getMonth()
-
-        // If the month we’re going to doesn’t have enough days,
-        // keep decreasing the date until we reach the month’s last date.
-        while ( /*safety &&*/ new Date( targetYear, targetMonth, targetDate ).getMonth() !== targetMonth ) {
-            targetDate -= 1
-            /*safety -= 1
-            if ( !safety ) {
-                throw 'Fell into an infinite loop while navigating to ' + new Date( targetYear, targetMonth, targetDate ) + '.'
-            }*/
-        }
-
-        value = [ targetYear, targetMonth, targetDate ]
-    }
-
-    return value
-} //DatePicker.prototype.navigate
-
-
-/**
- * Normalize a date by setting the hours to midnight.
- */
-DatePicker.prototype.normalize = function( value/*, options*/ ) {
-    value.setHours( 0, 0, 0, 0 )
-    return value
-}
-
-
-/**
- * Measure the range of dates.
- */
-DatePicker.prototype.measure = function( type, value/*, options*/ ) {
-
-    var calendar = this
-
-    // If it’s anything false-y, remove the limits.
-    if ( !value ) {
-        value = type == 'min' ? -Infinity : Infinity
-    }
-
-    // If it’s a string, parse it.
-    else if ( typeof value == 'string' ) {
-        value = calendar.parse( type, value )
-    }
-
-    // If it's an integer, get a date relative to today.
-    else if ( _.isInteger( value ) ) {
-        value = calendar.now( type, value, { rel: value } )
-    }
-
-    return value
-} ///DatePicker.prototype.measure
-
-
-/**
- * Create a viewset object based on navigation.
- */
-DatePicker.prototype.viewset = function( type, dateObject/*, options*/ ) {
-    return this.create([ dateObject.year, dateObject.month, 1 ])
-}
-
-
-/**
- * Validate a date as enabled and shift if needed.
- */
-DatePicker.prototype.validate = function( type, dateObject, options ) {
-
-    var calendar = this,
-
-        // Keep a reference to the original date.
-        originalDateObject = dateObject,
-
-        // Make sure we have an interval.
-        interval = options && options.interval ? options.interval : 1,
-
-        // Check if the calendar enabled dates are inverted.
-        isFlippedBase = calendar.item.enable === -1,
-
-        // Check if we have any enabled dates after/before now.
-        hasEnabledBeforeTarget, hasEnabledAfterTarget,
-
-        // The min & max limits.
-        minLimitObject = calendar.item.min,
-        maxLimitObject = calendar.item.max,
-
-        // Check if we’ve reached the limit during shifting.
-        reachedMin, reachedMax,
-
-        // Check if the calendar is inverted and at least one weekday is enabled.
-        hasEnabledWeekdays = isFlippedBase && calendar.item.disable.filter( function( value ) {
-
-            // If there’s a date, check where it is relative to the target.
-            if ( $.isArray( value ) ) {
-                var dateTime = calendar.create( value ).pick
-                if ( dateTime < dateObject.pick ) hasEnabledBeforeTarget = true
-                else if ( dateTime > dateObject.pick ) hasEnabledAfterTarget = true
-            }
-
-            // Return only integers for enabled weekdays.
-            return _.isInteger( value )
-        }).length/*,
-
-        safety = 100*/
-
-
-
-    // Cases to validate for:
-    // [1] Not inverted and date disabled.
-    // [2] Inverted and some dates enabled.
-    // [3] Not inverted and out of range.
-    //
-    // Cases to **not** validate for:
-    // • Navigating months.
-    // • Not inverted and date enabled.
-    // • Inverted and all dates disabled.
-    // • ..and anything else.
-    if ( !options || !options.nav ) if (
-        /* 1 */ ( !isFlippedBase && calendar.disabled( dateObject ) ) ||
-        /* 2 */ ( isFlippedBase && calendar.disabled( dateObject ) && ( hasEnabledWeekdays || hasEnabledBeforeTarget || hasEnabledAfterTarget ) ) ||
-        /* 3 */ ( !isFlippedBase && (dateObject.pick <= minLimitObject.pick || dateObject.pick >= maxLimitObject.pick) )
-    ) {
-
-
-        // When inverted, flip the direction if there aren’t any enabled weekdays
-        // and there are no enabled dates in the direction of the interval.
-        if ( isFlippedBase && !hasEnabledWeekdays && ( ( !hasEnabledAfterTarget && interval > 0 ) || ( !hasEnabledBeforeTarget && interval < 0 ) ) ) {
-            interval *= -1
-        }
-
-
-        // Keep looping until we reach an enabled date.
-        while ( /*safety &&*/ calendar.disabled( dateObject ) ) {
-
-            /*safety -= 1
-            if ( !safety ) {
-                throw 'Fell into an infinite loop while validating ' + dateObject.obj + '.'
-            }*/
-
-
-            // If we’ve looped into the next/prev month with a large interval, return to the original date and flatten the interval.
-            if ( Math.abs( interval ) > 1 && ( dateObject.month < originalDateObject.month || dateObject.month > originalDateObject.month ) ) {
-                dateObject = originalDateObject
-                interval = interval > 0 ? 1 : -1
-            }
-
-
-            // If we’ve reached the min/max limit, reverse the direction, flatten the interval and set it to the limit.
-            if ( dateObject.pick <= minLimitObject.pick ) {
-                reachedMin = true
-                interval = 1
-                dateObject = calendar.create([
-                    minLimitObject.year,
-                    minLimitObject.month,
-                    minLimitObject.date + (dateObject.pick === minLimitObject.pick ? 0 : -1)
-                ])
-            }
-            else if ( dateObject.pick >= maxLimitObject.pick ) {
-                reachedMax = true
-                interval = -1
-                dateObject = calendar.create([
-                    maxLimitObject.year,
-                    maxLimitObject.month,
-                    maxLimitObject.date + (dateObject.pick === maxLimitObject.pick ? 0 : 1)
-                ])
-            }
-
-
-            // If we’ve reached both limits, just break out of the loop.
-            if ( reachedMin && reachedMax ) {
-                break
-            }
-
-
-            // Finally, create the shifted date using the interval and keep looping.
-            dateObject = calendar.create([ dateObject.year, dateObject.month, dateObject.date + interval ])
-        }
-
-    } //endif
-
-
-    // Return the date object settled on.
-    return dateObject
-} //DatePicker.prototype.validate
-
-
-/**
- * Check if a date is disabled.
- */
-DatePicker.prototype.disabled = function( dateToVerify ) {
-
-    var
-        calendar = this,
-
-        // Filter through the disabled dates to check if this is one.
-        isDisabledMatch = calendar.item.disable.filter( function( dateToDisable ) {
-
-            // If the date is a number, match the weekday with 0index and `firstDay` check.
-            if ( _.isInteger( dateToDisable ) ) {
-                return dateToVerify.day === ( calendar.settings.firstDay ? dateToDisable : dateToDisable - 1 ) % 7
-            }
-
-            // If it’s an array or a native JS date, create and match the exact date.
-            if ( $.isArray( dateToDisable ) || _.isDate( dateToDisable ) ) {
-                return dateToVerify.pick === calendar.create( dateToDisable ).pick
-            }
-
-            // If it’s an object, match a date within the “from” and “to” range.
-            if ( $.isPlainObject( dateToDisable ) ) {
-                return calendar.withinRange( dateToDisable, dateToVerify )
-            }
-        })
-
-    // If this date matches a disabled date, confirm it’s not inverted.
-    isDisabledMatch = isDisabledMatch.length && !isDisabledMatch.filter(function( dateToDisable ) {
-        return $.isArray( dateToDisable ) && dateToDisable[3] == 'inverted' ||
-            $.isPlainObject( dateToDisable ) && dateToDisable.inverted
-    }).length
-
-    // Check the calendar “enabled” flag and respectively flip the
-    // disabled state. Then also check if it’s beyond the min/max limits.
-    return calendar.item.enable === -1 ? !isDisabledMatch : isDisabledMatch ||
-        dateToVerify.pick < calendar.item.min.pick ||
-        dateToVerify.pick > calendar.item.max.pick
-
-} //DatePicker.prototype.disabled
-
-
-/**
- * Parse a string into a usable type.
- */
-DatePicker.prototype.parse = function( type, value, options ) {
-
-    var calendar = this,
-        parsingObject = {}
-
-    // If it’s already parsed, we’re good.
-    if ( !value || typeof value != 'string' ) {
-        return value
-    }
-
-    // We need a `.format` to parse the value with.
-    if ( !( options && options.format ) ) {
-        options = options || {}
-        options.format = calendar.settings.format
-    }
-
-    // Convert the format into an array and then map through it.
-    calendar.formats.toArray( options.format ).map( function( label ) {
-
-        var
-            // Grab the formatting label.
-            formattingLabel = calendar.formats[ label ],
-
-            // The format length is from the formatting label function or the
-            // label length without the escaping exclamation (!) mark.
-            formatLength = formattingLabel ? _.trigger( formattingLabel, calendar, [ value, parsingObject ] ) : label.replace( /^!/, '' ).length
-
-        // If there's a format label, split the value up to the format length.
-        // Then add it to the parsing object with appropriate label.
-        if ( formattingLabel ) {
-            parsingObject[ label ] = value.substr( 0, formatLength )
-        }
-
-        // Update the value as the substring from format length to end.
-        value = value.substr( formatLength )
-    })
-
-    // Compensate for month 0index.
-    return [
-        parsingObject.yyyy || parsingObject.yy,
-        +( parsingObject.mm || parsingObject.m ) - 1,
-        parsingObject.dd || parsingObject.d
-    ]
-} //DatePicker.prototype.parse
-
-
-/**
- * Various formats to display the object in.
- */
-DatePicker.prototype.formats = (function() {
-
-    // Return the length of the first word in a collection.
-    function getWordLengthFromCollection( string, collection, dateObject ) {
-
-        // Grab the first word from the string.
-        var word = string.match( /\w+/ )[ 0 ]
-
-        // If there's no month index, add it to the date object
-        if ( !dateObject.mm && !dateObject.m ) {
-            dateObject.m = collection.indexOf( word ) + 1
-        }
-
-        // Return the length of the word.
-        return word.length
-    }
-
-    // Get the length of the first word in a string.
-    function getFirstWordLength( string ) {
-        return string.match( /\w+/ )[ 0 ].length
-    }
-
-    return {
-
-        d: function( string, dateObject ) {
-
-            // If there's string, then get the digits length.
-            // Otherwise return the selected date.
-            return string ? _.digits( string ) : dateObject.date
-        },
-        dd: function( string, dateObject ) {
-
-            // If there's a string, then the length is always 2.
-            // Otherwise return the selected date with a leading zero.
-            return string ? 2 : _.lead( dateObject.date )
-        },
-        ddd: function( string, dateObject ) {
-
-            // If there's a string, then get the length of the first word.
-            // Otherwise return the short selected weekday.
-            return string ? getFirstWordLength( string ) : this.settings.weekdaysShort[ dateObject.day ]
-        },
-        dddd: function( string, dateObject ) {
-
-            // If there's a string, then get the length of the first word.
-            // Otherwise return the full selected weekday.
-            return string ? getFirstWordLength( string ) : this.settings.weekdaysFull[ dateObject.day ]
-        },
-        m: function( string, dateObject ) {
-
-            // If there's a string, then get the length of the digits
-            // Otherwise return the selected month with 0index compensation.
-            return string ? _.digits( string ) : dateObject.month + 1
-        },
-        mm: function( string, dateObject ) {
-
-            // If there's a string, then the length is always 2.
-            // Otherwise return the selected month with 0index and leading zero.
-            return string ? 2 : _.lead( dateObject.month + 1 )
-        },
-        mmm: function( string, dateObject ) {
-
-            var collection = this.settings.monthsShort
-
-            // If there's a string, get length of the relevant month from the short
-            // months collection. Otherwise return the selected month from that collection.
-            return string ? getWordLengthFromCollection( string, collection, dateObject ) : collection[ dateObject.month ]
-        },
-        mmmm: function( string, dateObject ) {
-
-            var collection = this.settings.monthsFull
-
-            // If there's a string, get length of the relevant month from the full
-            // months collection. Otherwise return the selected month from that collection.
-            return string ? getWordLengthFromCollection( string, collection, dateObject ) : collection[ dateObject.month ]
-        },
-        yy: function( string, dateObject ) {
-
-            // If there's a string, then the length is always 2.
-            // Otherwise return the selected year by slicing out the first 2 digits.
-            return string ? 2 : ( '' + dateObject.year ).slice( 2 )
-        },
-        yyyy: function( string, dateObject ) {
-
-            // If there's a string, then the length is always 4.
-            // Otherwise return the selected year.
-            return string ? 4 : dateObject.year
-        },
-
-        // Create an array by splitting the formatting string passed.
-        toArray: function( formatString ) { return formatString.split( /(d{1,4}|m{1,4}|y{4}|yy|!.)/g ) },
-
-        // Format an object into a string using the formatting options.
-        toString: function ( formatString, itemObject ) {
-            var calendar = this
-            return calendar.formats.toArray( formatString ).map( function( label ) {
-                return _.trigger( calendar.formats[ label ], calendar, [ 0, itemObject ] ) || label.replace( /^!/, '' )
-            }).join( '' )
-        }
-    }
-})() //DatePicker.prototype.formats
-
-
-
-
-/**
- * Check if two date units are the exact.
- */
-DatePicker.prototype.isDateExact = function( one, two ) {
-
-    var calendar = this
-
-    // When we’re working with weekdays, do a direct comparison.
-    if (
-        ( _.isInteger( one ) && _.isInteger( two ) ) ||
-        ( typeof one == 'boolean' && typeof two == 'boolean' )
-     ) {
-        return one === two
-    }
-
-    // When we’re working with date representations, compare the “pick” value.
-    if (
-        ( _.isDate( one ) || $.isArray( one ) ) &&
-        ( _.isDate( two ) || $.isArray( two ) )
-    ) {
-        return calendar.create( one ).pick === calendar.create( two ).pick
-    }
-
-    // When we’re working with range objects, compare the “from” and “to”.
-    if ( $.isPlainObject( one ) && $.isPlainObject( two ) ) {
-        return calendar.isDateExact( one.from, two.from ) && calendar.isDateExact( one.to, two.to )
-    }
-
-    return false
-}
-
-
-/**
- * Check if two date units overlap.
- */
-DatePicker.prototype.isDateOverlap = function( one, two ) {
-
-    var calendar = this,
-        firstDay = calendar.settings.firstDay ? 1 : 0
-
-    // When we’re working with a weekday index, compare the days.
-    if ( _.isInteger( one ) && ( _.isDate( two ) || $.isArray( two ) ) ) {
-        one = one % 7 + firstDay
-        return one === calendar.create( two ).day + 1
-    }
-    if ( _.isInteger( two ) && ( _.isDate( one ) || $.isArray( one ) ) ) {
-        two = two % 7 + firstDay
-        return two === calendar.create( one ).day + 1
-    }
-
-    // When we’re working with range objects, check if the ranges overlap.
-    if ( $.isPlainObject( one ) && $.isPlainObject( two ) ) {
-        return calendar.overlapRanges( one, two )
-    }
-
-    return false
-}
-
-
-/**
- * Flip the “enabled” state.
- */
-DatePicker.prototype.flipEnable = function(val) {
-    var itemObject = this.item
-    itemObject.enable = val || (itemObject.enable == -1 ? 1 : -1)
-}
-
-
-/**
- * Mark a collection of dates as “disabled”.
- */
-DatePicker.prototype.deactivate = function( type, datesToDisable ) {
-
-    var calendar = this,
-        disabledItems = calendar.item.disable.slice(0)
-
-
-    // If we’re flipping, that’s all we need to do.
-    if ( datesToDisable == 'flip' ) {
-        calendar.flipEnable()
-    }
-
-    else if ( datesToDisable === false ) {
-        calendar.flipEnable(1)
-        disabledItems = []
-    }
-
-    else if ( datesToDisable === true ) {
-        calendar.flipEnable(-1)
-        disabledItems = []
-    }
-
-    // Otherwise go through the dates to disable.
-    else {
-
-        datesToDisable.map(function( unitToDisable ) {
-
-            var matchFound
-
-            // When we have disabled items, check for matches.
-            // If something is matched, immediately break out.
-            for ( var index = 0; index < disabledItems.length; index += 1 ) {
-                if ( calendar.isDateExact( unitToDisable, disabledItems[index] ) ) {
-                    matchFound = true
-                    break
-                }
-            }
-
-            // If nothing was found, add the validated unit to the collection.
-            if ( !matchFound ) {
-                if (
-                    _.isInteger( unitToDisable ) ||
-                    _.isDate( unitToDisable ) ||
-                    $.isArray( unitToDisable ) ||
-                    ( $.isPlainObject( unitToDisable ) && unitToDisable.from && unitToDisable.to )
-                ) {
-                    disabledItems.push( unitToDisable )
-                }
-            }
-        })
-    }
-
-    // Return the updated collection.
-    return disabledItems
-} //DatePicker.prototype.deactivate
-
-
-/**
- * Mark a collection of dates as “enabled”.
- */
-DatePicker.prototype.activate = function( type, datesToEnable ) {
-
-    var calendar = this,
-        disabledItems = calendar.item.disable,
-        disabledItemsCount = disabledItems.length
-
-    // If we’re flipping, that’s all we need to do.
-    if ( datesToEnable == 'flip' ) {
-        calendar.flipEnable()
-    }
-
-    else if ( datesToEnable === true ) {
-        calendar.flipEnable(1)
-        disabledItems = []
-    }
-
-    else if ( datesToEnable === false ) {
-        calendar.flipEnable(-1)
-        disabledItems = []
-    }
-
-    // Otherwise go through the disabled dates.
-    else {
-
-        datesToEnable.map(function( unitToEnable ) {
-
-            var matchFound,
-                disabledUnit,
-                index,
-                isExactRange
-
-            // Go through the disabled items and try to find a match.
-            for ( index = 0; index < disabledItemsCount; index += 1 ) {
-
-                disabledUnit = disabledItems[index]
-
-                // When an exact match is found, remove it from the collection.
-                if ( calendar.isDateExact( disabledUnit, unitToEnable ) ) {
-                    matchFound = disabledItems[index] = null
-                    isExactRange = true
-                    break
-                }
-
-                // When an overlapped match is found, add the “inverted” state to it.
-                else if ( calendar.isDateOverlap( disabledUnit, unitToEnable ) ) {
-                    if ( $.isPlainObject( unitToEnable ) ) {
-                        unitToEnable.inverted = true
-                        matchFound = unitToEnable
-                    }
-                    else if ( $.isArray( unitToEnable ) ) {
-                        matchFound = unitToEnable
-                        if ( !matchFound[3] ) matchFound.push( 'inverted' )
-                    }
-                    else if ( _.isDate( unitToEnable ) ) {
-                        matchFound = [ unitToEnable.getFullYear(), unitToEnable.getMonth(), unitToEnable.getDate(), 'inverted' ]
-                    }
-                    break
-                }
-            }
-
-            // If a match was found, remove a previous duplicate entry.
-            if ( matchFound ) for ( index = 0; index < disabledItemsCount; index += 1 ) {
-                if ( calendar.isDateExact( disabledItems[index], unitToEnable ) ) {
-                    disabledItems[index] = null
-                    break
-                }
-            }
-
-            // In the event that we’re dealing with an exact range of dates,
-            // make sure there are no “inverted” dates because of it.
-            if ( isExactRange ) for ( index = 0; index < disabledItemsCount; index += 1 ) {
-                if ( calendar.isDateOverlap( disabledItems[index], unitToEnable ) ) {
-                    disabledItems[index] = null
-                    break
-                }
-            }
-
-            // If something is still matched, add it into the collection.
-            if ( matchFound ) {
-                disabledItems.push( matchFound )
-            }
-        })
-    }
-
-    // Return the updated collection.
-    return disabledItems.filter(function( val ) { return val != null })
-} //DatePicker.prototype.activate
-
-
-/**
- * Create a string for the nodes in the picker.
- */
-DatePicker.prototype.nodes = function( isOpen ) {
-
-    var
-        calendar = this,
-        settings = calendar.settings,
-        calendarItem = calendar.item,
-        nowObject = calendarItem.now,
-        selectedObject = calendarItem.select,
-        highlightedObject = calendarItem.highlight,
-        viewsetObject = calendarItem.view,
-        disabledCollection = calendarItem.disable,
-        minLimitObject = calendarItem.min,
-        maxLimitObject = calendarItem.max,
-
-
-        // Create the calendar table head using a copy of weekday labels collection.
-        // * We do a copy so we don't mutate the original array.
-        tableHead = (function( collection, fullCollection ) {
-
-            // If the first day should be Monday, move Sunday to the end.
-            if ( settings.firstDay ) {
-                collection.push( collection.shift() )
-                fullCollection.push( fullCollection.shift() )
-            }
-
-            // Create and return the table head group.
-            return _.node(
-                'thead',
-                _.node(
-                    'tr',
-                    _.group({
-                        min: 0,
-                        max: DAYS_IN_WEEK - 1,
-                        i: 1,
-                        node: 'th',
-                        item: function( counter ) {
-                            return [
-                                collection[ counter ],
-                                settings.klass.weekdays,
-                                'scope=col title="' + fullCollection[ counter ] + '"'
-                            ]
-                        }
-                    })
-                )
-            ) //endreturn
-
-        // Materialize modified
-        })( ( settings.showWeekdaysFull ? settings.weekdaysFull : settings.weekdaysLetter ).slice( 0 ), settings.weekdaysFull.slice( 0 ) ), //tableHead
-
-
-        // Create the nav for next/prev month.
-        createMonthNav = function( next ) {
-
-            // Otherwise, return the created month tag.
-            return _.node(
-                'div',
-                ' ',
-                settings.klass[ 'nav' + ( next ? 'Next' : 'Prev' ) ] + (
-
-                    // If the focused month is outside the range, disabled the button.
-                    ( next && viewsetObject.year >= maxLimitObject.year && viewsetObject.month >= maxLimitObject.month ) ||
-                    ( !next && viewsetObject.year <= minLimitObject.year && viewsetObject.month <= minLimitObject.month ) ?
-                    ' ' + settings.klass.navDisabled : ''
-                ),
-                'data-nav=' + ( next || -1 ) + ' ' +
-                _.ariaAttr({
-                    role: 'button',
-                    controls: calendar.$node[0].id + '_table'
-                }) + ' ' +
-                'title="' + (next ? settings.labelMonthNext : settings.labelMonthPrev ) + '"'
-            ) //endreturn
-        }, //createMonthNav
-
-
-        // Create the month label.
-        //Materialize modified
-        createMonthLabel = function(override) {
-
-            var monthsCollection = settings.showMonthsShort ? settings.monthsShort : settings.monthsFull
-
-             // Materialize modified
-            if (override == "short_months") {
-              monthsCollection = settings.monthsShort;
-            }
-
-            // If there are months to select, add a dropdown menu.
-            if ( settings.selectMonths  && override == undefined) {
-
-                return _.node( 'select',
-                    _.group({
-                        min: 0,
-                        max: 11,
-                        i: 1,
-                        node: 'option',
-                        item: function( loopedMonth ) {
-
-                            return [
-
-                                // The looped month and no classes.
-                                monthsCollection[ loopedMonth ], 0,
-
-                                // Set the value and selected index.
-                                'value=' + loopedMonth +
-                                ( viewsetObject.month == loopedMonth ? ' selected' : '' ) +
-                                (
-                                    (
-                                        ( viewsetObject.year == minLimitObject.year && loopedMonth < minLimitObject.month ) ||
-                                        ( viewsetObject.year == maxLimitObject.year && loopedMonth > maxLimitObject.month )
-                                    ) ?
-                                    ' disabled' : ''
-                                )
-                            ]
-                        }
-                    }),
-                    settings.klass.selectMonth + ' browser-default',
-                    ( isOpen ? '' : 'disabled' ) + ' ' +
-                    _.ariaAttr({ controls: calendar.$node[0].id + '_table' }) + ' ' +
-                    'title="' + settings.labelMonthSelect + '"'
-                )
-            }
-
-            // Materialize modified
-            if (override == "short_months")
-                if (selectedObject != null)
-                return _.node( 'div', monthsCollection[ selectedObject.month ] );
-                else return _.node( 'div', monthsCollection[ viewsetObject.month ] );
-
-            // If there's a need for a month selector
-            return _.node( 'div', monthsCollection[ viewsetObject.month ], settings.klass.month )
-        }, //createMonthLabel
-
-
-        // Create the year label.
-        // Materialize modified
-        createYearLabel = function(override) {
-
-            var focusedYear = viewsetObject.year,
-
-            // If years selector is set to a literal "true", set it to 5. Otherwise
-            // divide in half to get half before and half after focused year.
-            numberYears = settings.selectYears === true ? 5 : ~~( settings.selectYears / 2 )
-
-            // If there are years to select, add a dropdown menu.
-            if ( numberYears ) {
-
-                var
-                    minYear = minLimitObject.year,
-                    maxYear = maxLimitObject.year,
-                    lowestYear = focusedYear - numberYears,
-                    highestYear = focusedYear + numberYears
-
-                // If the min year is greater than the lowest year, increase the highest year
-                // by the difference and set the lowest year to the min year.
-                if ( minYear > lowestYear ) {
-                    highestYear += minYear - lowestYear
-                    lowestYear = minYear
-                }
-
-                // If the max year is less than the highest year, decrease the lowest year
-                // by the lower of the two: available and needed years. Then set the
-                // highest year to the max year.
-                if ( maxYear < highestYear ) {
-
-                    var availableYears = lowestYear - minYear,
-                        neededYears = highestYear - maxYear
-
-                    lowestYear -= availableYears > neededYears ? neededYears : availableYears
-                    highestYear = maxYear
-                }
-
-                if ( settings.selectYears  && override == undefined ) {
-                    return _.node( 'select',
-                        _.group({
-                            min: lowestYear,
-                            max: highestYear,
-                            i: 1,
-                            node: 'option',
-                            item: function( loopedYear ) {
-                                return [
-
-                                    // The looped year and no classes.
-                                    loopedYear, 0,
-
-                                    // Set the value and selected index.
-                                    'value=' + loopedYear + ( focusedYear == loopedYear ? ' selected' : '' )
-                                ]
-                            }
-                        }),
-                        settings.klass.selectYear + ' browser-default',
-                        ( isOpen ? '' : 'disabled' ) + ' ' + _.ariaAttr({ controls: calendar.$node[0].id + '_table' }) + ' ' +
-                        'title="' + settings.labelYearSelect + '"'
-                    )
-                }
-            }
-
-            // Materialize modified
-            if (override == "raw")
-                return _.node( 'div', focusedYear )
-
-            // Otherwise just return the year focused
-            return _.node( 'div', focusedYear, settings.klass.year )
-        } //createYearLabel
-
-
-        // Materialize modified
-        createDayLabel = function() {
-                if (selectedObject != null)
-                    return _.node( 'div', selectedObject.date)
-                else return _.node( 'div', nowObject.date)
-            }
-        createWeekdayLabel = function() {
-            var display_day;
-
-            if (selectedObject != null)
-                display_day = selectedObject.day;
-            else
-                display_day = nowObject.day;
-            var weekday = settings.weekdaysFull[ display_day ]
-            return weekday
-        }
-
-
-    // Create and return the entire calendar.
-return _.node(
-        // Date presentation View
-        'div',
-            _.node(
-                'div',
-                createWeekdayLabel(),
-                "picker__weekday-display"
-            )+
-            _.node(
-                // Div for short Month
-                'div',
-                createMonthLabel("short_months"),
-                settings.klass.month_display
-            )+
-            _.node(
-                // Div for Day
-                'div',
-                createDayLabel() ,
-                settings.klass.day_display
-            )+
-            _.node(
-                // Div for Year
-                'div',
-                createYearLabel("raw") ,
-                settings.klass.year_display
-            ),
-        settings.klass.date_display
-    )+
-    // Calendar container
-    _.node('div',
-        _.node('div',
-        ( settings.selectYears ?  createMonthLabel() + createYearLabel() : createMonthLabel() + createYearLabel() ) +
-        createMonthNav() + createMonthNav( 1 ),
-        settings.klass.header
-    ) + _.node(
-        'table',
-        tableHead +
-        _.node(
-            'tbody',
-            _.group({
-                min: 0,
-                max: WEEKS_IN_CALENDAR - 1,
-                i: 1,
-                node: 'tr',
-                item: function( rowCounter ) {
-
-                    // If Monday is the first day and the month starts on Sunday, shift the date back a week.
-                    var shiftDateBy = settings.firstDay && calendar.create([ viewsetObject.year, viewsetObject.month, 1 ]).day === 0 ? -7 : 0
-
-                    return [
-                        _.group({
-                            min: DAYS_IN_WEEK * rowCounter - viewsetObject.day + shiftDateBy + 1, // Add 1 for weekday 0index
-                            max: function() {
-                                return this.min + DAYS_IN_WEEK - 1
-                            },
-                            i: 1,
-                            node: 'td',
-                            item: function( targetDate ) {
-
-                                // Convert the time date from a relative date to a target date.
-                                targetDate = calendar.create([ viewsetObject.year, viewsetObject.month, targetDate + ( settings.firstDay ? 1 : 0 ) ])
-
-                                var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
-                                    isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
-                                    isDisabled = disabledCollection && calendar.disabled( targetDate ) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
-                                    formattedDate = _.trigger( calendar.formats.toString, calendar, [ settings.format, targetDate ] )
-
-                                return [
-                                    _.node(
-                                        'div',
-                                        targetDate.date,
-                                        (function( klasses ) {
-
-                                            // Add the `infocus` or `outfocus` classes based on month in view.
-                                            klasses.push( viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus )
-
-                                            // Add the `today` class if needed.
-                                            if ( nowObject.pick == targetDate.pick ) {
-                                                klasses.push( settings.klass.now )
-                                            }
-
-                                            // Add the `selected` class if something's selected and the time matches.
-                                            if ( isSelected ) {
-                                                klasses.push( settings.klass.selected )
-                                            }
-
-                                            // Add the `highlighted` class if something's highlighted and the time matches.
-                                            if ( isHighlighted ) {
-                                                klasses.push( settings.klass.highlighted )
-                                            }
-
-                                            // Add the `disabled` class if something's disabled and the object matches.
-                                            if ( isDisabled ) {
-                                                klasses.push( settings.klass.disabled )
-                                            }
-
-                                            return klasses.join( ' ' )
-                                        })([ settings.klass.day ]),
-                                        'data-pick=' + targetDate.pick + ' ' + _.ariaAttr({
-                                            role: 'gridcell',
-                                            label: formattedDate,
-                                            selected: isSelected && calendar.$node.val() === formattedDate ? true : null,
-                                            activedescendant: isHighlighted ? true : null,
-                                            disabled: isDisabled ? true : null
-                                        })
-                                    ),
-                                    '',
-                                    _.ariaAttr({ role: 'presentation' })
-                                ] //endreturn
-                            }
-                        })
-                    ] //endreturn
-                }
-            })
-        ),
-        settings.klass.table,
-        'id="' + calendar.$node[0].id + '_table' + '" ' + _.ariaAttr({
-            role: 'grid',
-            controls: calendar.$node[0].id,
-            readonly: true
-        })
-    )
-    , settings.klass.calendar_container) // end calendar
-
-     +
-
-    // * For Firefox forms to submit, make sure to set the buttons’ `type` attributes as “button”.
-    _.node(
-        'div',
-        _.node( 'button', settings.today, "btn-flat picker__today",
-            'type=button data-pick=' + nowObject.pick +
-            ( isOpen && !calendar.disabled(nowObject) ? '' : ' disabled' ) + ' ' +
-            _.ariaAttr({ controls: calendar.$node[0].id }) ) +
-        _.node( 'button', settings.clear, "btn-flat picker__clear",
-            'type=button data-clear=1' +
-            ( isOpen ? '' : ' disabled' ) + ' ' +
-            _.ariaAttr({ controls: calendar.$node[0].id }) ) +
-        _.node('button', settings.close, "btn-flat picker__close",
-            'type=button data-close=true ' +
-            ( isOpen ? '' : ' disabled' ) + ' ' +
-            _.ariaAttr({ controls: calendar.$node[0].id }) ),
-        settings.klass.footer
-    ) //endreturn
-} //DatePicker.prototype.nodes
-
-
-
-
-/**
- * The date picker defaults.
- */
-DatePicker.defaults = (function( prefix ) {
-
-    return {
-
-        // The title label to use for the month nav buttons
-        labelMonthNext: 'Next month',
-        labelMonthPrev: 'Previous month',
-
-        // The title label to use for the dropdown selectors
-        labelMonthSelect: 'Select a month',
-        labelYearSelect: 'Select a year',
-
-        // Months and weekdays
-        monthsFull: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ],
-        monthsShort: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
-        weekdaysFull: [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ],
-        weekdaysShort: [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
-
-        // Materialize modified
-        weekdaysLetter: [ 'S', 'M', 'T', 'W', 'T', 'F', 'S' ],
-
-        // Today and clear
-        today: 'Today',
-        clear: 'Clear',
-        close: 'Close',
-
-        // The format to show on the `input` element
-        format: 'd mmmm, yyyy',
-
-        // Classes
-        klass: {
-
-            table: prefix + 'table',
-
-            header: prefix + 'header',
-
-
-            // Materialize Added klasses
-            date_display: prefix + 'date-display',
-            day_display: prefix + 'day-display',
-            month_display: prefix + 'month-display',
-            year_display: prefix + 'year-display',
-            calendar_container: prefix + 'calendar-container',
-            // end
-
-
-
-            navPrev: prefix + 'nav--prev',
-            navNext: prefix + 'nav--next',
-            navDisabled: prefix + 'nav--disabled',
-
-            month: prefix + 'month',
-            year: prefix + 'year',
-
-            selectMonth: prefix + 'select--month',
-            selectYear: prefix + 'select--year',
-
-            weekdays: prefix + 'weekday',
-
-            day: prefix + 'day',
-            disabled: prefix + 'day--disabled',
-            selected: prefix + 'day--selected',
-            highlighted: prefix + 'day--highlighted',
-            now: prefix + 'day--today',
-            infocus: prefix + 'day--infocus',
-            outfocus: prefix + 'day--outfocus',
-
-            footer: prefix + 'footer',
-
-            buttonClear: prefix + 'button--clear',
-            buttonToday: prefix + 'button--today',
-            buttonClose: prefix + 'button--close'
-        }
-    }
-})( Picker.klasses().picker + '__' )
-
-
-
-
-
-/**
- * Extend the picker to add the date picker.
- */
-Picker.extend( 'pickadate', DatePicker )
-
-
-}));
-
-
-
-/*!
- * pickadate.js v3.5.0, 2014/04/13
- * By Amsul, http://amsul.ca
- * Hosted on http://amsul.github.io/pickadate.js
- * Licensed under MIT
- */
-
-(function ( factory ) {
-
-    // AMD.
-    if ( typeof define == 'function' && define.amd )
-        define( 'picker', ['jquery'], factory )
-
-    // Node.js/browserify.
-    else if ( typeof exports == 'object' )
-        module.exports = factory( require('jquery') )
-
-    // Browser globals.
-    else this.Picker = factory( jQuery )
-
-}(function( $ ) {
-
-var $window = $( window )
-var $document = $( document )
-var $html = $( document.documentElement )
-
-
-/**
- * The picker constructor that creates a blank picker.
- */
-function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
-
-    // If there’s no element, return the picker constructor.
-    if ( !ELEMENT ) return PickerConstructor
-
-
-    var
-        IS_DEFAULT_THEME = false,
-
-
-        // The state of the picker.
-        STATE = {
-            id: ELEMENT.id || 'P' + Math.abs( ~~(Math.random() * new Date()) )
-        },
-
-
-        // Merge the defaults and options passed.
-        SETTINGS = COMPONENT ? $.extend( true, {}, COMPONENT.defaults, OPTIONS ) : OPTIONS || {},
-
-
-        // Merge the default classes with the settings classes.
-        CLASSES = $.extend( {}, PickerConstructor.klasses(), SETTINGS.klass ),
-
-
-        // The element node wrapper into a jQuery object.
-        $ELEMENT = $( ELEMENT ),
-
-
-        // Pseudo picker constructor.
-        PickerInstance = function() {
-            return this.start()
-        },
-
-
-        // The picker prototype.
-        P = PickerInstance.prototype = {
-
-            constructor: PickerInstance,
-
-            $node: $ELEMENT,
-
-
-            /**
-             * Initialize everything
-             */
-            start: function() {
-
-                // If it’s already started, do nothing.
-                if ( STATE && STATE.start ) return P
-
-
-                // Update the picker states.
-                STATE.methods = {}
-                STATE.start = true
-                STATE.open = false
-                STATE.type = ELEMENT.type
-
-
-                // Confirm focus state, convert into text input to remove UA stylings,
-                // and set as readonly to prevent keyboard popup.
-                ELEMENT.autofocus = ELEMENT == getActiveElement()
-                ELEMENT.readOnly = !SETTINGS.editable
-                ELEMENT.id = ELEMENT.id || STATE.id
-                if ( ELEMENT.type != 'text' ) {
-                    ELEMENT.type = 'text'
-                }
-
-
-                // Create a new picker component with the settings.
-                P.component = new COMPONENT(P, SETTINGS)
-
-
-                // Create the picker root with a holder and then prepare it.
-                P.$root = $( PickerConstructor._.node('div', createWrappedComponent(), CLASSES.picker, 'id="' + ELEMENT.id + '_root" tabindex="0"') )
-                prepareElementRoot()
-
-
-                // If there’s a format for the hidden input element, create the element.
-                if ( SETTINGS.formatSubmit ) {
-                    prepareElementHidden()
-                }
-
-
-                // Prepare the input element.
-                prepareElement()
-
-
-                // Insert the root as specified in the settings.
-                if ( SETTINGS.container ) $( SETTINGS.container ).append( P.$root )
-                else $ELEMENT.after( P.$root )
-
-
-                // Bind the default component and settings events.
-                P.on({
-                    start: P.component.onStart,
-                    render: P.component.onRender,
-                    stop: P.component.onStop,
-                    open: P.component.onOpen,
-                    close: P.component.onClose,
-                    set: P.component.onSet
-                }).on({
-                    start: SETTINGS.onStart,
-                    render: SETTINGS.onRender,
-                    stop: SETTINGS.onStop,
-                    open: SETTINGS.onOpen,
-                    close: SETTINGS.onClose,
-                    set: SETTINGS.onSet
-                })
-
-
-                // Once we’re all set, check the theme in use.
-                IS_DEFAULT_THEME = isUsingDefaultTheme( P.$root.children()[ 0 ] )
-
-
-                // If the element has autofocus, open the picker.
-                if ( ELEMENT.autofocus ) {
-                    P.open()
-                }
-
-
-                // Trigger queued the “start” and “render” events.
-                return P.trigger( 'start' ).trigger( 'render' )
-            }, //start
-
-
-            /**
-             * Render a new picker
-             */
-            render: function( entireComponent ) {
-
-                // Insert a new component holder in the root or box.
-                if ( entireComponent ) P.$root.html( createWrappedComponent() )
-                else P.$root.find( '.' + CLASSES.box ).html( P.component.nodes( STATE.open ) )
-
-                // Trigger the queued “render” events.
-                return P.trigger( 'render' )
-            }, //render
-
-
-            /**
-             * Destroy everything
-             */
-            stop: function() {
-
-                // If it’s already stopped, do nothing.
-                if ( !STATE.start ) return P
-
-                // Then close the picker.
-                P.close()
-
-                // Remove the hidden field.
-                if ( P._hidden ) {
-                    P._hidden.parentNode.removeChild( P._hidden )
-                }
-
-                // Remove the root.
-                P.$root.remove()
-
-                // Remove the input class, remove the stored data, and unbind
-                // the events (after a tick for IE - see `P.close`).
-                $ELEMENT.removeClass( CLASSES.input ).removeData( NAME )
-                setTimeout( function() {
-                    $ELEMENT.off( '.' + STATE.id )
-                }, 0)
-
-                // Restore the element state
-                ELEMENT.type = STATE.type
-                ELEMENT.readOnly = false
-
-                // Trigger the queued “stop” events.
-                P.trigger( 'stop' )
-
-                // Reset the picker states.
-                STATE.methods = {}
-                STATE.start = false
-
-                return P
-            }, //stop
-
-
-            /**
-             * Open up the picker
-             */
-            open: function( dontGiveFocus ) {
-
-                // If it’s already open, do nothing.
-                if ( STATE.open ) return P
-
-                // Add the “active” class.
-                $ELEMENT.addClass( CLASSES.active )
-                aria( ELEMENT, 'expanded', true )
-
-                // * A Firefox bug, when `html` has `overflow:hidden`, results in
-                //   killing transitions :(. So add the “opened” state on the next tick.
-                //   Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=625289
-                setTimeout( function() {
-
-                    // Add the “opened” class to the picker root.
-                    P.$root.addClass( CLASSES.opened )
-                    aria( P.$root[0], 'hidden', false )
-
-                }, 0 )
-
-                // If we have to give focus, bind the element and doc events.
-                if ( dontGiveFocus !== false ) {
-
-                    // Set it as open.
-                    STATE.open = true
-
-                    // Prevent the page from scrolling.
-                    if ( IS_DEFAULT_THEME ) {
-                        $html.
-                            css( 'overflow', 'hidden' ).
-                            css( 'padding-right', '+=' + getScrollbarWidth() )
-                    }
-
-                    // Pass focus to the root element’s jQuery object.
-                    // * Workaround for iOS8 to bring the picker’s root into view.
-                    P.$root[0].focus()
-
-                    // Bind the document events.
-                    $document.on( 'click.' + STATE.id + ' focusin.' + STATE.id, function( event ) {
-
-                        var target = event.target
-
-                        // If the target of the event is not the element, close the picker picker.
-                        // * Don’t worry about clicks or focusins on the root because those don’t bubble up.
-                        //   Also, for Firefox, a click on an `option` element bubbles up directly
-                        //   to the doc. So make sure the target wasn't the doc.
-                        // * In Firefox stopPropagation() doesn’t prevent right-click events from bubbling,
-                        //   which causes the picker to unexpectedly close when right-clicking it. So make
-                        //   sure the event wasn’t a right-click.
-                        if ( target != ELEMENT && target != document && event.which != 3 ) {
-
-                            // If the target was the holder that covers the screen,
-                            // keep the element focused to maintain tabindex.
-                            P.close( target === P.$root.children()[0] )
-                        }
-
-                    }).on( 'keydown.' + STATE.id, function( event ) {
-
-                        var
-                            // Get the keycode.
-                            keycode = event.keyCode,
-
-                            // Translate that to a selection change.
-                            keycodeToMove = P.component.key[ keycode ],
-
-                            // Grab the target.
-                            target = event.target
-
-
-                        // On escape, close the picker and give focus.
-                        if ( keycode == 27 ) {
-                            P.close( true )
-                        }
-
-
-                        // Check if there is a key movement or “enter” keypress on the element.
-                        else if ( target == P.$root[0] && ( keycodeToMove || keycode == 13 ) ) {
-
-                            // Prevent the default action to stop page movement.
-                            event.preventDefault()
-
-                            // Trigger the key movement action.
-                            if ( keycodeToMove ) {
-                                PickerConstructor._.trigger( P.component.key.go, P, [ PickerConstructor._.trigger( keycodeToMove ) ] )
-                            }
-
-                            // On “enter”, if the highlighted item isn’t disabled, set the value and close.
-                            else if ( !P.$root.find( '.' + CLASSES.highlighted ).hasClass( CLASSES.disabled ) ) {
-                                P.set( 'select', P.component.item.highlight ).close()
-                            }
-                        }
-
-
-                        // If the target is within the root and “enter” is pressed,
-                        // prevent the default action and trigger a click on the target instead.
-                        else if ( $.contains( P.$root[0], target ) && keycode == 13 ) {
-                            event.preventDefault()
-                            target.click()
-                        }
-                    })
-                }
-
-                // Trigger the queued “open” events.
-                return P.trigger( 'open' )
-            }, //open
-
-
-            /**
-             * Close the picker
-             */
-            close: function( giveFocus ) {
-
-                // If we need to give focus, do it before changing states.
-                if ( giveFocus ) {
-                    // ....ah yes! It would’ve been incomplete without a crazy workaround for IE :|
-                    // The focus is triggered *after* the close has completed - causing it
-                    // to open again. So unbind and rebind the event at the next tick.
-                    P.$root.off( 'focus.toOpen' )[0].focus()
-                    setTimeout( function() {
-                        P.$root.on( 'focus.toOpen', handleFocusToOpenEvent )
-                    }, 0 )
-                }
-
-                // Remove the “active” class.
-                $ELEMENT.removeClass( CLASSES.active )
-                aria( ELEMENT, 'expanded', false )
-
-                // * A Firefox bug, when `html` has `overflow:hidden`, results in
-                //   killing transitions :(. So remove the “opened” state on the next tick.
-                //   Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=625289
-                setTimeout( function() {
-
-                    // Remove the “opened” and “focused” class from the picker root.
-                    P.$root.removeClass( CLASSES.opened + ' ' + CLASSES.focused )
-                    aria( P.$root[0], 'hidden', true )
-
-                }, 0 )
-
-                // If it’s already closed, do nothing more.
-                if ( !STATE.open ) return P
-
-                // Set it as closed.
-                STATE.open = false
-
-                // Allow the page to scroll.
-                if ( IS_DEFAULT_THEME ) {
-                    $html.
-                        css( 'overflow', '' ).
-                        css( 'padding-right', '-=' + getScrollbarWidth() )
-                }
-
-                // Unbind the document events.
-                $document.off( '.' + STATE.id )
-
-                // Trigger the queued “close” events.
-                return P.trigger( 'close' )
-            }, //close
-
-
-            /**
-             * Clear the values
-             */
-            clear: function( options ) {
-                return P.set( 'clear', null, options )
-            }, //clear
-
-
-            /**
-             * Set something
-             */
-            set: function( thing, value, options ) {
-
-                var thingItem, thingValue,
-                    thingIsObject = $.isPlainObject( thing ),
-                    thingObject = thingIsObject ? thing : {}
-
-                // Make sure we have usable options.
-                options = thingIsObject && $.isPlainObject( value ) ? value : options || {}
-
-                if ( thing ) {
-
-                    // If the thing isn’t an object, make it one.
-                    if ( !thingIsObject ) {
-                        thingObject[ thing ] = value
-                    }
-
-                    // Go through the things of items to set.
-                    for ( thingItem in thingObject ) {
-
-                        // Grab the value of the thing.
-                        thingValue = thingObject[ thingItem ]
-
-                        // First, if the item exists and there’s a value, set it.
-                        if ( thingItem in P.component.item ) {
-                            if ( thingValue === undefined ) thingValue = null
-                            P.component.set( thingItem, thingValue, options )
-                        }
-
-                        // Then, check to update the element value and broadcast a change.
-                        if ( thingItem == 'select' || thingItem == 'clear' ) {
-                            $ELEMENT.
-                                val( thingItem == 'clear' ? '' : P.get( thingItem, SETTINGS.format ) ).
-                                trigger( 'change' )
-                        }
-                    }
-
-                    // Render a new picker.
-                    P.render()
-                }
-
-                // When the method isn’t muted, trigger queued “set” events and pass the `thingObject`.
-                return options.muted ? P : P.trigger( 'set', thingObject )
-            }, //set
-
-
-            /**
-             * Get something
-             */
-            get: function( thing, format ) {
-
-                // Make sure there’s something to get.
-                thing = thing || 'value'
-
-                // If a picker state exists, return that.
-                if ( STATE[ thing ] != null ) {
-                    return STATE[ thing ]
-                }
-
-                // Return the submission value, if that.
-                if ( thing == 'valueSubmit' ) {
-                    if ( P._hidden ) {
-                        return P._hidden.value
-                    }
-                    thing = 'value'
-                }
-
-                // Return the value, if that.
-                if ( thing == 'value' ) {
-                    return ELEMENT.value
-                }
-
-                // Check if a component item exists, return that.
-                if ( thing in P.component.item ) {
-                    if ( typeof format == 'string' ) {
-                        var thingValue = P.component.get( thing )
-                        return thingValue ?
-                            PickerConstructor._.trigger(
-                                P.component.formats.toString,
-                                P.component,
-                                [ format, thingValue ]
-                            ) : ''
-                    }
-                    return P.component.get( thing )
-                }
-            }, //get
-
-
-
-            /**
-             * Bind events on the things.
-             */
-            on: function( thing, method, internal ) {
-
-                var thingName, thingMethod,
-                    thingIsObject = $.isPlainObject( thing ),
-                    thingObject = thingIsObject ? thing : {}
-
-                if ( thing ) {
-
-                    // If the thing isn’t an object, make it one.
-                    if ( !thingIsObject ) {
-                        thingObject[ thing ] = method
-                    }
-
-                    // Go through the things to bind to.
-                    for ( thingName in thingObject ) {
-
-                        // Grab the method of the thing.
-                        thingMethod = thingObject[ thingName ]
-
-                        // If it was an internal binding, prefix it.
-                        if ( internal ) {
-                            thingName = '_' + thingName
-                        }
-
-                        // Make sure the thing methods collection exists.
-                        STATE.methods[ thingName ] = STATE.methods[ thingName ] || []
-
-                        // Add the method to the relative method collection.
-                        STATE.methods[ thingName ].push( thingMethod )
-                    }
-                }
-
-                return P
-            }, //on
-
-
-
-            /**
-             * Unbind events on the things.
-             */
-            off: function() {
-                var i, thingName,
-                    names = arguments;
-                for ( i = 0, namesCount = names.length; i < namesCount; i += 1 ) {
-                    thingName = names[i]
-                    if ( thingName in STATE.methods ) {
-                        delete STATE.methods[thingName]
-                    }
-                }
-                return P
-            },
-
-
-            /**
-             * Fire off method events.
-             */
-            trigger: function( name, data ) {
-                var _trigger = function( name ) {
-                    var methodList = STATE.methods[ name ]
-                    if ( methodList ) {
-                        methodList.map( function( method ) {
-                            PickerConstructor._.trigger( method, P, [ data ] )
-                        })
-                    }
-                }
-                _trigger( '_' + name )
-                _trigger( name )
-                return P
-            } //trigger
-        } //PickerInstance.prototype
-
-
-    /**
-     * Wrap the picker holder components together.
-     */
-    function createWrappedComponent() {
-
-        // Create a picker wrapper holder
-        return PickerConstructor._.node( 'div',
-
-            // Create a picker wrapper node
-            PickerConstructor._.node( 'div',
-
-                // Create a picker frame
-                PickerConstructor._.node( 'div',
-
-                    // Create a picker box node
-                    PickerConstructor._.node( 'div',
-
-                        // Create the components nodes.
-                        P.component.nodes( STATE.open ),
-
-                        // The picker box class
-                        CLASSES.box
-                    ),
-
-                    // Picker wrap class
-                    CLASSES.wrap
-                ),
-
-                // Picker frame class
-                CLASSES.frame
-            ),
-
-            // Picker holder class
-            CLASSES.holder
-        ) //endreturn
-    } //createWrappedComponent
-
-
-
-    /**
-     * Prepare the input element with all bindings.
-     */
-    function prepareElement() {
-
-        $ELEMENT.
-
-            // Store the picker data by component name.
-            data(NAME, P).
-
-            // Add the “input” class name.
-            addClass(CLASSES.input).
-
-            // Remove the tabindex.
-            attr('tabindex', -1).
-
-            // If there’s a `data-value`, update the value of the element.
-            val( $ELEMENT.data('value') ?
-                P.get('select', SETTINGS.format) :
-                ELEMENT.value
-            )
-
-
-        // Only bind keydown events if the element isn’t editable.
-        if ( !SETTINGS.editable ) {
-
-            $ELEMENT.
-
-                // On focus/click, focus onto the root to open it up.
-                on( 'focus.' + STATE.id + ' click.' + STATE.id, function( event ) {
-                    event.preventDefault()
-                    P.$root[0].focus()
-                }).
-
-                // Handle keyboard event based on the picker being opened or not.
-                on( 'keydown.' + STATE.id, handleKeydownEvent )
-        }
-
-
-        // Update the aria attributes.
-        aria(ELEMENT, {
-            haspopup: true,
-            expanded: false,
-            readonly: false,
-            owns: ELEMENT.id + '_root'
-        })
-    }
-
-
-    /**
-     * Prepare the root picker element with all bindings.
-     */
-    function prepareElementRoot() {
-
-        P.$root.
-
-            on({
-
-                // For iOS8.
-                keydown: handleKeydownEvent,
-
-                // When something within the root is focused, stop from bubbling
-                // to the doc and remove the “focused” state from the root.
-                focusin: function( event ) {
-                    P.$root.removeClass( CLASSES.focused )
-                    event.stopPropagation()
-                },
-
-                // When something within the root holder is clicked, stop it
-                // from bubbling to the doc.
-                'mousedown click': function( event ) {
-
-                    var target = event.target
-
-                    // Make sure the target isn’t the root holder so it can bubble up.
-                    if ( target != P.$root.children()[ 0 ] ) {
-
-                        event.stopPropagation()
-
-                        // * For mousedown events, cancel the default action in order to
-                        //   prevent cases where focus is shifted onto external elements
-                        //   when using things like jQuery mobile or MagnificPopup (ref: #249 & #120).
-                        //   Also, for Firefox, don’t prevent action on the `option` element.
-                        if ( event.type == 'mousedown' && !$( target ).is( 'input, select, textarea, button, option' )) {
-
-                            event.preventDefault()
-
-                            // Re-focus onto the root so that users can click away
-                            // from elements focused within the picker.
-                            P.$root[0].focus()
-                        }
-                    }
-                }
-            }).
-
-            // Add/remove the “target” class on focus and blur.
-            on({
-                focus: function() {
-                    $ELEMENT.addClass( CLASSES.target )
-                },
-                blur: function() {
-                    $ELEMENT.removeClass( CLASSES.target )
-                }
-            }).
-
-            // Open the picker and adjust the root “focused” state
-            on( 'focus.toOpen', handleFocusToOpenEvent ).
-
-            // If there’s a click on an actionable element, carry out the actions.
-            on( 'click', '[data-pick], [data-nav], [data-clear], [data-close]', function() {
-
-                var $target = $( this ),
-                    targetData = $target.data(),
-                    targetDisabled = $target.hasClass( CLASSES.navDisabled ) || $target.hasClass( CLASSES.disabled ),
-
-                    // * For IE, non-focusable elements can be active elements as well
-                    //   (http://stackoverflow.com/a/2684561).
-                    activeElement = getActiveElement()
-                    activeElement = activeElement && ( activeElement.type || activeElement.href )
-
-                // If it’s disabled or nothing inside is actively focused, re-focus the element.
-                if ( targetDisabled || activeElement && !$.contains( P.$root[0], activeElement ) ) {
-                    P.$root[0].focus()
-                }
-
-                // If something is superficially changed, update the `highlight` based on the `nav`.
-                if ( !targetDisabled && targetData.nav ) {
-                    P.set( 'highlight', P.component.item.highlight, { nav: targetData.nav } )
-                }
-
-                // If something is picked, set `select` then close with focus.
-                else if ( !targetDisabled && 'pick' in targetData ) {
-                    P.set( 'select', targetData.pick )
-                }
-
-                // If a “clear” button is pressed, empty the values and close with focus.
-                else if ( targetData.clear ) {
-                    P.clear().close( true )
-                }
-
-                else if ( targetData.close ) {
-                    P.close( true )
-                }
-
-            }) //P.$root
-
-        aria( P.$root[0], 'hidden', true )
-    }
-
-
-     /**
-      * Prepare the hidden input element along with all bindings.
-      */
-    function prepareElementHidden() {
-
-        var name
-
-        if ( SETTINGS.hiddenName === true ) {
-            name = ELEMENT.name
-            ELEMENT.name = ''
-        }
-        else {
-            name = [
-                typeof SETTINGS.hiddenPrefix == 'string' ? SETTINGS.hiddenPrefix : '',
-                typeof SETTINGS.hiddenSuffix == 'string' ? SETTINGS.hiddenSuffix : '_submit'
-            ]
-            name = name[0] + ELEMENT.name + name[1]
-        }
-
-        P._hidden = $(
-            '<input ' +
-            'type=hidden ' +
-
-            // Create the name using the original input’s with a prefix and suffix.
-            'name="' + name + '"' +
-
-            // If the element has a value, set the hidden value as well.
-            (
-                $ELEMENT.data('value') || ELEMENT.value ?
-                    ' value="' + P.get('select', SETTINGS.formatSubmit) + '"' :
-                    ''
-            ) +
-            '>'
-        )[0]
-
-        $ELEMENT.
-
-            // If the value changes, update the hidden input with the correct format.
-            on('change.' + STATE.id, function() {
-                P._hidden.value = ELEMENT.value ?
-                    P.get('select', SETTINGS.formatSubmit) :
-                    ''
-            })
-
-
-        // Insert the hidden input as specified in the settings.
-        if ( SETTINGS.container ) $( SETTINGS.container ).append( P._hidden )
-        else $ELEMENT.after( P._hidden )
-    }
-
-
-    // For iOS8.
-    function handleKeydownEvent( event ) {
-
-        var keycode = event.keyCode,
-
-            // Check if one of the delete keys was pressed.
-            isKeycodeDelete = /^(8|46)$/.test(keycode)
-
-        // For some reason IE clears the input value on “escape”.
-        if ( keycode == 27 ) {
-            P.close()
-            return false
-        }
-
-        // Check if `space` or `delete` was pressed or the picker is closed with a key movement.
-        if ( keycode == 32 || isKeycodeDelete || !STATE.open && P.component.key[keycode] ) {
-
-            // Prevent it from moving the page and bubbling to doc.
-            event.preventDefault()
-            event.stopPropagation()
-
-            // If `delete` was pressed, clear the values and close the picker.
-            // Otherwise open the picker.
-            if ( isKeycodeDelete ) { P.clear().close() }
-            else { P.open() }
-        }
-    }
-
-
-    // Separated for IE
-    function handleFocusToOpenEvent( event ) {
-
-        // Stop the event from propagating to the doc.
-        event.stopPropagation()
-
-        // If it’s a focus event, add the “focused” class to the root.
-        if ( event.type == 'focus' ) {
-            P.$root.addClass( CLASSES.focused )
-        }
-
-        // And then finally open the picker.
-        P.open()
-    }
-
-
-    // Return a new picker instance.
-    return new PickerInstance()
-} //PickerConstructor
-
-
-
-/**
- * The default classes and prefix to use for the HTML classes.
- */
-PickerConstructor.klasses = function( prefix ) {
-    prefix = prefix || 'picker'
-    return {
-
-        picker: prefix,
-        opened: prefix + '--opened',
-        focused: prefix + '--focused',
-
-        input: prefix + '__input',
-        active: prefix + '__input--active',
-        target: prefix + '__input--target',
-
-        holder: prefix + '__holder',
-
-        frame: prefix + '__frame',
-        wrap: prefix + '__wrap',
-
-        box: prefix + '__box'
-    }
-} //PickerConstructor.klasses
-
-
-
-/**
- * Check if the default theme is being used.
- */
-function isUsingDefaultTheme( element ) {
-
-    var theme,
-        prop = 'position'
-
-    // For IE.
-    if ( element.currentStyle ) {
-        theme = element.currentStyle[prop]
-    }
-
-    // For normal browsers.
-    else if ( window.getComputedStyle ) {
-        theme = getComputedStyle( element )[prop]
-    }
-
-    return theme == 'fixed'
-}
-
-
-
-/**
- * Get the width of the browser’s scrollbar.
- * Taken from: https://github.com/VodkaBears/Remodal/blob/master/src/jquery.remodal.js
- */
-function getScrollbarWidth() {
-
-    if ( $html.height() <= $window.height() ) {
-        return 0
-    }
-
-    var $outer = $( '<div style="visibility:hidden;width:100px" />' ).
-        appendTo( 'body' )
-
-    // Get the width without scrollbars.
-    var widthWithoutScroll = $outer[0].offsetWidth
-
-    // Force adding scrollbars.
-    $outer.css( 'overflow', 'scroll' )
-
-    // Add the inner div.
-    var $inner = $( '<div style="width:100%" />' ).appendTo( $outer )
-
-    // Get the width with scrollbars.
-    var widthWithScroll = $inner[0].offsetWidth
-
-    // Remove the divs.
-    $outer.remove()
-
-    // Return the difference between the widths.
-    return widthWithoutScroll - widthWithScroll
-}
-
-
-
-/**
- * PickerConstructor helper methods.
- */
-PickerConstructor._ = {
-
-    /**
-     * Create a group of nodes. Expects:
-     * `
-        {
-            min:    {Integer},
-            max:    {Integer},
-            i:      {Integer},
-            node:   {String},
-            item:   {Function}
-        }
-     * `
-     */
-    group: function( groupObject ) {
-
-        var
-            // Scope for the looped object
-            loopObjectScope,
-
-            // Create the nodes list
-            nodesList = '',
-
-            // The counter starts from the `min`
-            counter = PickerConstructor._.trigger( groupObject.min, groupObject )
-
-
-        // Loop from the `min` to `max`, incrementing by `i`
-        for ( ; counter <= PickerConstructor._.trigger( groupObject.max, groupObject, [ counter ] ); counter += groupObject.i ) {
-
-            // Trigger the `item` function within scope of the object
-            loopObjectScope = PickerConstructor._.trigger( groupObject.item, groupObject, [ counter ] )
-
-            // Splice the subgroup and create nodes out of the sub nodes
-            nodesList += PickerConstructor._.node(
-                groupObject.node,
-                loopObjectScope[ 0 ],   // the node
-                loopObjectScope[ 1 ],   // the classes
-                loopObjectScope[ 2 ]    // the attributes
-            )
-        }
-
-        // Return the list of nodes
-        return nodesList
-    }, //group
-
-
-    /**
-     * Create a dom node string
-     */
-    node: function( wrapper, item, klass, attribute ) {
-
-        // If the item is false-y, just return an empty string
-        if ( !item ) return ''
-
-        // If the item is an array, do a join
-        item = $.isArray( item ) ? item.join( '' ) : item
-
-        // Check for the class
-        klass = klass ? ' class="' + klass + '"' : ''
-
-        // Check for any attributes
-        attribute = attribute ? ' ' + attribute : ''
-
-        // Return the wrapped item
-        return '<' + wrapper + klass + attribute + '>' + item + '</' + wrapper + '>'
-    }, //node
-
-
-    /**
-     * Lead numbers below 10 with a zero.
-     */
-    lead: function( number ) {
-        return ( number < 10 ? '0': '' ) + number
-    },
-
-
-    /**
-     * Trigger a function otherwise return the value.
-     */
-    trigger: function( callback, scope, args ) {
-        return typeof callback == 'function' ? callback.apply( scope, args || [] ) : callback
-    },
-
-
-    /**
-     * If the second character is a digit, length is 2 otherwise 1.
-     */
-    digits: function( string ) {
-        return ( /\d/ ).test( string[ 1 ] ) ? 2 : 1
-    },
-
-
-    /**
-     * Tell if something is a date object.
-     */
-    isDate: function( value ) {
-        return {}.toString.call( value ).indexOf( 'Date' ) > -1 && this.isInteger( value.getDate() )
-    },
-
-
-    /**
-     * Tell if something is an integer.
-     */
-    isInteger: function( value ) {
-        return {}.toString.call( value ).indexOf( 'Number' ) > -1 && value % 1 === 0
-    },
-
-
-    /**
-     * Create ARIA attribute strings.
-     */
-    ariaAttr: ariaAttr
-} //PickerConstructor._
-
-
-
-/**
- * Extend the picker with a component and defaults.
- */
-PickerConstructor.extend = function( name, Component ) {
-
-    // Extend jQuery.
-    $.fn[ name ] = function( options, action ) {
-
-        // Grab the component data.
-        var componentData = this.data( name )
-
-        // If the picker is requested, return the data object.
-        if ( options == 'picker' ) {
-            return componentData
-        }
-
-        // If the component data exists and `options` is a string, carry out the action.
-        if ( componentData && typeof options == 'string' ) {
-            return PickerConstructor._.trigger( componentData[ options ], componentData, [ action ] )
-        }
-
-        // Otherwise go through each matched element and if the component
-        // doesn’t exist, create a new picker using `this` element
-        // and merging the defaults and options with a deep copy.
-        return this.each( function() {
-            var $this = $( this )
-            if ( !$this.data( name ) ) {
-                new PickerConstructor( this, name, Component, options )
-            }
-        })
-    }
-
-    // Set the defaults.
-    $.fn[ name ].defaults = Component.defaults
-} //PickerConstructor.extend
-
-
-
-function aria(element, attribute, value) {
-    if ( $.isPlainObject(attribute) ) {
-        for ( var key in attribute ) {
-            ariaSet(element, key, attribute[key])
-        }
-    }
-    else {
-        ariaSet(element, attribute, value)
-    }
-}
-function ariaSet(element, attribute, value) {
-    element.setAttribute(
-        (attribute == 'role' ? '' : 'aria-') + attribute,
-        value
-    )
-}
-function ariaAttr(attribute, data) {
-    if ( !$.isPlainObject(attribute) ) {
-        attribute = { attribute: data }
-    }
-    data = ''
-    for ( var key in attribute ) {
-        var attr = (key == 'role' ? '' : 'aria-') + key,
-            attrVal = attribute[key]
-        data += attrVal == null ? '' : attr + '="' + attribute[key] + '"'
-    }
-    return data
-}
-
-// IE8 bug throws an error for activeElements within iframes.
-function getActiveElement() {
-    try {
-        return document.activeElement
-    } catch ( err ) { }
-}
-
-
-
-// Expose the picker constructor.
-return PickerConstructor
-
-
-}));
-
-
