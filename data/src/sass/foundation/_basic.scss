@@ -8,4 +8,8 @@ body {
 
 .section-str {
     padding: 90px;
+
+    @media(max-width: $responseiveWidth) {
+        padding: 90px 30px;
+    }
 }

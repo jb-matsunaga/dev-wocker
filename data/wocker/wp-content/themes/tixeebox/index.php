@@ -20,8 +20,10 @@
     <div class="c-parallax" id="fn-parallax-1">
     <div class="c-parallax-overlay"></div>
     <div class="c-parallax-content">
-        <div class="c-parallax-body">
-            <img class="c-parallax-logo" src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ">
+        <section class="c-parallax-body">
+            <h1>
+                <img class="c-parallax-logo" src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ">
+            </h1>
             <h2 class="heading-c">
                 電子チケットの発券、<br>及び入場管理！<br>
                 スマホユーザーに新たな<br>電子チケット入場体験を！
@@ -41,7 +43,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </section>
     </div>
 </div>
     <div class="header">
@@ -105,56 +107,56 @@
             </p>
         </section>
 
-<div class="c-parallax c-parallax--2" id="fn-parallax-1">
-    <div class="c-parallax-content">
-        <div class="c-parallax-body c-parallax-body--second">
-            <h1 class="heading-c">チケットを簡単に<br>スマホで受け取り</h1>
-        </div>
-    </div>
-</div>
-
-        <section class="row container u-pt60">
-            <div class="col s6">
-                <section class="card">
+        <section class="c-borderBox">
+            <div class="c-borderBox-container">
+                <div class="c-borderBox-body c-borderBox-body--string">
                     <h1 class="heading-b">チケットを簡単に<br>スマホで受け取り</h1>
-                    <div class="card-image">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/image1.png">
-                    </div>
-                </section>
-            </div>
-            <div class="col s6">
-                <section class="card">
-                    <h1 class="heading-b">入場方法は<br>チケット画面を"もぎる"だけ！</h1>
-                    <div class="card-image">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/image2.png">
-                    </div>
-                </section>
-            </div>
-        </section>
-        <section class="row container">
-            <div class="col s6">
-                <section class="card">
-                    <h1 class="heading-b">友達にLINEやメールで<br>チケットを送付可能</h1>
-                    <div class="card-image">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/image3.png">
-                    </div>
-                </section>
-            </div>
-            <div class="col s6">
-                <section class="card">
-                    <h1 class="heading-b">発券手数料は0円<br>アカウント登録も無料！</h1>
-                    <div class="card-image">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/image4.png">
-                    </div>
-                </section>
-            </div>
-        </section>
-        <section class="row container u-pt60">
-            <div class="col s12">
-                <div class="thumbnail u-text-center u-mb30">
-                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/ticket_flow.png" alt="チケットの流れ">
                 </div>
+                <div class="c-borderBox-body u-pull-right">
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/image1.png">
+                </div>
+            </div>
+        </section>
 
+        <section class="c-borderBox c-borderBox--second">
+            <div class="c-borderBox-container">
+                <div class="c-borderBox-body c-borderBox-body--string c-borderBox-body--long c-borderBox-body--right">
+                    <h1 class="heading-b">入場方法は<br>チケット画面を"もぎる"だけ！</h1>
+                </div>
+                <div class="c-borderBox-body u-pull-left">
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/image2.png">
+                </div>
+            </div>
+        </section>
+
+        <section class="c-borderBox c-borderBox--third">
+            <div class="c-borderBox-container">
+                <div class="c-borderBox-body c-borderBox-body--string">
+                    <h1 class="heading-b">友達にLINEやメールで<br>チケットを送付可能</h1>
+                </div>
+                <div class="c-borderBox-body u-pull-right">
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/image3.png">
+                </div>
+            </div>
+        </section>
+
+        <section class="c-borderBox c-borderBox--fourth">
+            <div class="c-borderBox-container">
+                <div class="c-borderBox-body c-borderBox-body--string c-borderBox-body--right">
+                    <h1 class="heading-b">発券手数料は0円<br>アカウント登録も無料！</h1>
+                </div>
+                <div class="c-borderBox-body u-pull-left">
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/image4.png">
+                </div>
+            </div>
+        </section>
+
+        
+        <div class="thumbnail u-text-center u-pt15">
+            <img src="<?php bloginfo( 'template_directory' ); ?>/img/ticket_flow.png" alt="チケットの流れ">
+        </div>
+        <section class="row container section-str">
+        <div class="col s12">
                 <p class="grey-text text-darken-3 lighten-3">
                     tixeeboxはスマートフォン向けの電子チケット発券に特化したツールで、主催者、プレイガイドが販売したチケットの電子化が行えます。これまでの電子チケットとは異なり、販売(決済)は自社、発券はtixeeboxで行えるため既存のシステムに容易に電子チケット発券を組み込むことが出来ます。CSVでの連携の他、APIでの連携にも対応しているので、システムを繋ぎ込めば継続的かつ、リアルタイムに電子チケットの発券をすることが可能になります。
                 </p>

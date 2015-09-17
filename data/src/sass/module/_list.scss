@@ -2,11 +2,15 @@
     display: inline-block;
     margin-top: 30px;
 
+    @media(max-width: 1110px) {
+        margin-top: 10px;
+    }
+
     > li {
         float: left;
         width: auto;
 
-        @media(max-width: $responseiveWidth) {
+        @media(max-width: $responseiveWidthDefalt) {
             width: 100%;
             padding: 7px 0;
         }
@@ -21,6 +25,10 @@
 
         img {
             height: 60px;
+
+            @media(max-width: $responseiveWidthMax) {
+                height: 50px;
+            }
         }
     }
 }

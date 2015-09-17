@@ -3686,12 +3686,12 @@ th {
 }
 
 /* line 3, ../../../../../src/sass/foundation/_mixin.scss */
-.u-clearfix:before, .u-clearfix:after {
+.u-clearfix:before, .c-borderBox-container:before, .u-clearfix:after, .c-borderBox-container:after {
   content: '';
   display: table;
 }
 /* line 9, ../../../../../src/sass/foundation/_mixin.scss */
-.u-clearfix:after {
+.u-clearfix:after, .c-borderBox-container:after {
   clear: both;
 }
 
@@ -3704,12 +3704,12 @@ th {
 
 /* line 37, ../../../../../src/sass/foundation/_utility.scss */
 .u-pull-right {
-  float: right;
+  float: right !important;
 }
 
 /* line 41, ../../../../../src/sass/foundation/_utility.scss */
 .u-pull-left {
-  float: left;
+  float: left !important;
 }
 
 /* line 46, ../../../../../src/sass/foundation/_utility.scss */
@@ -3785,6 +3785,12 @@ body {
 /* line 9, ../../../../../src/sass/foundation/_basic.scss */
 .section-str {
   padding: 90px;
+}
+@media (max-width: 420px) {
+  /* line 9, ../../../../../src/sass/foundation/_basic.scss */
+  .section-str {
+    padding: 90px 30px;
+  }
 }
 
 /* line 1, ../../../../../src/sass/layout/_header.scss */
@@ -13226,6 +13232,102 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
     margin-bottom: 5em;
   }
 }
+/* line 1, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox {
+  background-color: #f6756b;
+  position: relative;
+  text-align: center;
+  height: auto;
+  padding-top: 10px;
+}
+/* line 8, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  position: relative;
+}
+/* line 15, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox-body {
+  width: 50%;
+  text-align: center;
+  float: left;
+}
+/* line 20, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox-body--string {
+  position: absolute;
+  top: 50%;
+  margin-top: -6.5em;
+}
+@media (max-width: 420px) {
+  /* line 20, ../../../../../src/sass/module/_borderbox.scss */
+  .c-borderBox-body--string {
+    margin-top: -4.5em;
+  }
+}
+@media (max-width: 320px) {
+  /* line 20, ../../../../../src/sass/module/_borderbox.scss */
+  .c-borderBox-body--string {
+    margin-top: -4em;
+  }
+}
+/* line 34, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox-body--right {
+  right: 0;
+}
+@media (max-width: 420px) {
+  /* line 38, ../../../../../src/sass/module/_borderbox.scss */
+  .c-borderBox-body--long {
+    margin-top: -5.5em;
+  }
+}
+@media (max-width: 320px) {
+  /* line 38, ../../../../../src/sass/module/_borderbox.scss */
+  .c-borderBox-body--long {
+    margin-top: -5em;
+  }
+}
+/* line 50, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox h1 {
+  line-height: 2;
+  color: #fff;
+  font-size: 35px;
+}
+@media (max-width: 992px) {
+  /* line 50, ../../../../../src/sass/module/_borderbox.scss */
+  .c-borderBox h1 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 420px) {
+  /* line 50, ../../../../../src/sass/module/_borderbox.scss */
+  .c-borderBox h1 {
+    font-size: 17px;
+  }
+}
+@media (max-width: 320px) {
+  /* line 50, ../../../../../src/sass/module/_borderbox.scss */
+  .c-borderBox h1 {
+    font-size: 14px;
+  }
+}
+/* line 66, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox img {
+  width: 90%;
+  max-width: 320px;
+}
+/* line 71, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox--second {
+  background-color: #92ab5b;
+}
+/* line 75, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox--third {
+  background-color: #6593bf;
+}
+/* line 79, ../../../../../src/sass/module/_borderbox.scss */
+.c-borderBox--fourth {
+  background-color: #c2a058;
+}
+
 /* line 1, ../../../../../src/sass/module/_card.scss */
 .card-image {
   text-align: center;
@@ -13336,7 +13438,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 /* line 19, ../../../../../src/sass/module/_heading.scss */
 .heading-c {
-  color: #edf6fe;
+  color: #fff;
   font-size: 40px;
   font-weight: bold;
   line-height: 1.5;
@@ -13373,26 +13475,38 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   display: inline-block;
   margin-top: 30px;
 }
-/* line 5, ../../../../../src/sass/module/_list.scss */
+@media (max-width: 1110px) {
+  /* line 1, ../../../../../src/sass/module/_list.scss */
+  .c-list-icons {
+    margin-top: 10px;
+  }
+}
+/* line 9, ../../../../../src/sass/module/_list.scss */
 .c-list-icons > li {
   float: left;
   width: auto;
   padding: 0 10px;
 }
-@media (max-width: 420px) {
-  /* line 5, ../../../../../src/sass/module/_list.scss */
+@media (max-width: 992px) {
+  /* line 9, ../../../../../src/sass/module/_list.scss */
   .c-list-icons > li {
     width: 100%;
     padding: 7px 0;
   }
 }
-/* line 17, ../../../../../src/sass/module/_list.scss */
+/* line 21, ../../../../../src/sass/module/_list.scss */
 .c-list-icons > li > a:hover {
   opacity: .9;
 }
-/* line 22, ../../../../../src/sass/module/_list.scss */
+/* line 26, ../../../../../src/sass/module/_list.scss */
 .c-list-icons > li img {
   height: 60px;
+}
+@media (max-width: 1110px) {
+  /* line 26, ../../../../../src/sass/module/_list.scss */
+  .c-list-icons > li img {
+    height: 50px;
+  }
 }
 
 /* line 1, ../../../../../src/sass/module/_nav.scss */
@@ -13427,7 +13541,7 @@ nav {
   position: relative;
   z-index: 2;
 }
-@media (max-width: 420px) {
+@media (max-width: 992px) {
   /* line 17, ../../../../../src/sass/module/_parallax.scss */
   .c-parallax-body {
     width: 100%;
@@ -13440,37 +13554,54 @@ nav {
   }
 }
 /* line 35, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax-body h1 {
+  margin: 0;
+}
+/* line 39, ../../../../../src/sass/module/_parallax.scss */
 .c-parallax-body h2 {
   margin: 45px 0;
 }
+@media (max-width: 1110px) {
+  /* line 39, ../../../../../src/sass/module/_parallax.scss */
+  .c-parallax-body h2 {
+    font-size: 30px;
+  }
+}
 @media (max-width: 420px) {
-  /* line 35, ../../../../../src/sass/module/_parallax.scss */
+  /* line 39, ../../../../../src/sass/module/_parallax.scss */
   .c-parallax-body h2 {
     font-size: 26px;
   }
 }
 @media (max-width: 320px) {
-  /* line 35, ../../../../../src/sass/module/_parallax.scss */
+  /* line 39, ../../../../../src/sass/module/_parallax.scss */
   .c-parallax-body h2 {
     font-size: 20px;
   }
 }
-/* line 47, ../../../../../src/sass/module/_parallax.scss */
+/* line 55, ../../../../../src/sass/module/_parallax.scss */
 .c-parallax-body--second {
   background: none;
   float: left;
+  width: 100%;
 }
-/* line 53, ../../../../../src/sass/module/_parallax.scss */
+/* line 62, ../../../../../src/sass/module/_parallax.scss */
 .c-parallax-logo {
-  width: 400px;
+  width: 70%;
 }
 @media (max-width: 420px) {
-  /* line 53, ../../../../../src/sass/module/_parallax.scss */
+  /* line 62, ../../../../../src/sass/module/_parallax.scss */
   .c-parallax-logo {
     width: 70%;
   }
 }
-/* line 61, ../../../../../src/sass/module/_parallax.scss */
+@media (max-width: 992px) {
+  /* line 62, ../../../../../src/sass/module/_parallax.scss */
+  .c-parallax-logo {
+    display: none;
+  }
+}
+/* line 74, ../../../../../src/sass/module/_parallax.scss */
 .c-parallax-overlay {
   background: url(../img/pattern.png);
   position: absolute;
@@ -13479,9 +13610,14 @@ nav {
   width: 100%;
   z-index: 1;
 }
-/* line 70, ../../../../../src/sass/module/_parallax.scss */
+/* line 83, ../../../../../src/sass/module/_parallax.scss */
 .c-parallax--2 {
   background: url(../img/key_visual-2.png) 50% 0 no-repeat fixed;
+  height: 500px;
+}
+/* line 88, ../../../../../src/sass/module/_parallax.scss */
+.c-parallax--3 {
+  background: url(../img/key_visual-3.png) 50% 0 no-repeat fixed;
   height: 500px;
 }
 
