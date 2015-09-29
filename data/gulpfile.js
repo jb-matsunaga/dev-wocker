@@ -16,6 +16,7 @@ var gulp = require("gulp"),
     cache = require('gulp-cached'),
     htmlhint = require("gulp-htmlhint"),
     scsslint = require('gulp-scss-lint'),
+    webpack = require('gulp-webpack'),
     browserSync = require("browser-sync"),
     reload = browserSync.reload;
 
@@ -23,6 +24,8 @@ var gulp = require("gulp"),
 //パス
 var SRC = "src",
     PUBLIC = "wocker/wp-content/themes/tixeebox";
+
+var webpackConfig = require('./webpack.config.js');
 
 
 //ejs
@@ -95,7 +98,7 @@ gulp.task('sprite', function () {
 //js Library
 gulp.task('jslib', function() {
     gulp.src(bower({debugging:true,checkExistence:true,filter: "**/*.js"}))
-        .pipe(concat('lib.js'))
+        .pipe(concat('library.js'))
         .pipe(gulp.dest(PUBLIC + '/js'))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
@@ -107,7 +110,7 @@ gulp.task('jslib', function() {
 gulp.task("jsplg", function() {
     gulp.src([SRC + "/js/plugins/**/*.js",'!'+ SRC + "/js/plugins/back/**/*.js"])
         .pipe(plumber())
-        .pipe(concat('all.js'))
+        .pipe(concat('plugins.js'))
         .pipe(gulp.dest(PUBLIC + "/js/"))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
@@ -116,15 +119,13 @@ gulp.task("jsplg", function() {
 });
 
 
-//js Common
-gulp.task("jscom", function() {
-    gulp.src([SRC + "/js/*.js", '!'+ SRC + "/js/plugins/*.js"])
-        .pipe(plumber())
-        .pipe(concat('run.js'))
-        .pipe(gulp.dest(PUBLIC + "/js/"))
+//webpackを使ってJSの結合 => 圧縮
+gulp.task('webpack', function() {
+
+    gulp.src('')
+        .pipe(webpack(webpackConfig))
         .pipe(uglify())
-        .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest(PUBLIC + "/js/"))
+        .pipe(gulp.dest(PUBLIC + '/js/'))
         .pipe(reload({stream: true}));
 });
 
@@ -140,7 +141,7 @@ gulp.task("server", function() {
 //watch
 gulp.task('default',['server'],function() {
     gulp.watch([SRC + '/js/plugins/**/*.js','!'+ SRC + '/js/plugins/back/**/*.js'],['jsplg']);
-    gulp.watch([SRC + "/js/*.js", '!'+ SRC + "/js/plugins/*.js"],['jscom']);
+    gulp.watch([SRC + "/js/modules/*.js"],['webpack']);
     gulp.watch(SRC + '/sass/**/*.scss',['css','hologram']);
     gulp.watch(PUBLIC + '/css/common.css',['mincss']);
     gulp.watch(SRC + '/sass/base/sprite/images/*.png',['sprite']);
@@ -148,5 +149,5 @@ gulp.task('default',['server'],function() {
 });
 
 //初期化処理
-gulp.task('init', ['css', 'mincss', 'jsplg', 'jscom', 'jslib', 'ejs']);
+gulp.task('init', ['css', 'mincss', 'jslib', 'jsplg', 'webpack', 'ejs']);
 
