@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <meta name="robots" content="index, follow" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-        <meta name="description" content="“tixeebox”（ティクシーボックス）は電子チケット発券のみに特化し、システム開発不要の主催者に導入しやすく、ユーザーにも利用しやすい電子チケットアプリサービスです。 ">
-        <link rel="canonical" href="https://tixeebox.tv/">
-        <link rel="shortcut icon" href="favicon.ico">
-        <link rel="icon" type="image/gif" href="animated_favicon1.gif">
-        <title>tixeebox（ティクシーボックス）| スマホチケット発券アプリ </title>
-        <link href="<?php bloginfo( 'template_directory' ); ?>/css/common.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    </head>
-<body id="fn-hesiveTop">
-    
+<?php
+/**
+ * @package WordPress
+ * @subpackage tixeebox
+ * @since tixeebox 1.0
+ */
 
+get_header(); ?>
     <!--#fn-parallax-1-->
     <div class="c-parallax" id="fn-parallax-1">
     <div class="c-parallax-overlay"></div>
@@ -151,38 +141,40 @@
             </div>
         </section>
 
-        
         <div class="thumbnail u-text-center u-pt15">
             <img src="<?php bloginfo( 'template_directory' ); ?>/img/ticket_flow.png" alt="チケットの流れ">
         </div>
         <section class="row container section-str">
-        <div class="col s12">
-                <p class="grey-text text-darken-3 lighten-3">
+            <h2 class="heading-b">なにができる？</h2>
+            <p class="grey-text text-darken-3 lighten-3">
                     tixeeboxはスマートフォン向けの電子チケット発券に特化したツールで、主催者、プレイガイドが販売したチケットの電子化が行えます。これまでの電子チケットとは異なり、販売(決済)は自社、発券はtixeeboxで行えるため既存のシステムに容易に電子チケット発券を組み込むことが出来ます。CSVでの連携の他、APIでの連携にも対応しているので、システムを繋ぎ込めば継続的かつ、リアルタイムに電子チケットの発券をすることが可能になります。
-                </p>
-            </div>
+            </p>
         </section>
-        <section class="row container u-pt60 u-pb60">
-            <div class="col s12">
-                <div class="thumbnail u-text-center">
-                    <div class="visible-xs">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/contact-sp.png" alt="お問い合わせ">
-                    </div>
-                    <div class="hidden-xs">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/contact.png" alt="お問い合わせ">
-                    </div>
+
+                <section class="c-contact">
+                <div class="c-contact-head">
+                    <h1>tixeeboxに関するお問い合わせ</h1>
+                </div>
+                <div class="c-contact-body">
+                    <ul>
+                        <li class="c-contact-info c-contact-info--mail">
+                            <h2>メールでのお問い合わせ</h2>
+                            <a href="mailto:info-tixeebox@livestyles.tv">
+                                info-tixeebox@livestyles.tv
+                            </a>
+                        </li>
+                        <li class="c-contact-info c-contact-info--tell">
+                            <h2>お電話でのお問い合わせ</h2>
+                            <a href="tel:03-4590-7632">
+                                03-4590-7632
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
     </div>
-                    <!--フッター-->
-                <footer class="footer">
-                    <div class="container">
-                        ©2015 LiveStyles, Inc. All Rights Reserved.
-                    </div>
-                </footer>
-            <script src="<?php bloginfo( 'template_directory' ); ?>/js/lib.min.js"></script>
-        <script src="<?php bloginfo( 'template_directory' ); ?>/js/all.min.js"></script>
-        <script src="<?php bloginfo( 'template_directory' ); ?>/js/run.js"></script>
+    <?php get_footer(); ?>
+    <script src="<?php bloginfo( 'template_directory' ); ?>/js/index.min.js"></script>
     </body>
 </html>
