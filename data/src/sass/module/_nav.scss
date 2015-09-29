@@ -2,3 +2,17 @@ nav {
     opacity: .85;
     background-color: $blackCol;
 }
+
+.nav-a {
+
+    > li > a {
+
+        &:hover {
+            opacity: .9;
+            background-color: $bg-nav !important;
+            color: $blackCol;
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+        }
+    }
+}

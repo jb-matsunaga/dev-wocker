@@ -2,14 +2,14 @@
 @mixin util($multiple, $start:0, $end:12) {
     @if $multiple == def {
         @for $i from 0 through 12 {
-            .u-mt#{$i * 5} { margin-top: 5px * $i; }
-            .u-mr#{$i * 5} { margin-right: 5px * $i; }
-            .u-mb#{$i * 5} { margin-bottom: 5px * $i; }
-            .u-ml#{$i * 5} { margin-left: 5px * $i; }
-            .u-pt#{$i * 5} { padding-top: 5px * $i; }
-            .u-pr#{$i * 5} { padding-right: 5px * $i; }
-            .u-pb#{$i * 5} { padding-bottom: 5px * $i; }
-            .u-pl#{$i * 5} { padding-left: 5px * $i; }
+            .u-mt#{$i * 5} { margin-top: 5px * $i!important; }
+            .u-mr#{$i * 5} { margin-right: 5px * $i!important; }
+            .u-mb#{$i * 5} { margin-bottom: 5px * $i!important; }
+            .u-ml#{$i * 5} { margin-left: 5px * $i!important; }
+            .u-pt#{$i * 5} { padding-top: 5px * $i!important; }
+            .u-pr#{$i * 5} { padding-right: 5px * $i!important; }
+            .u-pb#{$i * 5} { padding-bottom: 5px * $i!important; }
+            .u-pl#{$i * 5} { padding-left: 5px * $i!important; }
         }
     }
 }
@@ -25,6 +25,9 @@
     padding-right: 135px;
 }
 
+.u-padding {
+    padding: 60px 0 240px!important;
+}
 //Floats
 .u-clearfix {
     @include clearfix;
@@ -91,4 +94,9 @@
 //text
 .u-text-red {
     color: #ff0000 !important;
+}
+//block
+.u-center-block {
+    display: block !important;
+    margin: 0 auto;
 }

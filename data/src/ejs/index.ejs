@@ -1,7 +1,11 @@
-<% include template/_head %>
-<body id="fn-hesiveTop">
-    <% include template/_googleanalytics %>
+<?php
+/**
+ * @package WordPress
+ * @subpackage tixeebox
+ * @since tixeebox 1.0
+ */
 
+get_header(); ?>
     <!--#fn-parallax-1-->
     <% include parallax/_parallax01 %>
     <% include template/_nav %>
@@ -61,29 +65,19 @@
             </div>
         </section>
 
-        
         <div class="thumbnail u-text-center u-pt15">
             <img src="<?php bloginfo( 'template_directory' ); ?>/img/ticket_flow.png" alt="チケットの流れ">
         </div>
         <section class="row container section-str">
-        <div class="col s12">
-                <p class="grey-text text-darken-3 lighten-3">
+            <h2 class="heading-b">なにができる？</h2>
+            <p class="grey-text text-darken-3 lighten-3">
                     tixeeboxはスマートフォン向けの電子チケット発券に特化したツールで、主催者、プレイガイドが販売したチケットの電子化が行えます。これまでの電子チケットとは異なり、販売(決済)は自社、発券はtixeeboxで行えるため既存のシステムに容易に電子チケット発券を組み込むことが出来ます。CSVでの連携の他、APIでの連携にも対応しているので、システムを繋ぎ込めば継続的かつ、リアルタイムに電子チケットの発券をすることが可能になります。
-                </p>
-            </div>
+            </p>
         </section>
-        <section class="row container u-pt60 u-pb60">
-            <div class="col s12">
-                <div class="thumbnail u-text-center">
-                    <div class="visible-xs">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/contact-sp.png" alt="お問い合わせ">
-                    </div>
-                    <div class="hidden-xs">
-                        <img src="<?php bloginfo( 'template_directory' ); ?>/img/contact.png" alt="お問い合わせ">
-                    </div>
-                </div>
-            </div>
-        </section>
+
+        <% include template/conponent/_contact %>
     </div>
-    <% include template/_footer %>
-    <% include template/_script %>
+    <?php get_footer(); ?>
+    <script src="<?php bloginfo( 'template_directory' ); ?>/js/index.min.js"></script>
+    </body>
+</html>

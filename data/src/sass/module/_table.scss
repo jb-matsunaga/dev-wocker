@@ -1,0 +1,147 @@
+
+// Baseline styles
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: $line-height-computed;
+// Cells
+    > thead,
+    > tbody,
+    > tfoot {
+
+        > tr {
+            > th,
+            > td {
+                padding: $table-cell-padding;
+                line-height: $line-height-base;
+                vertical-align: top;
+                border-top: 1px solid $table-border-color;
+                font-weight: 400;
+            }
+        }
+    }
+    // Bottom align for column headings
+    > thead > tr > th {
+        vertical-align: bottom;
+        border-bottom: 2px solid $table-border-color;
+    }
+    // Remove top border from thead by default
+    > caption + thead,
+    > colgroup + thead,
+    > thead:first-child {
+
+        > tr:first-child {
+
+            > th,
+            > td {
+                border-top: 0;
+            }
+        }
+    }
+    // Account for multiple tbody instances
+    > tbody + tbody {
+        border-top: 2px solid $table-border-color;
+    }
+
+    // Nesting
+    .table {
+        background-color: $body-bg;
+    }
+}
+
+.table-bordered {
+    border: 1px solid $table-border-color;
+
+    > thead,
+    > tbody,
+    > tfoot {
+
+        > tr {
+
+            > th,
+            > td {
+                border: 1px solid $table-border-color;
+            }
+        }
+    }
+
+    > thead > tr {
+        background-color: lighten($color-d, 10%);
+        color: #fff;
+
+        > th,
+        > td {
+            border-bottom-width: 2px;
+        }
+    }
+}
+
+.table-url {
+
+    > thead,
+    > tbody {
+
+         > tr {
+
+            > th,
+            > td {
+                vertical-align: middle;
+                text-align: center;
+            }
+        }
+    }
+
+    > tbody > tr {
+        background-color: lighten($color-b, 40%);
+    }
+
+    @media(max-width: 799px){
+
+        > thead,
+        > tbody {
+
+            > tr {
+
+                > th,
+                > td {
+                    padding: 8px 1px;
+                    font-size: 10px;
+                }
+
+                @media(max-width: 420px){
+
+                    > th {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        > tbody > tr > th {
+
+            &:nth-child(1) {
+                width: 20%;
+            }
+
+            &:nth-child(2) {
+                width: 18%;
+            }
+        }
+    }
+}
+
+.table-time {
+
+    > thead > tr {
+        background-color: lighten($color-d, 10%);
+
+        > th.tb-place {
+            width: 35%;
+        }
+    }
+
+    > tbody > tr {
+        background-color: lighten($color-b, 40%);
+    }
+}

@@ -61,6 +61,7 @@
 
     &-logo {
         width: 70%;
+        max-width: 350px;
 
         @media(max-width: $responseiveWidth) {
             width: 70%;

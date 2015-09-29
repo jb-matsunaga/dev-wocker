@@ -1,0 +1,98 @@
+.c-contact {
+    position: relative;
+    background-color: $bg-contact;
+    color: $whiteCol;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+    transition: box-shadow .25s;
+    @extend [class^="icon-"];
+
+    &-head {
+        background-color: $grayCol;
+
+        h1 {
+            font-size: 20px;
+            text-align: center;
+            padding: 10px;
+            margin: 0;
+
+            @media(max-width: $responseiveWidth) {
+                font-size: 15px;
+            }
+        }
+    }
+
+    &-body {
+        padding: 20px 60px;
+        text-align: center;
+
+        @media(max-width: $responseiveWidthDefalt) {
+            padding: 35px 60px 40px;
+        }
+
+        @media(max-width: $responseiveWidth) {
+            padding: 35px 0 40px;
+        }
+    }
+
+    ul {
+        padding: 0;
+        display: inline-block;
+        @extend .u-clearfix;
+    }
+
+    &-info {
+        width: auto;
+        margin: 0 30px;
+        padding-left: 50px;
+        float: left;
+        position: relative;
+        text-align: left;
+
+        @media(max-width: $responseiveWidthDefalt) {
+            float: none;
+            margin: 0;
+
+            &:nth-child(1) {
+                margin-bottom: 30px;
+            }
+        }
+
+        h2 {
+            font-size: 20px;
+            color: lighten($grayCol, 45%);
+            margin: 0 auto 5px;
+
+            @media(max-width: $responseiveWidth) {
+                font-size: 15px;
+            }
+        }
+
+        a {
+            color: $whiteCol;
+            font-size: 20px;
+
+            @media(max-width: $responseiveWidth) {
+                font-size: 15px;
+            }
+        }
+
+        &:before {
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            font-size: 35px;
+
+            @media(max-width: $responseiveWidth) {
+                font-size: 25px;
+            }
+        }
+
+        &--mail:before {
+            content: "\e601";
+        }
+
+        &--tell:before {
+            content: "\e602";
+        }
+    }
+}

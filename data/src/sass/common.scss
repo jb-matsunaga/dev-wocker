@@ -16,11 +16,11 @@
 @import 'foundation/mixin';
 @import 'foundation/utility';
 @import 'foundation/basic';
+@import "foundation/icons";
 
 //Layout
 @import 'layout/header';
 @import 'layout/footer';
-
 
 //Components
 @import "components/global";
@@ -49,14 +49,19 @@
 @import "components/date_picker/default.time";
 
 //module
+@import "module/alert";
 @import "module/borderbox";
+@import "module/button";
 @import "module/card";
+@import "module/contact";
 @import "module/headhesive";
 @import "module/heading";
-@import "module/icons";
 @import "module/list";
+@import "module/link";
+@import "module/mainpanel";
 @import "module/nav";
 @import "module/parallax";
 @import "module/responsive";
 @import "module/social-icons";
+@import "module/table";
 @import "module/thumbnail";

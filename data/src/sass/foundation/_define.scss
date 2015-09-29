@@ -11,13 +11,20 @@ $keyBorderCol: #dd7900;
 
 $whiteCol: #fff;
 $blackCol: #000;
+$grayCol: #3D3F3F;
+$redCol: #ff1744;
 
 $color-a: #F4924A;
 $color-b: #3097EF;
+$color-c: #f6756b;
+$color-d: #444;
 
 //bgColor
+$body-bg:               #fff !default;
 $bg-body: #3D3F3F !default;
 $bg-wrapper: #fff !default;
+$bg-nav: #F4924A!default;
+$bg-contact: #000 !default;
 
 //root directry
 $imgRoot : '../../../img/';
@@ -27,3 +34,12 @@ $responseiveWidthMax: 1110px;
 $responseiveWidthDefalt: 992px;
 $responseiveWidth: 420px;
 $responseiveWidthMin: 320px;
+
+//font-size
+$font-size-base:          14px !default;
+$line-height-base:        1.428571429 !default; // 20/14
+$line-height-computed: floor(($font-size-base * $line-height-base)) !default; // ~20px;
+
+//table
+$table-cell-padding:            8px !default;
+$table-border-color:            #ddd !default;

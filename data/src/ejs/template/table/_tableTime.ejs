@@ -1,0 +1,27 @@
+                            <section>
+                            <?php
+                            $cf_tableTime = SCF::get( 'cf_tableTime' );
+                            foreach ( $cf_tableTime as $field_name => $field_value ) {
+                            ?>
+                                <h1 class="heading-b"><?php echo esc_html( $field_value['cf-tableTime-title'] ); ?></h1>
+                                <table class="table table-time table-bordered table-url">
+                                    <thead>
+                                        <tr>
+                                            <th>日程</th>
+                                            <th>開場/開演</th>
+                                            <th class="tb-place">会場</th>
+                                            <th>受け取り開始</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><?php echo esc_html( $field_value['cf-tableTime-schedule'] ); ?></td>
+                                            <td><?php echo esc_html( $field_value['cf-tableTime-open'] ); ?></td>
+                                            <td><?php echo esc_html( $field_value['cf-tableTime-venue'] ); ?></td>
+                                            <td><?php echo esc_html( $field_value['cf-tableTime-ticket'] ); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </table>
+                            <?php } ?>
+                            </section>

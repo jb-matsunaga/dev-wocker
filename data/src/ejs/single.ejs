@@ -1,0 +1,63 @@
+<?php
+/**
+ * @package WordPress
+ * @subpackage tixeebox
+ * @since tixeebox 1.0
+ */
+
+get_header(); ?>
+    <% include template/_nav-single %>
+
+    <?php if(have_posts()) : while(have_posts()) : the_post(); ?>
+            <div class="c-mainPanel">
+                <div class="c-mainPanel_body">
+                    <?php echo wp_get_attachment_image(post_custom('keyVisual'),'full'); ?>
+                </div>
+            </div>
+    <?php endwhile; endif; ?>
+
+    <div class="container">
+        <div class="row u-mt40">
+            <div class="col s12">
+                <a class="btn waves-effect waves-light btn-large u-center-block" href="https://tixeebox.tv/lp/how-to/" target="_blank">
+                    tixeeboxご利用方法をみる
+                </a>
+            </div>
+        </div>
+        <div class="alert u-text-center u-mb10">
+            ※以下に記載の情報は、すべて日本時間となります。
+        </div>
+        <!-- 公演日程とチケット受け取り開始日時 -->
+        <% include template/section/_section01 %>
+        <!-- チケット受け取り方法 -->
+        <% include template/section/_section02 %>
+        <!-- 注意事項 -->
+        <?php
+        if(empty($post->post_content)){
+           /* 本文が空の場合の処理 */ 
+        } else {
+        echo '<section id="#link-receive">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">' 
+                                .get_the_content(). 
+                                '</div>
+                            </div>
+                        </div>
+                    </div>
+                </setion>';
+        }
+        ?>
+        <!-- お問い合わせ -->
+        <% include template/section/_section06 %>
+    </div><!--end container-->
+    <?php get_footer(); ?>
+    <script src="<?php bloginfo( 'template_directory' ); ?>/js/single.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('body').addClass('page-single');
+        });
+    </script>
+    </body>
+</html>
