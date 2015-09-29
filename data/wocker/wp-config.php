@@ -1,8 +1,13 @@
 <?php
+/** Enable W3 Total Cache */
+define('WP_CACHE', true); // Added by W3 Total Cache
+
 
 
 // ** MySQL settings ** //
 /** The name of the database for WordPress */
+ //Added by WP-Cache Manager
+define( 'WPCACHEHOME', '/var/www/wordpress/wp-content/plugins/wp-super-cache/' ); //Added by WP-Cache Manager
 define('DB_NAME', 'wordpress');
 
 /** MySQL database username */
