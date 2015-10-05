@@ -1,17 +1,10 @@
-<?php
-/**
- * @package WordPress
- * @subpackage tixeebox
- * @since tixeebox 1.0
- */
-
-get_header(); ?>
+<?php get_header(); ?>
     <% include template/_nav-single %>
 
     <?php if(have_posts()) : while(have_posts()) : the_post(); ?>
             <div class="c-mainPanel">
                 <div class="c-mainPanel_body">
-                    <?php echo wp_get_attachment_image(post_custom('keyVisual'),'full'); ?>
+                    <?php echo wp_get_attachment_image(post_custom('cf_keyVisual'),'full'); ?>
                 </div>
             </div>
     <?php endwhile; endif; ?>
@@ -19,14 +12,25 @@ get_header(); ?>
     <div class="container">
         <div class="row u-mt40">
             <div class="col s12">
+            <?php $ctm_contact = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
+            <?php if(empty($ctm_contact)):?>
                 <a class="btn waves-effect waves-light btn-large u-center-block" href="https://tixeebox.tv/lp/how-to/" target="_blank">
                     tixeeboxご利用方法をみる
                 </a>
+            <?php else:?>
+                <a class="btn btn-special waves-effect waves-light btn-large u-center-block" href="<?php echo get_post_meta($post->ID , 'cf_linkSpecialLP' ,true); ?>" target="_blank">
+                    特設ランディングページをみる
+                </a>
+            <?php endif;?>
             </div>
         </div>
-        <div class="alert u-text-center u-mb10">
-            ※以下に記載の情報は、すべて日本時間となります。
-        </div>
+        <?php $ctm_alert = get_post_meta($post->ID, 'cf_alertStrings', true);?>
+        <?php if(empty($ctm_alert)):?>
+        <?php else:?>
+            <div class="alert u-text-center u-mb10">
+                <?php echo get_post_meta($post->ID , 'cf_alertStrings' ,true); ?>
+            </div>
+        <?php endif;?>
         <!-- 公演日程とチケット受け取り開始日時 -->
         <% include template/section/_section01 %>
         <!-- チケット受け取り方法 -->

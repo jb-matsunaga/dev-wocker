@@ -1,9 +1,9 @@
 
 <?php
-    $cf_tableTicket = SCF::get( 'cf_tableTicket' );
+    $cf_tableTicket = SCF::get( 'cf_tableGetTicket' );
     foreach ( $cf_tableTicket as $field_name => $field_value ) {
   ?>
-    <h1 class="heading-b"><?php echo esc_html( $field_value['cf_title'] ); ?></h1>
+    <h1 class="heading-b"><?php echo esc_html( $field_value['cf_tableGetTicket_title'] ); ?></h1>
     <table class="table table-url table-bordered">
         <thead>
             <tr>
@@ -18,7 +18,7 @@
                 <th width="10%">公演</th>
                 <td class="bg-color-b">
                     <a href="<?php echo esc_html( $field_value['cf_urlIphone'] ); ?>" target="_blank">
-                    <?php echo esc_html( $field_value['cf_urlIphone'] ); ?>
+                    <?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>
                     </a>
                 </td>
             </tr>
@@ -27,7 +27,7 @@
                 <th>公演</th>
                 <td class="bg-color-b">
                     <a href="<?php echo esc_html( $field_value['cf_urlAndroid'] ); ?>" target="_blank">
-                    <?php echo esc_html( $field_value['cf_urlAndroid'] ); ?>
+                    <?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>
                     </a>
                 </td>
             </tr>
@@ -36,7 +36,7 @@
                 <th>公演</th>
                 <td class="bg-color-b">
                     <?php
-                    $image = get_post_meta($post->ID, 'cf_qrcode', true);
+                    $image = get_post_meta($post->ID, 'cf_tableGetTicket_qrcode', true);
                     echo wp_get_attachment_image($image, 'medium');
                     ?>
                 </td>

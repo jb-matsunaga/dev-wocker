@@ -36,7 +36,7 @@
 
 //button
 .btn {
-    
+
     &-large {
         font-size: 20px;
         width: 80%;
@@ -44,6 +44,15 @@
         @media(max-width: 420px) {
             font-size: 16px;
             width: 100%;
+        }
+    }
+
+    &-special {
+        background-color: $color-b;
+
+        &:hover {
+            background-color: lighten($color-b, 5%);
+
         }
     }
 }

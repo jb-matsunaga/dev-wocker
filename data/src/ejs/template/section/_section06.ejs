@@ -1,11 +1,15 @@
-                <section id="link-contact" class="card">
-                    <div class="card-content">
-                        <h1 class="heading-a">お問い合わせ</h1>
-                        <p>
-                        tixeeboxサービスのご利用についてのお問い合わせは電話またはメールにて受け付けております。<br>以下の電話番号またはメールアドレスへご連絡ください。
-                        </p>
-                    </div>
-                    <div class="card-action u-pb0 u-pt0">
-                        <% include ../conponent/_contact %>
-                    </div>
-                </section>
+                <?php if(empty($ctm_contact)):?>
+                    <section id="link-contact" class="card">
+                        <div class="card-content">
+                            <h1 class="heading-a">お問い合わせ</h1>
+                            <p>
+                                tixeeboxサービスのご利用についてのお問い合わせは電話またはメールにて受け付けております。<br>以下の電話番号またはメールアドレスへご連絡ください。
+                            </p>
+                        </div>
+                        <div class="card-action u-pt0">
+                            <% include ../conponent/_contact %>
+                        </div>
+                    </section>
+                <?php else:?>
+                
+                <?php endif;?>

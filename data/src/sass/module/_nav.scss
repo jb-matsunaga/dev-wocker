@@ -3,16 +3,23 @@ nav {
     background-color: $blackCol;
 }
 
-.nav-a {
+.nav {
 
-    > li > a {
+    &-category {
+        top: 0 !important;
+    }
 
-        &:hover {
-            opacity: .9;
-            background-color: $bg-nav !important;
-            color: $blackCol;
-            -webkit-transition: all .5s ease;
-            -moz-transition: all .5s ease;
+    &-a {
+
+        > li > a {
+
+            &:hover {
+                opacity: .9;
+                background-color: $bg-nav !important;
+                color: $blackCol;
+                -webkit-transition: all .5s ease;
+                -moz-transition: all .5s ease;
+            }
         }
     }
 }

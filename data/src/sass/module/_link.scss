@@ -1,21 +1,24 @@
 .link-a {
     position: relative;
     padding-left: 10px;
+    color: $linkCol;
+    margin-top: 2em;
+    display: inline-block;
+    font-size: 13px;
 
     &:before {
         display: inline-block;
         width: 0;
         height: 0;
         content: '';
-        vertical-align: top;
         border-top: 5px solid transparent;
         border-right: 0 solid transparent;
         border-bottom: 5px solid transparent;
         border-left: 6px solid #a7a7a7;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        margin: auto;
+        padding-right: 10px;
+    }
+
+    &:hover {
+        color: lighten($linkCol, 15%);
     }
 }

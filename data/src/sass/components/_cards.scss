@@ -132,7 +132,7 @@
 
     @media(max-width: 420px) {
       font-size: 14px;
-      padding: $card-padding 0;
+      padding: $card-padding 0 0;
 
       &-string {
         padding: 0 $card-padding $card-padding;
@@ -143,7 +143,7 @@
       color: $card-link-color;
       margin-right: $card-padding;
       @include transition(color .3s ease);
-      text-transform: uppercase;
+      //text-transform: uppercase;
 
       &:hover { color: $card-link-color-light; }
     }

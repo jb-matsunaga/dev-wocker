@@ -141,7 +141,7 @@ gulp.task("server", function() {
 //watch
 gulp.task('default',['server'],function() {
     gulp.watch([SRC + '/js/plugins/**/*.js','!'+ SRC + '/js/plugins/back/**/*.js'],['jsplg']);
-    gulp.watch([SRC + "/js/modules/*.js"],['webpack']);
+    gulp.watch([SRC + "/js/modules/*.js", SRC + "/js/*.js"],['webpack']);
     gulp.watch(SRC + '/sass/**/*.scss',['css','hologram']);
     gulp.watch(PUBLIC + '/css/common.css',['mincss']);
     gulp.watch(SRC + '/sass/base/sprite/images/*.png',['sprite']);
