@@ -16,7 +16,7 @@
                 <a href="<?php the_permalink();?>">
                     <div class="c-visualPanel-thumbnail c-visualPanel-thumbnail--one">
                         <?php
-                        $postslist = get_posts('numberposts=1&category='.$cat_id.'&orderby=post_date&order=DESC');
+                        $postslist = get_posts('numberposts=1&category='.$cat_id.'&orderby=post_date&order=DESC"');
                         foreach ($postslist as $post) : setup_postdata($post);
                         ?>
                         <?php
@@ -36,7 +36,7 @@
             </div>
             <div class="c-visualPanel-contant">
                 <?php
-                $postslist_second = get_posts('offset=1&numberposts=4&category='.$cat_id.'&orderby=post_date&order=DESC');
+                $postslist_second = get_posts('offset=1&numberposts=4&category='.$cat_id.'&orderby=post_date&order=DESC"');
                 foreach ($postslist_second as $post) : setup_postdata($post);
                 ?>
                 <div class="c-visualPanel-box">
@@ -61,15 +61,9 @@
         </div>
     </section>
     <div class="container">
-        <?php
-        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-        $main_query = new WP_Query( 'offset=5&cat='. $cat_id. '&paged='. $paged);
-        ?>
-
-        <?php if ( $main_query -> have_posts() ) : ?>
-
+        <?php $postslist_masonry = get_posts('offset=5&numberposts=8&category='.$cat_id.'&orderby=post_date&order=DESC&paged='.$paged); ?>
         <div class="row fn-grid">
-            <?php while ( $main_query -> have_posts() ) : $main_query -> the_post(); ?>
+            <?php foreach ($postslist_masonry as $post) : setup_postdata($post); ?>
             <div class="col s6 m3 fn-grid-item">
                 <section class="card card--masony">
                     <a href="<?php the_permalink();?>">
@@ -86,11 +80,31 @@
                     </a>
                 </section>
             </div>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
         </div>
-        <?php next_posts_link(); ?>
-        <?php endif; ?>
-        <?php wp_reset_postdata(); ?>
+        <div class="pager">
+            <?php global $wp_rewrite;
+            $paginate_base = get_pagenum_link(1);
+            if(strpos($paginate_base, '?') || ! $wp_rewrite->using_permalinks()){
+                $paginate_format = '';
+                $paginate_base = add_query_arg('paged','%#%');
+            }
+            else{
+                $paginate_format = (substr($paginate_base,-1,1) == '/' ? '' : '/') .
+                user_trailingslashit('page/%#%/','paged');;
+                $paginate_base .= '%_%';
+            }
+            echo paginate_links(array(
+                'base' => $paginate_base,
+                'format' => $paginate_format,
+                'total' => $wp_query->max_num_pages,
+                'mid_size' => 4,
+                'current' => ($paged ? $paged : 1),
+                'prev_text' => '«',
+                'next_text' => '»',
+                )); ?>
+            </div>
+            <?php wp_reset_postdata(); ?>
     <?php get_footer(); ?>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/index.min.js"></script>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/category.min.js"></script>

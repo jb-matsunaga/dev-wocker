@@ -43,3 +43,9 @@ $line-height-computed: floor(($font-size-base * $line-height-base)) !default; //
 //table
 $table-cell-padding:            8px !default;
 $table-border-color:            #ddd !default;
+
+//visualPanel
+$visualPanel-height: 400px;
+$visualPanel-box-padding: 15px;
+$visualPanel-thumbnails-height: ($visualPanel-height - $visualPanel-box-padding) / 2;
+
