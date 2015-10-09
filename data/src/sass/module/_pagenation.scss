@@ -1,0 +1,56 @@
+.c-pagenation {
+    display: table;
+    margin: 0 auto;
+    @extend .u-clearfix;
+
+    li {
+        display: inline-block;
+        float: left;
+        border: 1px solid #ccc;
+        border-left: none;
+
+        a {
+            color: $color-a;
+
+            &:hover {
+                color: darken(#ffffff, 5%);
+                background-color: lighten($color-a, 5%);
+            }
+        }
+
+        &.active {
+            background-color: $color-a;
+            color: #ffffff;
+        }
+
+        a, &.active {
+            display: block;
+            padding: 5px 15px;
+        }
+
+        &:first-child, &:last-child {
+
+            a {
+                padding: 5px 10px;
+            }
+        }
+
+        &:first-child {
+            border-left: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        &:last-child {
+            border-right: 1px solid #ccc;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .material-icons {
+                vertical-align: text-top;
+        }
+    }
+
+    &-arrow {
+        position: relative;
+    }
+}

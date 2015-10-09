@@ -6,7 +6,7 @@ var wChange = 992;
     $.fn.headerNav = function(option){
 
         var wWindow = $(window).width();
-
+        console.log(wWindow);
         if(wWindow <= wChange) {
             $(this).removeClass('fn-headerHesive');
         } else {

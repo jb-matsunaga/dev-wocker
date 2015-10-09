@@ -1593,3 +1593,59 @@
 [06-Oct-2015 10:20:54 UTC] PHP Notice:  Undefined variable: the_query in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 116
 [06-Oct-2015 10:20:54 UTC] PHP Notice:  Trying to get property of non-object in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 116
 [06-Oct-2015 10:20:54 UTC] PHP Notice:  Trying to get property of non-object in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 116
+[09-Oct-2015 02:07:30 UTC] WordPress データベースエラー: Lost connection to MySQL server during query for query SELECT option_value FROM wp_options WHERE option_name = 'uninstall_plugins' LIMIT 1 made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), include_once('/plugins/smart-custom-fields/smart-custom-fields.php'), Smart_Custom_Fields->__construct, register_uninstall_hook, get_option, W3_Db->query, W3_DbCache->query, W3_DbCallUnderlying->query, W3_Db->query, W3_DbProcessor->query, W3_Db->default_query
+[09-Oct-2015 02:07:36 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:36 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:36 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:36 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:36 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:36 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:36 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:37 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:37 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:38 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:39 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:39 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:39 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:39 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:39 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:39 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:39 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:40 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:40 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:40 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:40 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:41 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:41 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:41 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:41 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:41 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:41 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:42 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:42 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:42 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:42 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:43 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:44 UTC] PHP Notice:  Undefined variable: do_not_duplicate in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Warning:  in_array() expects parameter 2 to be array, null given in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Notice:  Undefined variable: do_not_duplicate in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Warning:  in_array() expects parameter 2 to be array, null given in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Notice:  Undefined variable: do_not_duplicate in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Warning:  in_array() expects parameter 2 to be array, null given in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Notice:  Undefined variable: do_not_duplicate in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Warning:  in_array() expects parameter 2 to be array, null given in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Notice:  Undefined variable: do_not_duplicate in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Warning:  in_array() expects parameter 2 to be array, null given in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Notice:  Undefined variable: do_not_duplicate in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:44 UTC] PHP Warning:  in_array() expects parameter 2 to be array, null given in /var/www/wordpress/wp-content/themes/tixeebox/category.php on line 82
+[09-Oct-2015 02:07:55 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:55 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:55 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
+[09-Oct-2015 02:07:55 UTC] PHP Warning:  mysql_connect(): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) in /var/www/wordpress/wp-includes/wp-db.php on line 1482
