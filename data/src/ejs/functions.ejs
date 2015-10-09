@@ -34,7 +34,9 @@ function fn_pagenation($pages = '', $range = 2) {
         if ($paged < $pages) echo "<li class=\"c-pagenatin-arrow\"><a href=\"".get_pagenum_link($paged + 1)."\"><i class=\"material-icons\">chevron_right</i></a></li>\n";
         echo "</ul>\n";
     }
-}
+};
+
+//お問い合わせフォーム
 
 
 //以下権限によって管理画面項目の表示・非表示設定/////////////////////////////////////////////////////////////////////////////////
