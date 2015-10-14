@@ -55,4 +55,13 @@
 
         }
     }
+
+    &-back {
+        background-color: darken($color-b, 15%);
+
+        &:hover {
+            background-color: darken($color-b, 10%);
+
+        }
+    }
 }

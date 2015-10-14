@@ -13495,6 +13495,14 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .btn-special:hover {
   background-color: #48a3f1;
 }
+/* line 59, ../../../../../src/sass/module/_button.scss */
+.btn-back {
+  background-color: #0f70c3;
+}
+/* line 62, ../../../../../src/sass/module/_button.scss */
+.btn-back:hover {
+  background-color: #117edb;
+}
 
 /* line 3, ../../../../../src/sass/module/_card.scss */
 .card-image {
