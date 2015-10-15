@@ -2,17 +2,24 @@
     <% include template/_nav-category %>
     <div class="container" ng-controller="contactController">
         <section class="row">
-            <h1 class="heading-a u-mt30 u-mb30 u-text-center">お問い合わせ</h1>
-            <p>法人のお客様のお問合せは必要事項をご記入の上、下記のフォームからお問合せください。</p>
-            <p>
-            詳細なご相談内容については、必要に応じて別途NDA（機密保持契約）の締結をさせていただきます。<br>
-            弊社は皆様のプライバシーを尊重し、個人情報を保護するために細心の注意を払っております。
-            </p>
+            <div class="col s12">
+                <h1 class="heading-a u-mt30 u-mb30">お問い合わせ</h1>
+                <p> 
+                    tixeeboxではサービス内容や機能性を向上させるために日々努めています。<br>
+                    サービス内容や利便性を高めるためのご意見をお待ちしております。
+                </p>
+                <p>
+                    不具合やご意見がございましたらお気軽にご連絡ください。迅速に対応するよう努めます。<br>
+                    なお、お問い合わせにつきましては、tixeebox事務局から3営業日以内にご回答させていただきます。<br>
+                    <span class="alert">※平日のみ 10:00 - 19:00対応</span>
+                </p>
+            </div>
         </section>
-        
-        <div class="row">
+
+        <div class="row u-mt30">
             <form name="contactForm" class="col s12" action="/contact-regist/" method="post" ng-submit="submit()" novalidate>
                 <div class="row">
+                    <h1 class="heading-b u-mt30 u-mb40 u-pl10">お問い合わせフォーム入力</h1>
                     <div class="input-field col s6">
                         <input placeholder="山田" id="name_sei" name="name_sei" ng-model="name_sei" ng-maxlength="20" required type="text" class="validate">
                         <label for="name_sei">お名前（姓）</label>
@@ -60,9 +67,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row u-pt30 u-pb60">
                     <div class="col s12">
-                        <button ng-disabled="contactForm.$invalid" class="btn btn-large waves-effect waves-light u-center-block" type="submit" value="登録する" />送信する</button>
+                        <button id="fn-modalOpen" type="button" ng-disabled="contactForm.$invalid" class="btn btn-large waves-effect waves-light u-center-block" href="#modal1">確認する</button>
+                    </div>
+                </div>
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <section class="row">
+                            <h1 class="heading-a u-mb30">お問い合わせ内容の確認</h1>
+                            <ul class="collection">
+                                <li class="collection-item">
+                                    <p>お名前（姓）：<span ng-bind="name_sei"></span></p>
+                                </li>
+                                <li class="collection-item">
+                                    <p>お名前（名）：<span ng-bind="name_mei"></span></p>
+                                </li>
+                                <li class="collection-item">
+                                    <p>メールアドレス：<span ng-bind="email"></span></p>
+                                </li>
+                                <li class="collection-item">
+                                    <p>
+                                        お問い合わせ内容：<br>
+                                        <span ng-bind="content" class="u-pre-wrap"></span>
+                                    </p>
+                                </li>
+                            </ul>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-action waves-effect">送信する</button>
+                                <button type="button" class="btn btn-cancel modal-action modal-close u-mr15">キャンセル</button>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </form>
@@ -74,6 +109,12 @@
         </section>
     </div>
     <?php get_footer(); ?>
+    <!-- Modal Structure -->
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/contact.min.js"></script>
+    <script>
+        $('#fn-modalOpen').click(function() {
+            $('#modal1').openModal();
+        });
+    </script>
     </body>
 </html>

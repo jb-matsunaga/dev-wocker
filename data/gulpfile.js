@@ -33,12 +33,12 @@ gulp.task("ejs", function () {
             // 最新のJSONファイルを同期読み込みしてオブジェクトを生成
             var json = JSON.parse(fs.readFileSync("src/data/pages.json"));
 
-            gulp.src([SRC + "/ejs/**/**/*.ejs",'!'+ SRC + "/ejs/**/_*.ejs"])
+            gulp.src([SRC + "/ejs/*.ejs", SRC + "/ejs/**/**/*.ejs", '!'+ SRC + "/ejs/**/_*.ejs"])
                 .pipe(plumber())
                 // オブジェクトを渡してデータの当て込み
                 .pipe(ejs(json))
-                .pipe(htmlhint())
-                .pipe(htmlhint.reporter())
+                //.pipe(htmlhint())
+                //.pipe(htmlhint.reporter())
                 .pipe(rename({extname: '.php'}))
                 .pipe(gulp.dest(PUBLIC))
                 .pipe(reload({stream: true}));
@@ -132,7 +132,7 @@ gulp.task('webpack', function() {
 
 //browser sync
 gulp.task("server", function() {
-    browserSync({
+    browserSync.init({
         proxy: "http://wocker.dev/"
     });
 });
@@ -145,7 +145,7 @@ gulp.task('default',['server'],function() {
     gulp.watch(SRC + '/sass/**/*.scss',['css','hologram']);
     gulp.watch(PUBLIC + '/css/common.css',['mincss']);
     gulp.watch(SRC + '/sass/base/sprite/images/*.png',['sprite']);
-    gulp.watch([SRC + "/ejs/**/**/*.ejs",SRC + "/data/**.json"],['ejs']);
+    gulp.watch([SRC + "/ejs/*.ejs", SRC + "/ejs/**/**/*.ejs", SRC + "/data/**.json"],['ejs']);
 });
 
 //初期化処理

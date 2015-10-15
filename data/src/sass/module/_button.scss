@@ -39,7 +39,7 @@
 
     &-large {
         font-size: 20px;
-        width: 80%;
+        width: 50%;
 
         @media(max-width: 420px) {
             font-size: 16px;
@@ -61,6 +61,25 @@
 
         &:hover {
             background-color: darken($color-b, 10%);
+
+        }
+    }
+
+    &-cancel {
+        background-color: darken($whiteCol, 5%);
+        color: $blackCol;
+
+        &:hover {
+            background-color: darken($whiteCol, 0%);
+
+        }
+    }
+
+    &-action {
+        background-color: darken($redCol, 10%);
+
+        &:hover {
+            background-color: darken($redCol, 5%);
 
         }
     }

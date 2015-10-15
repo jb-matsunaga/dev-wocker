@@ -3784,6 +3784,11 @@ th {
   margin: 0 auto;
 }
 
+/* line 104, ../../../../../src/sass/foundation/_utility.scss */
+.u-pre-wrap {
+  white-space: pre-wrap;
+}
+
 /* line 3, ../../../../../src/sass/foundation/_basic.scss */
 body {
   font-family: 'Noto Sans JP', sans-serif;
@@ -13478,7 +13483,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 /* line 40, ../../../../../src/sass/module/_button.scss */
 .btn-large {
   font-size: 20px;
-  width: 80%;
+  width: 50%;
 }
 @media (max-width: 420px) {
   /* line 40, ../../../../../src/sass/module/_button.scss */
@@ -13502,6 +13507,23 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 /* line 62, ../../../../../src/sass/module/_button.scss */
 .btn-back:hover {
   background-color: #117edb;
+}
+/* line 68, ../../../../../src/sass/module/_button.scss */
+.btn-cancel {
+  background-color: #f2f2f2;
+  color: #000;
+}
+/* line 72, ../../../../../src/sass/module/_button.scss */
+.btn-cancel:hover {
+  background-color: white;
+}
+/* line 78, ../../../../../src/sass/module/_button.scss */
+.btn-action {
+  background-color: #e3002c;
+}
+/* line 81, ../../../../../src/sass/module/_button.scss */
+.btn-action:hover {
+  background-color: #fd0031;
 }
 
 /* line 3, ../../../../../src/sass/module/_card.scss */
