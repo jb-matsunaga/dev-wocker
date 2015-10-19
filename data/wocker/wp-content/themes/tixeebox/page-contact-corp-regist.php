@@ -41,12 +41,19 @@
         exit('文字コードを指定できませんでした。');
     }
 
+    $kind   = $_POST['kind'];
+    $company_name = $_POST['company_name'];
     $name_sei   = $_POST['name_sei'];
     $name_mei = $_POST['name_mei'];
     $email  = $_POST['email'];
-    $content  = $_POST['content'];
+    $phone  = $_POST['phone'];
+    $web_url   = $_POST['web_url'];
+    $title = $_POST['contact_title'];
+    $content  = $_POST['contact_content'];
 
-    $result = mysql_query("INSERT INTO wp_contact(name_sei, name_mei, email, content) VALUES('$name_sei', '$name_mei', '$email', '$content')", $con);
+
+
+    $result = mysql_query("INSERT INTO wp_contact_corp(name_sei, name_mei, email, content) VALUES($name_sei', '$name_mei', '$email', '$content')", $con);
     if (!$result) {
         exit('データを登録できませんでした。');
     }
@@ -97,8 +104,11 @@
                         お手数ですが「tixeeboxteam@tixeebox.tv」の受信拒否設定を解除して下さい。
                     </p>
                 </section>
+                <?php echo $kind.'<br>'; ?>
+                 <?php echo $company_name.'<br>'; ?>
+                 <?php echo $name_sei.'<br>'; ?>
                 <div class="card-action">
-                    <button type="button" class="btn btn-back waves-effect waves-light" onclick="location.href='contact/'">戻る</button>
+                    <button type="button" class="btn btn-back waves-effect waves-light" onclick="location.href='contact-corp/'">戻る</button>
                 </div>
             </section>
         </div>

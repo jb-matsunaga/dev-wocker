@@ -148,10 +148,5 @@
     <?php get_footer(); ?>
     <!-- Modal Structure -->
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/contact.min.js"></script>
-    <script>
-        $('#fn-modalOpen').click(function() {
-            $('#modal1').openModal();
-        });
-    </script>
     </body>
 </html>

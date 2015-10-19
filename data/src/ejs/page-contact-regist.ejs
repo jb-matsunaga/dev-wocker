@@ -18,10 +18,10 @@
         exit('文字コードを指定できませんでした。');
     }
 
-    $name_sei   = $_REQUEST['name_sei'];
-    $name_mei = $_REQUEST['name_mei'];
-    $email  = $_REQUEST['email'];
-    $content  = $_REQUEST['content'];
+    $name_sei   = $_POST['name_sei'];
+    $name_mei = $_POST['name_mei'];
+    $email  = $_POST['email'];
+    $content  = $_POST['content'];
 
     $result = mysql_query("INSERT INTO wp_contact(name_sei, name_mei, email, content) VALUES('$name_sei', '$name_mei', '$email', '$content')", $con);
     if (!$result) {
@@ -65,7 +65,7 @@
     <div class="row u-mt60 u-mb60">
         <div class="col s12">
             <section class="card">
-                <div class="card-content">
+                <section class="card-content">
                     <h1 class="heading-a">お問い合わせ完了</h1>
                     <p class="u-pt30 u-pb30 u-pl10 u-pr10">
                         tixeebox事務局から3営業日以内にご回答させていただきます。<br>
@@ -73,7 +73,7 @@
                         迷惑メール受信拒否設定によっては、本サイトからのお知らせメールが届かない場合がございます。<br>
                         お手数ですが「tixeeboxteam@tixeebox.tv」の受信拒否設定を解除して下さい。
                     </p>
-                </div>
+                </section>
                 <div class="card-action">
                     <button type="button" class="btn btn-back waves-effect waves-light" onclick="location.href='contact/'">戻る</button>
                 </div>
