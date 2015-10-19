@@ -36,8 +36,8 @@
     <div class="container">
         <div class="row u-mt40">
             <div class="col s12">
-            <?php $ctm_contact = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
-            <?php if(empty($ctm_contact)):?>
+            <?php $ctm_linkspecial = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
+            <?php if(empty($ctm_linkspecial)):?>
                 <a class="btn waves-effect waves-light btn-large u-center-block" href="https://tixeebox.tv/lp/how-to/" target="_blank">
                     tixeeboxご利用方法をみる
                 </a>
@@ -55,6 +55,24 @@
                 <?php echo get_post_meta($post->ID , 'cf_alertStrings' ,true); ?>
             </div>
         <?php endif;?>
+        <!-- 投稿部分 -->
+        <?php
+        if(empty($post->post_content)){
+           /* 本文が空の場合の処理 */ 
+        } else {
+        echo '<section id="#link-receive">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-content">' 
+                                .get_the_content(). 
+                                '</div>
+                            </div>
+                        </div>
+                    </div>
+                </setion>';
+        }
+        ?>
         <!-- 公演日程とチケット受け取り開始日時 -->
                         <?php $ctm_schedule = get_post_meta($post->ID, 'cf-tableTime-title', true);?>
                 <?php if(empty($ctm_schedule)):?>
@@ -156,7 +174,7 @@
                 <th>iPhone</th>
                 <th width="10%">公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_urlIphone'] ); ?>" target="_blank">
+                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>" target="_blank">
                     <?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>
                     </a>
                 </td>
@@ -165,7 +183,7 @@
                 <th>Android</th>
                 <th>公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_urlAndroid'] ); ?>" target="_blank">
+                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>" target="_blank">
                     <?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>
                     </a>
                 </td>
@@ -176,7 +194,7 @@
                 <td class="bg-color-b">
                     <?php
                     $image = get_post_meta($post->ID, 'cf_tableGetTicket_qrcode', true);
-                    echo wp_get_attachment_image($image, 'medium');
+                    echo wp_get_attachment_image($image, 'thumbnail');
                     ?>
                 </td>
             </tr>
@@ -192,26 +210,8 @@
                     </section>
                 <?php endif;?>
 
-        <!-- 注意事項 -->
-        <?php
-        if(empty($post->post_content)){
-           /* 本文が空の場合の処理 */ 
-        } else {
-        echo '<section id="#link-receive">
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card">
-                                <div class="card-content">' 
-                                .get_the_content(). 
-                                '</div>
-                            </div>
-                        </div>
-                    </div>
-                </setion>';
-        }
-        ?>
         <!-- お問い合わせ -->
-                        <?php if(empty($ctm_contact)):?>
+                        <?php if(empty($ctm_linkspecial)):?>
                     <section id="link-contact" class="card">
                         <div class="card-content">
                             <h1 class="heading-a">お問い合わせ</h1>
