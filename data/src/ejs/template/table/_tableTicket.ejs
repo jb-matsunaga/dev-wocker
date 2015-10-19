@@ -17,7 +17,7 @@
                 <th>iPhone</th>
                 <th width="10%">公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_urlIphone'] ); ?>" target="_blank">
+                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>" target="_blank">
                     <?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>
                     </a>
                 </td>
@@ -26,7 +26,7 @@
                 <th>Android</th>
                 <th>公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_urlAndroid'] ); ?>" target="_blank">
+                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>" target="_blank">
                     <?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>
                     </a>
                 </td>
@@ -37,7 +37,7 @@
                 <td class="bg-color-b">
                     <?php
                     $image = get_post_meta($post->ID, 'cf_tableGetTicket_qrcode', true);
-                    echo wp_get_attachment_image($image, 'medium');
+                    echo wp_get_attachment_image($image, 'thumbnail');
                     ?>
                 </td>
             </tr>

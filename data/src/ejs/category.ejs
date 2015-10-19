@@ -1,22 +1,27 @@
 <?php get_header(); ?>
 <!-- カテゴリ情報取得 -->
 <?php
+if ( have_posts() ) {
     $category = get_the_category();
     $cat_id   = $category[0]->cat_ID;
     $cat_name = $category[0]->cat_name;
+}
 ?>
     <% include template/_nav-category %>
     <section class="container">
-            <h1 class="heading-category"><?php echo $cat_name; ?></h1>
+            <h1 class="heading-category"><?php if ( have_posts() ) { echo $cat_name;} else { echo '投稿されていません。';} ?></h1>
     </section>
 
     <section class="c-visualPanel u-mb50">
         <div class="c-visualPanel-body">
             <div class="c-visualPanel-contant">
+                <?php
+                if ( have_posts() ) {
+                $my_query = new WP_Query( 'posts_per_page=1&cat='.$cat_id);
+                ?>
                 <a href="<?php the_permalink();?>">
                     <div class="c-visualPanel-thumbnail c-visualPanel-thumbnail--one">
-                        <?php $my_query = new WP_Query( 'posts_per_page=1&category='.$cat_id);
-                        while ( $my_query->have_posts() ) : $my_query->the_post();
+                        <?php while ( $my_query->have_posts() ) : $my_query->the_post();
                         $do_not_duplicate[] = $post->ID; ?>
                         <?php
                             if ( has_post_thumbnail() ) {
@@ -26,14 +31,18 @@
                         <h1 class="c-visualPanel-heading">
                             <?php the_title(); ?>
                         </h1>
-                        <?php endwhile; ?>
+                        <?php endwhile;?>
                     </div>
                 </a>
+                <?php } ?>
             </div>
             <div class="c-visualPanel-contant">
-                <?php $my_query = new WP_Query( 'offset=1&posts_per_page=4&category='.$cat_id);
+                <?php
+                if ( have_posts() ) {
+                $my_query = new WP_Query( 'offset=1&posts_per_page=4&cat='.$cat_id);
                 while ( $my_query->have_posts() ) : $my_query->the_post();
-                $do_not_duplicate[] = $post->ID; ?>
+                $do_not_duplicate[] = $post->ID;
+                ?>
                 <div class="c-visualPanel-box">
                     <a href="<?php the_permalink();?>">
                         <div class="c-visualPanel-thumbnail">
@@ -48,7 +57,7 @@
                         </div>
                     </a>
                 </div>
-                <?php endwhile; ?>
+                <?php endwhile; }?>
             </div>
         </div>
     </section>

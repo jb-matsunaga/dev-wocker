@@ -12,8 +12,8 @@
     <div class="container">
         <div class="row u-mt40">
             <div class="col s12">
-            <?php $ctm_contact = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
-            <?php if(empty($ctm_contact)):?>
+            <?php $ctm_linkspecial = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
+            <?php if(empty($ctm_linkspecial)):?>
                 <a class="btn waves-effect waves-light btn-large u-center-block" href="https://tixeebox.tv/lp/how-to/" target="_blank">
                     tixeeboxご利用方法をみる
                 </a>
@@ -31,11 +31,7 @@
                 <?php echo get_post_meta($post->ID , 'cf_alertStrings' ,true); ?>
             </div>
         <?php endif;?>
-        <!-- 公演日程とチケット受け取り開始日時 -->
-        <% include template/section/_section01 %>
-        <!-- チケット受け取り方法 -->
-        <% include template/section/_section02 %>
-        <!-- 注意事項 -->
+        <!-- 投稿部分 -->
         <?php
         if(empty($post->post_content)){
            /* 本文が空の場合の処理 */ 
@@ -53,6 +49,10 @@
                 </setion>';
         }
         ?>
+        <!-- 公演日程とチケット受け取り開始日時 -->
+        <% include template/section/_section01 %>
+        <!-- チケット受け取り方法 -->
+        <% include template/section/_section02 %>
         <!-- お問い合わせ -->
         <% include template/section/_section06 %>
     </div><!--end container-->
