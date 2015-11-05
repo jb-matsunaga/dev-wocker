@@ -29,46 +29,81 @@
         </section>
     </div>
 </div>
-    <div class="header">
+    <?php if ( is_home() ) { ?>
+<div class="header">
+<?php } else {?>
+<div class="navbar-fixed">
+<?php } ?>
     <nav class="hidden-xs">
-        <ul class="left hide-on-med-and-down">
-            <li><a target="_blank" href="http://livestyles.tv/news">NEWS</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/services">SERVICES</a></li>
-            <li><a href="/lp/how-to/">HOW TO</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/patent">PATENT</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/recruit">RECRUIT</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/contact">CONTACT</a></li>
-        </ul>
-        <ul class="social-icons">
-            <li>
-                <a href="https://twitter.com/tixeebox1" target="_blank">
-                    <i class="icon-twitter"></i>
+        <ul class="nav-a left hide-on-med-and-down">
+            <li class="nav-a-logo">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ">
                 </a>
             </li>
         </ul>
+        <ul class="nav-a right hide-on-med-and-down">
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">EVENT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/event/special/">スペシャルイベント一覧</a></li>
+                    <li><a href="/event/lp/">イベント一覧</a></li>
+                    <li><a href="/event/archives/">アーカイブ</a></li>
+                </ul>
+            </li>
+            <li><a href="/lp/how-to/">HOW TO</a></li>
+            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">CONTACT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
+                    <li><a href="/contact/">お問い合わせ（個人）</a></li>
+                </ul>
+            </li>
+            <li class="u-pl30">
+                <ul class="social-icons">
+                    <li>
+                        <a href="https://twitter.com/tixeebox1" target="_blank">
+                            <i class="icon-twitter"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
     </nav>
     <nav class="visible-xs navbar-fixed-top">
-        <ul class="right hide-on-med-and-down">
-            <li><a target="_blank" href="http://livestyles.tv/news">NEWS</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/services">SERVICES</a></li>
-            <li><a href="/lp/how-to/">HOW TO</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/patent">PATENT</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/recruit">RECRUIT</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/contact">CONTACT</a></li>
-        </ul>
+
         <ul id="slide-out" class="side-nav">
-            <li><a target="_blank" href="http://livestyles.tv/news">NEWS</a></li>
+            <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">TOP</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">EVENT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/event/special/">スペシャルイベント一覧</a></li>
+                    <li><a href="/event/lp/">イベント一覧</a></li>
+                    <li><a href="/event/archives/">アーカイブ</a></li>
+                </ul>
+            </li>
+            <li><a target="_blank" href="https://tixeebox.tv/lp/how-to/">HOW TO</a></li>
             <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/services">SERVICES</a></li>
-            <li><a href="/lp/how-to/">HOW TO</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/patent">PATENT</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/recruit">RECRUIT</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/contact">CONTACT</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">CONTACT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
+                    <li><a href="/contact/">お問い合わせ（個人）</a></li>
+                </ul>
+            </li>
         </ul>
         <a data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        <a href="#top" class="brand-logo center"><img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ"></a>
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo center"><img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ"></a>
         <ul class="social-icons">
             <li>
                 <a href="https://twitter.com/tixeebox1" target="_blank">
@@ -144,28 +179,35 @@
             </p>
         </section>
 
-                <section class="c-contact">
-                <div class="c-contact-head">
-                    <h1>tixeeboxに関するお問い合わせ</h1>
-                </div>
-                <div class="c-contact-body">
-                    <ul>
-                        <li class="c-contact-info c-contact-info--mail">
-                            <h2>メールでのお問い合わせ</h2>
-                            <a href="mailto:info-tixeebox@livestyles.tv">
-                                info-tixeebox@livestyles.tv
-                            </a>
-                        </li>
-                        <li class="c-contact-info c-contact-info--tell">
-                            <h2>お電話でのお問い合わせ</h2>
-                            <a href="tel:03-4590-7632">
-                                03-4590-7632
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <?php
+            $contact_title = get_post_meta($post->ID, 'cf-contactTitle', true);
+            $contact_mail = get_post_meta($post->ID, 'cf-contactMail', true);
+            $contact_tell = get_post_meta($post->ID, 'cf-contactTell', true);
+        ?>
+
+        <section class="c-contact">
+            <div class="c-contact-head">
+                <h1><?php echo $contact_title; ?></h1>
+            </div>
+            <div class="c-contact-body">
+                <ul>
+                    <li class="c-contact-info c-contact-info--mail">
+                        <h2>メールでのお問い合わせ</h2>
+                        <?php ?>
+                            <?php echo '<a href="mailto:'.$contact_mail.'">'?>
+                            <?php echo $contact_mail; ?>
+                        </a>
+                    </li>
+                    <li class="c-contact-info c-contact-info--tell">
+                        <h2>お電話でのお問い合わせ</h2>
+                        <?php echo '<a href="tel:'.$contact_tell.'">' ?>
+                            <?php echo $contact_tell; ?>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </section>
+
     </div>
     <?php get_footer(); ?>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/index.min.js"></script>

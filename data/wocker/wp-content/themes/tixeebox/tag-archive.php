@@ -2,13 +2,11 @@
 <!-- カテゴリ情報取得 -->
 <?php
 if ( have_posts() ) {
-    $category = get_the_category();
-    $cat_id   = $category[0]->cat_ID;
-    $cat_name = $category[0]->cat_name;
-    $cat_slug = $category[0]->slug;
+    $tags = get_the_tags();
+    $tag_id   = $tags[0]->term_id;
+    $tag_name = $tags[0]->slug;
 }
 ?>
-
     <?php if ( is_home() ) { ?>
 <div class="header">
 <?php } else {?>
@@ -30,7 +28,7 @@ if ( have_posts() ) {
                 <ul class='c-dropdown-body'>
                     <li><a href="/event/special/">スペシャルイベント一覧</a></li>
                     <li><a href="/event/lp/">イベント一覧</a></li>
-                    <li><a href="/event/archives/">アーカイブ</a></li>
+                    <li><a href="/tag/archive/">過去のイベント一覧</a></li>
                 </ul>
             </li>
             <li><a href="/lp/how-to/">HOW TO</a></li>
@@ -67,7 +65,7 @@ if ( have_posts() ) {
                 <ul class='c-dropdown-body'>
                     <li><a href="/event/special/">スペシャルイベント一覧</a></li>
                     <li><a href="/event/lp/">イベント一覧</a></li>
-                    <li><a href="/event/archives/">アーカイブ</a></li>
+                    <li><a href="/tag/archive/">過去のイベント一覧</a></li>
                 </ul>
             </li>
             <li><a target="_blank" href="https://tixeebox.tv/lp/how-to/">HOW TO</a></li>
@@ -93,42 +91,26 @@ if ( have_posts() ) {
         </ul>
     </nav>
 </div>
-    <?php if ( $cat_slug == 'special' ) { ?>
-    <div class="c-parallax c-parallax--category1" id="fn-parallax-2">
-    <?php } else if ( $cat_slug == 'lp' ) {?>
-    <div class="c-parallax c-parallax--category2" id="fn-parallax-2">
-    <?php } else if ( $cat_slug == 'archives' ) {?>
-    <div class="c-parallax c-parallax--tag1" id="fn-parallax-2">
-    <?php } else { ?>
-    <div class="c-parallax c-parallax--category1" id="fn-parallax-2">
-    <?php } ?>
-        <div class="c-parallax-overlay"></div>
-        <div class="c-parallax-content">
+    <div class="c-parallax c-parallax--category" id="fn-parallax-2">
+    <div class="c-parallax-overlay"></div>
+    <div class="c-parallax-content">
 
-        </div>
     </div>
-
+</div>
     <section class="container">
-        <h1 class="heading-category">
-            <?php if ( have_posts() ) { echo $cat_name.'新着';} else { echo '投稿されていません。';} ?>
-        </h1>
-        <form class="c-search u-pull-right" method="get" id="searchform" action="<?php bloginfo('url'); ?>">
-            <div class="c-search-body">
-                <input type="search" name="s" id="search" placeholder="検索" required>
-                <label for="s"><i class="material-icons">search</i></label>
-            </div>
-        </form>
+            <h1 class="heading-category"><?php if ( have_posts() ) { echo single_tag_title( );} else { echo '投稿されていません。';} ?></h1>
     </section>
-    <section class="c-visualPanel">
+
+    <section class="c-visualPanel u-mb50">
         <div class="c-visualPanel-body">
             <div class="c-visualPanel-contant">
                 <?php
                 if ( have_posts() ) {
-                $my_query = new WP_Query( 'posts_per_page=1&cat='.$cat_id);
+                $tag_query = new WP_Query( 'posts_per_page=1&term_id='.$tag_id);
                 ?>
                 <a href="<?php the_permalink();?>">
                     <div class="c-visualPanel-thumbnail c-visualPanel-thumbnail--one">
-                        <?php while ( $my_query->have_posts() ) : $my_query->the_post();
+                        <?php while ( $tag_query->have_posts() ) : $tag_query->the_post();
                         $do_not_duplicate[] = $post->ID; ?>
                         <?php
                             if ( has_post_thumbnail() ) {
@@ -146,8 +128,8 @@ if ( have_posts() ) {
             <div class="c-visualPanel-contant">
                 <?php
                 if ( have_posts() ) {
-                $my_query = new WP_Query( 'offset=1&posts_per_page=4&cat='.$cat_id);
-                while ( $my_query->have_posts() ) : $my_query->the_post();
+                $tag_query = new WP_Query( 'offset=1&posts_per_page=4&term_id='.$tag_id);
+                while ( $tag_query->have_posts() ) : $tag_query->the_post();
                 $do_not_duplicate[] = $post->ID;
                 ?>
                 <div class="c-visualPanel-box">
@@ -168,12 +150,12 @@ if ( have_posts() ) {
             </div>
         </div>
     </section>
-    <?php if ( ($my_query->found_posts ) > 5 ){ ?>
     <div class="container">
-        <h1 class="heading-category"><?php echo $cat_name.'一覧'; ?></h1>
+
         <div class="row fn-grid">
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
                 if ( in_array( $post->ID, $do_not_duplicate ) ) continue;?>
+
             <div class="col s6 m3 fn-grid-item">
                 <section class="card card--masony">
                     <a href="<?php the_permalink();?>">
@@ -193,7 +175,7 @@ if ( have_posts() ) {
             <?php endwhile; endif; ?>
         </div>
         <?php
-        wp_reset_postdata();
+        wp_reset_postdata(); 
         ?>
         <div class="row">
             <?php if (function_exists('fn_pagenation')) {
@@ -201,7 +183,6 @@ if ( have_posts() ) {
             }?>
         </div>
     </div>
-    <?php } ?>
     <?php get_footer(); ?>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/index.min.js"></script>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/category.min.js"></script>

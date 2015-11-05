@@ -1,22 +1,28 @@
+        <?php
+            $contact_title = get_post_meta($post->ID, 'cf-contactTitle', true);
+            $contact_mail = get_post_meta($post->ID, 'cf-contactMail', true);
+            $contact_tell = get_post_meta($post->ID, 'cf-contactTell', true);
+        ?>
+
         <section class="c-contact">
-                <div class="c-contact-head">
-                    <h1>tixeeboxに関するお問い合わせ</h1>
-                </div>
-                <div class="c-contact-body">
-                    <ul>
-                        <li class="c-contact-info c-contact-info--mail">
-                            <h2>メールでのお問い合わせ</h2>
-                            <a href="mailto:info-tixeebox@livestyles.tv">
-                                info-tixeebox@livestyles.tv
-                            </a>
-                        </li>
-                        <li class="c-contact-info c-contact-info--tell">
-                            <h2>お電話でのお問い合わせ</h2>
-                            <a href="tel:03-4590-7632">
-                                03-4590-7632
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="c-contact-head">
+                <h1><?php echo $contact_title; ?></h1>
+            </div>
+            <div class="c-contact-body">
+                <ul>
+                    <li class="c-contact-info c-contact-info--mail">
+                        <h2>メールでのお問い合わせ</h2>
+                        <?php ?>
+                            <?php echo '<a href="mailto:'.$contact_mail.'">'?>
+                            <?php echo $contact_mail; ?>
+                        </a>
+                    </li>
+                    <li class="c-contact-info c-contact-info--tell">
+                        <h2>お電話でのお問い合わせ</h2>
+                        <?php echo '<a href="tel:'.$contact_tell.'">' ?>
+                            <?php echo $contact_tell; ?>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </section>

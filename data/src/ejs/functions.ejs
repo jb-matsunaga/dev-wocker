@@ -35,6 +35,102 @@ function fn_pagenation($pages = '', $range = 2) {
     }
 };
 
+// パンくずリスト
+function breadcrumb(){
+    global $post;
+    $str ='';
+    if(!is_home()&&!is_admin()){
+        $str.= '<div id="breadcrumb" class="cf c-breadcrumb-body"><div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
+        $str.= '<a href="'. home_url() .'" itemprop="url"><span itemprop="title">トップ</span></a> &gt;</div>';
+ 
+        if(is_category()) {
+            $cat = get_queried_object();
+            if($cat -> parent != 0){
+                $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, 'category' ));
+                foreach($ancestors as $ancestor){
+                    $str.='<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($ancestor) .'" itemprop="url"><span itemprop="title">'. get_cat_name($ancestor) .'</span></a> &gt;</div>';
+                }
+            }
+        $str.='<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($cat -> term_id). '" itemprop="url"><span itemprop="title">'. $cat-> cat_name . '</span></a></div>';
+        } elseif(is_page()){
+            if($post -> post_parent != 0 ){
+                $ancestors = array_reverse(get_post_ancestors( $post->ID ));
+                foreach($ancestors as $ancestor){
+                    $str.='<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="'. get_permalink($ancestor).'" itemprop="url"><span itemprop="title">'. get_the_title($ancestor) .'</span></a></div>';
+                }
+            }
+        } elseif(is_single()){
+            $categories = get_the_category($post->ID);
+            $cat = $categories[0];
+            if($cat -> parent != 0){
+                $ancestors = array_reverse(get_ancestors( $cat -> cat_ID, 'category' ));
+                foreach($ancestors as $ancestor){
+                    $str.='<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($ancestor).'" itemprop="url"><span itemprop="title">'. get_cat_name($ancestor). '</span></a> &gt;</div>';
+                }
+            }
+            $str.='<div itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="'. get_category_link($cat -> term_id). '" itemprop="url"><span itemprop="title">'. $cat-> cat_name . '一覧</span></a></div>';
+        } else{
+            $str.='<div>'. wp_title('', false) .'</div>';
+        }
+        $str.='</div>';
+    }
+    echo $str;
+}
+//ログインページ変更
+define( 'TIXEEBOX_ADMIN_LOGIN_PAGE', 'tixeebox-admin-login.php' );
+
+add_action( 'login_init', 'tixeebox_admin_login_init' );
+
+add_filter( 'site_url', 'tixeebox_admin_login_site_url', 10, 4 );
+
+add_filter( 'wp_redirect', 'tixeebox_admin_login_wp_redirect', 10, 2 );
+
+if ( ! function_exists( 'tixeebox_admin_login_init' ) ) {
+
+    function tixeebox_admin_login_init() {
+
+        if ( !defined( 'TIXEEBOX_ADMIN_LOGIN' ) || sha1( 'keyword' ) != TIXEEBOX_ADMIN_LOGIN ) {
+
+            status_header( 403 );
+
+            exit;
+
+        }
+
+    }
+
+}
+
+if ( ! function_exists( 'tixeebox_admin_login_site_url' ) ) {
+
+    function tixeebox_admin_login_site_url( $url, $path, $orig_scheme, $blog_id ) {
+
+        if ( ( $path == 'wp-login.php' || preg_match( '/wp-login\.php\?action=\w+/', $path ) ) &&
+
+            ( is_user_logged_in() || strpos( $_SERVER['REQUEST_URI'], TIXEEBOX_ADMIN_LOGIN_PAGE ) !== false ) )
+
+            $url = str_replace( 'wp-login.php', TIXEEBOX_ADMIN_LOGIN_PAGE, $url );
+
+        return $url;
+
+    }
+
+}
+
+if ( ! function_exists( 'tixeebox_admin_login_wp_redirect' ) ) {
+
+    function tixeebox_admin_login_wp_redirect( $location, $status ) {
+
+        if ( strpos( $_SERVER['REQUEST_URI'], TIXEEBOX_ADMIN_LOGIN_PAGE ) !== false )
+
+            $location = str_replace( 'wp-login.php', TIXEEBOX_ADMIN_LOGIN_PAGE, $location );
+
+        return $location;
+
+    }
+
+}
+
 
 //以下権限によって管理画面項目の表示・非表示設定/////////////////////////////////////////////////////////////////////////////////
 //ログインロゴ画像変更

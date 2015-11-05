@@ -1,6 +1,90 @@
-.footer {
+footer {
     color: $whiteCol;
     background: $grayCol;
-    text-align: center;
-    font-size: 12px;
+    font-size: 13px;
+
+    h5 {
+        font-size: 18px;
+    }
+
+    .c-list-icons {
+        margin-top: 0;
+
+        li:nth-child(1) {
+            padding-left: 0;
+        }
+
+        > li img {
+            height: 41px
+        }
+    }
+
+    nav {
+        box-shadow: none;
+        background: none;
+        opacity: initial;
+        height: auto;
+
+        ul  {
+            @extend .u-clearfix;
+            @media(max-width: $responseiveWidthDefalt) {
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: $body-bg;
+
+                li {
+                    border-bottom: 1px solid #ccc;
+
+                    &:last-child {
+                        border: none;
+                    }
+
+                    > a {
+                        color: $blackCol;
+                    }
+                }
+
+                .c-dropdown-head:after {
+                    border-color: $blackCol;
+                }
+            }
+
+            > li {
+                width: 100%;
+                line-height: 30px;
+                position: relative;
+
+                > a {
+                    font-size: 13px;
+
+                    &:hover {
+                        background-color: $bg-nav !important;
+                        color: $blackCol;
+                        -webkit-transition: all .5s ease;
+                        -moz-transition: all .5s ease;
+                    }
+                }
+
+                ul {
+                    width: 100%;
+                }
+            }
+
+            &.c-dropdown-body {
+                @media(max-width: $responseiveWidthDefalt) {
+                    position: relative;
+                    border: none;
+                    border-radius: 0;
+                }
+            }
+        }
+    }
+
+    .footer-copyright {
+        font-size: 11px;
+        border-top: 1px solid $grayCol;
+        line-height: 30px;
+        height: 30px;
+        margin-top: 15px;
+    }
 }

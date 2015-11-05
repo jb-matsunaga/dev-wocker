@@ -1,8 +1,8 @@
 <% include template/_head-angular %>
-    <% include template/_nav-category %>
-    <div class="container" ng-controller="contactCorpController">
+    <% include template/_nav %>
+    <div class="container u-pt60" ng-controller="contactCorpController">
         <section class="row">
-            <h1 class="heading-a u-mt30 u-mb30 u-text-center">お問い合わせ</h1>
+            <h1 class="heading-a u-mt30 u-mb30">お問い合わせ（法人）</h1>
             <p>法人のお客様のお問合せは必要事項をご記入の上、下記のフォームからお問合せください。</p>
             <p>
             詳細なご相談内容については、必要に応じて別途NDA（機密保持契約）の締結をさせていただきます。<br>
@@ -18,7 +18,7 @@
                         <checkbox-group min-required="1">
                         <ul class="c-list-cols">
                             <li ng-repeat="kind in kinds">
-                            <input type="checkbox" name="kind" ng-model="kind.checked" class="filled-in" id="{{kind.id}}" value="{{kind.name}}" />
+                            <input type="checkbox" name="kind[]" ng-model="kind.checked" class="filled-in" id="{{kind.id}}" value="{{kind.name}}" />
                                 <label for="{{kind.id}}">{{kind.name}}</label>
                             </li>
                         </ul>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="http://www.website.com" name="web_url" id="web_url" type="text" class="validate">
+                        <input placeholder="http://www.website.com" id="web_url" name="web_url" ng-model="web_url" type="text" class="validate">
                         <label for="web_url">貴社ウェブサイトURL</label>
                     </div>
                 </div>
@@ -113,7 +113,6 @@
                 <div class="row u-pt30 u-pb60">
                     <div class="col s12">
                         <button id="fn-modalOpen" type="button" ng-click="check()" class="btn btn-large waves-effect waves-light u-center-block" href="#modal1">確認する</button>
-                        <!-- <button id="fn-modalOpen" type="button" ng-disabled="contactForm.$invalid" ng-click="check()" class="btn btn-large waves-effect waves-light u-center-block" href="#modal1">確認する</button> -->
                     </div>
                 </div>
                 <div id="modal1" class="modal">
@@ -153,7 +152,7 @@
                                 </li>
                             </ul>
                             <div class="modal-footer">
-                                <button type="button" onclick="submit()" class="btn btn-action waves-effect">送信する</button>
+                                <button type="submit" class="btn btn-action waves-effect">送信する</button>
                                 <button type="button" class="btn btn-cancel modal-action modal-close u-mr15">キャンセル</button>
                             </div>
                         </section>

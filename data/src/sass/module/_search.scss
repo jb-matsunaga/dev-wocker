@@ -1,0 +1,25 @@
+.c-search {
+    width: 22%;
+    margin-top: 10px;
+
+    &-body {
+        position: relative;
+
+        input {
+            color: $blackCol;
+            height: 2.3em;
+            font-size: 15px;
+            padding-left: 2.5em;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        label i {
+            position: absolute;
+            display: inline-table;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+}

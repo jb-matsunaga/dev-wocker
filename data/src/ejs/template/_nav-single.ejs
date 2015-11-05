@@ -1,4 +1,4 @@
-    <section class="navbar-fixed">
+    <section class="navbar-fixed navbar-fixed--single">
         <h1 class="heading-d"><?php single_post_title(); ?> - tixeeboxスマホチケットご利用方法</h1>
         <nav>
             <div class="nav-wrapper">
@@ -8,10 +8,19 @@
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="nav-a right hide-on-med-and-down">
                     <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li><a class="fn-pageScroll" href="#link-schedule">チケット受け取り開始日時</a></li>
-                    <li><a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a></li>
-                    <li><a class="fn-pageScroll" href="#link-contact">お問い合わせ</a></li>
+                    <li id="fn-navSchedule" class="u-display-none">
+                        <a class="fn-pageScroll" href="#link-schedule">
+                        チケット受け取り開始日時
+                        </a>
+                    </li>
+                    <li id="fn-navReceive" class="u-display-none">
+                        <a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a>
+                    </li>
+                    <li id="fn-navContact" class="u-display-none">
+                        <a class="fn-pageScroll" href="#link-contact">お問い合わせ</a>
+                    </li>
                     <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
                     <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>

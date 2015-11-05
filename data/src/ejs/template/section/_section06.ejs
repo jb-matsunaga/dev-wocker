@@ -1,7 +1,10 @@
-                <?php if(empty($ctm_linkspecial)):?>
+                <?php
+                    $contact_check = get_post_meta($post->ID, 'cf-contactCheck', true);
+                ?>
+                <?php if( $contact_check == 'ON' ) {?>
                     <section id="link-contact" class="card">
                         <div class="card-content">
-                            <h1 class="heading-a">お問い合わせ</h1>
+                            <h1 class="heading-a">tixeeboxに関するお問い合わせ</h1>
                             <p>
                                 tixeeboxサービスのご利用についてのお問い合わせは電話またはメールにて受け付けております。<br>以下の電話番号またはメールアドレスへご連絡ください。
                             </p>
@@ -10,6 +13,4 @@
                             <% include ../conponent/_contact %>
                         </div>
                     </section>
-                <?php else:?>
-                
-                <?php endif;?>
+                <?php };?>

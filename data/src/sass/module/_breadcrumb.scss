@@ -1,0 +1,28 @@
+.c-breadcrumb {
+    width: 100%;
+    background-color: darken($blackCol, 15%);
+
+    &-body {
+        width: 100%;
+        max-width: 1024px;
+        margin: 0 auto;
+        color: darken($body-bg, 15%);
+
+        > div {
+            display: inline-block;
+
+            > a {
+                padding: 0 15px;
+                font-size: 13px;
+                color: $body-bg;
+                line-height: 32px;
+
+                &:hover {
+                    color: $color-a;
+                    -webkit-transition: all .5s ease;
+                    -moz-transition: all .5s ease;
+                }
+            }
+        }
+    }
+}

@@ -46,9 +46,18 @@
 }
 
 .heading-category {
-
+    display: inline-block;
     margin: 0;
     padding: 15px 0;
     font-size: 18px;
     font-weight: bold;
+    color: $color-a;
+    @extend [class^="icon-"];
+
+    &:before {
+        content: "\e900";
+        font-size: 28px;
+        padding-right: 10px;
+        vertical-align: sub;
+    }
 }

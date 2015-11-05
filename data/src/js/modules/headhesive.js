@@ -6,7 +6,7 @@ var wChange = 992;
     $.fn.headerNav = function(option){
 
         var wWindow = $(window).width();
-        console.log(wWindow);
+
         if(wWindow <= wChange) {
             $(this).removeClass('fn-headerHesive');
         } else {
@@ -20,7 +20,7 @@ var wChange = 992;
                     stick:   'banner--stick',
                     //unstick: 'banner--unstick'
                 }
-            };
+        };
         // Initialise with options
         var banner = new Headhesive('.fn-headerHesive', options);
         // Headhesive destroy

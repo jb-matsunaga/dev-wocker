@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:url('../font/icons/icomoon.eot?-nwvud4');
-    src:url('../font/icons/icomoon.eot?#iefix-nwvud4') format('embedded-opentype'),
-        url('../font/icons/icomoon.ttf?-nwvud4') format('truetype'),
-        url('../font/icons/icomoon.woff?-nwvud4') format('woff'),
-        url('../font/icons/icomoon.svg?-nwvud4#icomoon') format('svg');
+    src:url('../font/icons/icomoon.eot?-4gl2hm');
+    src:url('../font/icons/icomoon.eot?#iefix-4gl2hm') format('embedded-opentype'),
+        url('../font/icons/icomoon.ttf?-4gl2hm') format('truetype'),
+        url('../font/icons/icomoon.woff?-4gl2hm') format('woff'),
+        url('../font/icons/icomoon.svg?-4gl2hm#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -23,8 +23,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-twitter:before {
-    content: "\e600";
+
+.icon-ticket:before {
+    content: "\e900";
 }
 .icon-mail:before {
     content: "\e601";
@@ -32,4 +33,6 @@
 .icon-telephone:before {
     content: "\e602";
 }
-
+.icon-twitter:before {
+    content: "\e600";
+}

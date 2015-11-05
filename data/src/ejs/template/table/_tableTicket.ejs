@@ -2,14 +2,18 @@
 <?php
     $cf_tableTicket = SCF::get( 'cf_tableGetTicket' );
     foreach ( $cf_tableTicket as $field_name => $field_value ) {
+
+        $ticket_title = esc_html( $field_value['cf_tableGetTicket_title'] );
+        $ticket_iphone = esc_html( $field_value['cf_tableGetTicket_urlIphone'] );
+        $ticket_android = esc_html( $field_value['cf_tableGetTicket_urlAndroid'] );
   ?>
-    <h1 class="heading-b"><?php echo esc_html( $field_value['cf_tableGetTicket_title'] ); ?></h1>
+    <h1 class="heading-b"><?php echo $ticket_title; ?></h1>
     <table class="table table-url table-bordered">
         <thead>
             <tr>
                 <th>端末</th>
                 <th>イベント</th>
-                <th>受け取りURL / QRコード</th>
+                <th>受け取りボタン / QRコード</th>
             </tr>
         </thead>
         <tbody>
@@ -17,18 +21,14 @@
                 <th>iPhone</th>
                 <th width="10%">公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>" target="_blank">
-                    <?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>
-                    </a>
+                    <?php echo '<a class="btn btn-action waves-effect waves-light white-text u-mr0" href="'.$ticket_iphone.'" target="_blank">iPhoneで受け取る</a>'; ?>
                 </td>
             </tr>
             <tr>
                 <th>Android</th>
                 <th>公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>" target="_blank">
-                    <?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>
-                    </a>
+                    <?php echo '<a class="btn btn-action waves-effect waves-light white-text u-mr0" href="'.$ticket_android.'" target="_blank">Androidで受け取る</a>'; ?>
                 </td>
             </tr>
             <tr>

@@ -6,6 +6,7 @@
     margin: 0 auto;
     padding: 0;
     position: relative;
+    z-index: 10;
 
     &-content {
         //max-width: 1440px;
@@ -81,13 +82,24 @@
         z-index: 1;
     }
 
-    &--category {
-        background: url(http://rusheye.tv/wp/wp-content/themes/rusheye/img/cat_music.png) 50% 0 no-repeat fixed;
+    &--category1 {
+        background: url(../img/bg/bg-image-1.png) 50% 0 no-repeat fixed;
+        background-size: contain;
         height: 400px;
+        z-index: 0;
     }
 
-    &--3 {
-        background: url(../img/key_visual-3.png) 50% 0 no-repeat fixed;
-        height: 500px;
+    &--category2{
+        background: url(../img/bg/bg-image-2.png) 50% 0 no-repeat fixed;
+        background-size: contain;
+        height: 400px;
+        z-index: 0;
+    }
+
+    &--tag1{
+        background: url(../img/bg/bg-image-3.png) 50% 0 no-repeat fixed;
+        background-size: contain;
+        height: 400px;
+        z-index: 0;
     }
 }

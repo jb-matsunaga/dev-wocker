@@ -1,14 +1,8 @@
 <?php get_header(); ?>
-<!-- カテゴリ情報取得 -->
-<?php
-if ( have_posts() ) {
-    $category = get_the_category();
-    $cat_id   = $category[0]->cat_ID;
-    $cat_name = $category[0]->cat_name;
-    $cat_slug = $category[0]->slug;
-}
-?>
-
+<!-- 検索結果 -->
+    <?php
+    $s = $_GET['s'];
+    ?>
     <?php if ( is_home() ) { ?>
 <div class="header">
 <?php } else {?>
@@ -107,10 +101,9 @@ if ( have_posts() ) {
 
         </div>
     </div>
-
     <section class="container">
         <h1 class="heading-category">
-            <?php if ( have_posts() ) { echo $cat_name.'新着';} else { echo '投稿されていません。';} ?>
+            <?php if($s){ ?>"<?php echo $s; ?>"の検索結果<?php } ?>
         </h1>
         <form class="c-search u-pull-right" method="get" id="searchform" action="<?php bloginfo('url'); ?>">
             <div class="c-search-body">
@@ -118,79 +111,38 @@ if ( have_posts() ) {
                 <label for="s"><i class="material-icons">search</i></label>
             </div>
         </form>
+    </form>
     </section>
-    <section class="c-visualPanel">
-        <div class="c-visualPanel-body">
-            <div class="c-visualPanel-contant">
-                <?php
-                if ( have_posts() ) {
-                $my_query = new WP_Query( 'posts_per_page=1&cat='.$cat_id);
-                ?>
-                <a href="<?php the_permalink();?>">
-                    <div class="c-visualPanel-thumbnail c-visualPanel-thumbnail--one">
-                        <?php while ( $my_query->have_posts() ) : $my_query->the_post();
-                        $do_not_duplicate[] = $post->ID; ?>
-                        <?php
-                            if ( has_post_thumbnail() ) {
-                                the_post_thumbnail();
-                            }
-                        ?>
-                        <h1 class="c-visualPanel-heading">
-                            <?php the_title(); ?>
-                        </h1>
-                        <?php endwhile;?>
-                    </div>
-                </a>
-                <?php } ?>
-            </div>
-            <div class="c-visualPanel-contant">
-                <?php
-                if ( have_posts() ) {
-                $my_query = new WP_Query( 'offset=1&posts_per_page=4&cat='.$cat_id);
-                while ( $my_query->have_posts() ) : $my_query->the_post();
-                $do_not_duplicate[] = $post->ID;
-                ?>
-                <div class="c-visualPanel-box">
-                    <a href="<?php the_permalink();?>">
-                        <div class="c-visualPanel-thumbnail">
-                            <?php
-                            if ( has_post_thumbnail() ) {
-                                the_post_thumbnail('medium');
-                            }
-                            ?>
-                            <h1 class="c-visualPanel-heading">
+
+    <?php
+    query_posts( array(
+        's' => $s,
+        )
+    );
+    ?>
+        <div class="container">
+            <div class="row fn-grid u-border-top u-pt15">
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                <div class="col s6 m3 fn-grid-item">
+                    <section class="card card--masony">
+                        <a href="<?php the_permalink();?>">
+                            <div class="card-image">
+                                <?php
+                                if ( has_post_thumbnail() ) {
+                                    the_post_thumbnail('medium');
+                                }
+                                ?>
+                            </div>
+                            <h1 class="card-action card-action--masonry">
                                 <?php the_title(); ?>
                             </h1>
-                        </div>
-                    </a>
+                        </a>
+                    </section>
                 </div>
-                <?php endwhile; }?>
+            <?php endwhile; else : ?>
+                <div>該当なし</div>
+            <?php endif;?>
             </div>
-        </div>
-    </section>
-    <?php if ( ($my_query->found_posts ) > 5 ){ ?>
-    <div class="container">
-        <h1 class="heading-category"><?php echo $cat_name.'一覧'; ?></h1>
-        <div class="row fn-grid">
-            <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
-                if ( in_array( $post->ID, $do_not_duplicate ) ) continue;?>
-            <div class="col s6 m3 fn-grid-item">
-                <section class="card card--masony">
-                    <a href="<?php the_permalink();?>">
-                        <div class="card-image">
-                            <?php
-                            if ( has_post_thumbnail() ) {
-                                the_post_thumbnail('medium');
-                            }
-                            ?>
-                        </div>
-                        <h1 class="card-action card-action--masonry">
-                            <?php the_title(); ?>
-                        </h1>
-                    </a>
-                </section>
-            </div>
-            <?php endwhile; endif; ?>
         </div>
         <?php
         wp_reset_postdata();
@@ -200,8 +152,8 @@ if ( have_posts() ) {
                 fn_pagenation($wp_query->max_num_pages);
             }?>
         </div>
-    </div>
-    <?php } ?>
+    <?php wp_reset_query(); ?>
+
     <?php get_footer(); ?>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/index.min.js"></script>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/category.min.js"></script>

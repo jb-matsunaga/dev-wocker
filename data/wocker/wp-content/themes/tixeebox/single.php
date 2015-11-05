@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-        <section class="navbar-fixed">
+        <section class="navbar-fixed navbar-fixed--single">
         <h1 class="heading-d"><?php single_post_title(); ?> - tixeeboxスマホチケットご利用方法</h1>
         <nav>
             <div class="nav-wrapper">
@@ -9,10 +9,19 @@
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="nav-a right hide-on-med-and-down">
                     <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li><a class="fn-pageScroll" href="#link-schedule">チケット受け取り開始日時</a></li>
-                    <li><a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a></li>
-                    <li><a class="fn-pageScroll" href="#link-contact">お問い合わせ</a></li>
+                    <li id="fn-navSchedule" class="u-display-none">
+                        <a class="fn-pageScroll" href="#link-schedule">
+                        チケット受け取り開始日時
+                        </a>
+                    </li>
+                    <li id="fn-navReceive" class="u-display-none">
+                        <a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a>
+                    </li>
+                    <li id="fn-navContact" class="u-display-none">
+                        <a class="fn-pageScroll" href="#link-contact">お問い合わせ</a>
+                    </li>
                     <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
                     <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
@@ -34,7 +43,7 @@
     <?php endwhile; endif; ?>
 
     <div class="container">
-        <div class="row u-mt40">
+        <div class="row u-mt20">
             <div class="col s12">
             <?php $ctm_linkspecial = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
             <?php if(empty($ctm_linkspecial)):?>
@@ -52,7 +61,7 @@
         <?php if(empty($ctm_alert)):?>
         <?php else:?>
             <div class="alert u-text-center u-mb10">
-                <?php echo get_post_meta($post->ID , 'cf_alertStrings' ,true); ?>
+                <?php echo nl2br($ctm_alert); ?>
             </div>
         <?php endif;?>
         <!-- 投稿部分 -->
@@ -147,10 +156,10 @@
                                     <div class="card-action">
                                         <div class="card-action-string">
                                             <p>
-                                                下記URLを選択もしくは、QRコードをtixeeboxアプリで読み込むとチケットがお受取りいただけます。
+                                                下記『受け取りボタン』を選択、または、『QRコード』をtixeeboxアプリで読み込むとチケットがお受取りいただけます。
                                             </p>
                                             <span class="alert">
-                                                ※URLを選択する前にtixeeboxアプリのインストール・利用登録をお願いします。<br>
+                                                ※『受け取りボタン』を選択する前にtixeeboxアプリのインストール・利用登録をお願いします。<br>
                                                 ※チケット取得のためにパスワードを求められる場合がございます。各主催からご案内しているパスワード二つを入力し、チケットを取得してください。
                                             </span>
                                         </div>
@@ -159,14 +168,18 @@
 <?php
     $cf_tableTicket = SCF::get( 'cf_tableGetTicket' );
     foreach ( $cf_tableTicket as $field_name => $field_value ) {
+
+        $ticket_title = esc_html( $field_value['cf_tableGetTicket_title'] );
+        $ticket_iphone = esc_html( $field_value['cf_tableGetTicket_urlIphone'] );
+        $ticket_android = esc_html( $field_value['cf_tableGetTicket_urlAndroid'] );
   ?>
-    <h1 class="heading-b"><?php echo esc_html( $field_value['cf_tableGetTicket_title'] ); ?></h1>
+    <h1 class="heading-b"><?php echo $ticket_title; ?></h1>
     <table class="table table-url table-bordered">
         <thead>
             <tr>
                 <th>端末</th>
                 <th>イベント</th>
-                <th>受け取りURL / QRコード</th>
+                <th>受け取りボタン / QRコード</th>
             </tr>
         </thead>
         <tbody>
@@ -174,18 +187,14 @@
                 <th>iPhone</th>
                 <th width="10%">公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>" target="_blank">
-                    <?php echo esc_html( $field_value['cf_tableGetTicket_urlIphone'] ); ?>
-                    </a>
+                    <?php echo '<a class="btn btn-action waves-effect waves-light white-text u-mr0" href="'.$ticket_iphone.'" target="_blank">iPhoneで受け取る</a>'; ?>
                 </td>
             </tr>
             <tr>
                 <th>Android</th>
                 <th>公演</th>
                 <td class="bg-color-b">
-                    <a href="<?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>" target="_blank">
-                    <?php echo esc_html( $field_value['cf_tableGetTicket_urlAndroid'] ); ?>
-                    </a>
+                    <?php echo '<a class="btn btn-action waves-effect waves-light white-text u-mr0" href="'.$ticket_android.'" target="_blank">Androidで受け取る</a>'; ?>
                 </td>
             </tr>
             <tr>
@@ -211,43 +220,54 @@
                 <?php endif;?>
 
         <!-- お問い合わせ -->
-                        <?php if(empty($ctm_linkspecial)):?>
+                        <?php
+                    $contact_check = get_post_meta($post->ID, 'cf-contactCheck', true);
+                ?>
+                <?php if( $contact_check == 'ON' ) {?>
                     <section id="link-contact" class="card">
                         <div class="card-content">
-                            <h1 class="heading-a">お問い合わせ</h1>
+                            <h1 class="heading-a">tixeeboxに関するお問い合わせ</h1>
                             <p>
                                 tixeeboxサービスのご利用についてのお問い合わせは電話またはメールにて受け付けております。<br>以下の電話番号またはメールアドレスへご連絡ください。
                             </p>
                         </div>
                         <div class="card-action u-pt0">
-                                    <section class="c-contact">
-                <div class="c-contact-head">
-                    <h1>tixeeboxに関するお問い合わせ</h1>
-                </div>
-                <div class="c-contact-body">
-                    <ul>
-                        <li class="c-contact-info c-contact-info--mail">
-                            <h2>メールでのお問い合わせ</h2>
-                            <a href="mailto:info-tixeebox@livestyles.tv">
-                                info-tixeebox@livestyles.tv
-                            </a>
-                        </li>
-                        <li class="c-contact-info c-contact-info--tell">
-                            <h2>お電話でのお問い合わせ</h2>
-                            <a href="tel:03-4590-7632">
-                                03-4590-7632
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                                    <?php
+            $contact_title = get_post_meta($post->ID, 'cf-contactTitle', true);
+            $contact_mail = get_post_meta($post->ID, 'cf-contactMail', true);
+            $contact_tell = get_post_meta($post->ID, 'cf-contactTell', true);
+        ?>
+
+        <section class="c-contact">
+            <div class="c-contact-head">
+                <h1><?php echo $contact_title; ?></h1>
+            </div>
+            <div class="c-contact-body">
+                <ul>
+                    <li class="c-contact-info c-contact-info--mail">
+                        <h2>メールでのお問い合わせ</h2>
+                        <?php ?>
+                            <?php echo '<a href="mailto:'.$contact_mail.'">'?>
+                            <?php echo $contact_mail; ?>
+                        </a>
+                    </li>
+                    <li class="c-contact-info c-contact-info--tell">
+                        <h2>お電話でのお問い合わせ</h2>
+                        <?php echo '<a href="tel:'.$contact_tell.'">' ?>
+                            <?php echo $contact_tell; ?>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </section>
+
                         </div>
                     </section>
-                <?php else:?>
-                
-                <?php endif;?>
+                <?php };?>
     </div><!--end container-->
+    <div class="c-breadcrumb">
+    <?php breadcrumb(); ?>
+    </div>
     <?php get_footer(); ?>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/single.min.js"></script>
     <script>
@@ -255,5 +275,15 @@
             $('body').addClass('page-single');
         });
     </script>
+    <?php
+    $style_bgcolor = get_post_meta($post->ID, 'cf-backgroundColor', true);
+    ?>
+                <?php if(empty($style_bgcolor)):?>
+
+                <?php else:?>
+                    <script>
+                        $('body').css('background', '<?php echo $style_bgcolor;?>');
+                    </script>
+                <?php endif;?>
     </body>
 </html>

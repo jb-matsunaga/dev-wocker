@@ -10,7 +10,7 @@
     <?php endwhile; endif; ?>
 
     <div class="container">
-        <div class="row u-mt40">
+        <div class="row u-mt20">
             <div class="col s12">
             <?php $ctm_linkspecial = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
             <?php if(empty($ctm_linkspecial)):?>
@@ -28,7 +28,7 @@
         <?php if(empty($ctm_alert)):?>
         <?php else:?>
             <div class="alert u-text-center u-mb10">
-                <?php echo get_post_meta($post->ID , 'cf_alertStrings' ,true); ?>
+                <?php echo nl2br($ctm_alert); ?>
             </div>
         <?php endif;?>
         <!-- 投稿部分 -->
@@ -56,6 +56,9 @@
         <!-- お問い合わせ -->
         <% include template/section/_section06 %>
     </div><!--end container-->
+    <div class="c-breadcrumb">
+    <?php breadcrumb(); ?>
+    </div>
     <?php get_footer(); ?>
     <script src="<?php bloginfo( 'template_directory' ); ?>/js/single.min.js"></script>
     <script>
@@ -63,5 +66,15 @@
             $('body').addClass('page-single');
         });
     </script>
+    <?php
+    $style_bgcolor = get_post_meta($post->ID, 'cf-backgroundColor', true);
+    ?>
+                <?php if(empty($style_bgcolor)):?>
+
+                <?php else:?>
+                    <script>
+                        $('body').css('background', '<?php echo $style_bgcolor;?>');
+                    </script>
+                <?php endif;?>
     </body>
 </html>

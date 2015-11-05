@@ -13,33 +13,99 @@
         <link href="<?php bloginfo( 'template_directory' ); ?>/css/common.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-        <section class="navbar-fixed">
-        <nav class="nav-category">
-            <div class="nav-wrapper">
-                <a href="<?php bloginfo('url'); ?>" class="brand-logo">
-                    <img src="<?php bloginfo('template_directory'); ?>/img/logo-white.png" alt="tixeeboxロゴ">
+    <body id="fn-hesiveTop">
+        <div id="fn-scrollToggle" class="c-btnTop">
+            <a class="fn-pageScroll btn-floating waves-effect waves-light" href="#fn-hesiveTop"></a>
+        </div>
+
+        
+    <?php if ( is_home() ) { ?>
+<div class="header">
+<?php } else {?>
+<div class="navbar-fixed">
+<?php } ?>
+    <nav class="hidden-xs">
+        <ul class="nav-a left hide-on-med-and-down">
+            <li class="nav-a-logo">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ">
                 </a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="nav-a right hide-on-med-and-down">
-                    <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li><a class="fn-pageScroll" href="#link-schedule">チケット受け取り開始日時</a></li>
-                    <li><a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a></li>
-                    <li><a class="fn-pageScroll" href="#link-contact">お問い合わせ</a></li>
-                    <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+            </li>
+        </ul>
+        <ul class="nav-a right hide-on-med-and-down">
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">EVENT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/event/special/">スペシャルイベント一覧</a></li>
+                    <li><a href="/event/lp/">イベント一覧</a></li>
+                    <li><a href="/event/archives/">アーカイブ</a></li>
                 </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li><a class="fn-pageScroll" href="#link-schedule">チケット受け取り開始日時</a></li>
-                    <li><a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a></li>
-                    <li><a class="fn-pageScroll" href="#link-contact">お問い合わせ</a></li>
-                    <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+            </li>
+            <li><a href="/lp/how-to/">HOW TO</a></li>
+            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">CONTACT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
+                    <li><a href="/contact/">お問い合わせ（個人）</a></li>
                 </ul>
-            </div>
-        </nav>
-    </section>
-    <div class="container" ng-controller="contactCorpController">
+            </li>
+            <li class="u-pl30">
+                <ul class="social-icons">
+                    <li>
+                        <a href="https://twitter.com/tixeebox1" target="_blank">
+                            <i class="icon-twitter"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+    </nav>
+    <nav class="visible-xs navbar-fixed-top">
+
+        <ul id="slide-out" class="side-nav">
+            <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">TOP</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">EVENT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/event/special/">スペシャルイベント一覧</a></li>
+                    <li><a href="/event/lp/">イベント一覧</a></li>
+                    <li><a href="/event/archives/">アーカイブ</a></li>
+                </ul>
+            </li>
+            <li><a target="_blank" href="https://tixeebox.tv/lp/how-to/">HOW TO</a></li>
+            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">CONTACT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
+                    <li><a href="/contact/">お問い合わせ（個人）</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo center"><img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ"></a>
+        <ul class="social-icons">
+            <li>
+                <a href="https://twitter.com/tixeebox1" target="_blank">
+                    <i class="icon-twitter"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+    <div class="container u-pt60" ng-controller="contactCorpController">
         <section class="row">
-            <h1 class="heading-a u-mt30 u-mb30 u-text-center">お問い合わせ</h1>
+            <h1 class="heading-a u-mt30 u-mb30">お問い合わせ（法人）</h1>
             <p>法人のお客様のお問合せは必要事項をご記入の上、下記のフォームからお問合せください。</p>
             <p>
             詳細なご相談内容については、必要に応じて別途NDA（機密保持契約）の締結をさせていただきます。<br>
@@ -55,7 +121,7 @@
                         <checkbox-group min-required="1">
                         <ul class="c-list-cols">
                             <li ng-repeat="kind in kinds">
-                            <input type="checkbox" name="kind" ng-model="kind.checked" class="filled-in" id="{{kind.id}}" value="{{kind.name}}" />
+                            <input type="checkbox" name="kind[]" ng-model="kind.checked" class="filled-in" id="{{kind.id}}" value="{{kind.name}}" />
                                 <label for="{{kind.id}}">{{kind.name}}</label>
                             </li>
                         </ul>
@@ -125,7 +191,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="http://www.website.com" name="web_url" id="web_url" type="text" class="validate">
+                        <input placeholder="http://www.website.com" id="web_url" name="web_url" ng-model="web_url" type="text" class="validate">
                         <label for="web_url">貴社ウェブサイトURL</label>
                     </div>
                 </div>
@@ -150,7 +216,6 @@
                 <div class="row u-pt30 u-pb60">
                     <div class="col s12">
                         <button id="fn-modalOpen" type="button" ng-click="check()" class="btn btn-large waves-effect waves-light u-center-block" href="#modal1">確認する</button>
-                        <!-- <button id="fn-modalOpen" type="button" ng-disabled="contactForm.$invalid" ng-click="check()" class="btn btn-large waves-effect waves-light u-center-block" href="#modal1">確認する</button> -->
                     </div>
                 </div>
                 <div id="modal1" class="modal">
@@ -190,7 +255,7 @@
                                 </li>
                             </ul>
                             <div class="modal-footer">
-                                <button type="button" onclick="submit()" class="btn btn-action waves-effect">送信する</button>
+                                <button type="submit" class="btn btn-action waves-effect">送信する</button>
                                 <button type="button" class="btn btn-cancel modal-action modal-close u-mr15">キャンセル</button>
                             </div>
                         </section>

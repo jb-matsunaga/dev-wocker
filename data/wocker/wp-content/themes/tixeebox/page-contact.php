@@ -13,34 +13,100 @@
         <link href="<?php bloginfo( 'template_directory' ); ?>/css/common.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-        <section class="navbar-fixed">
-        <nav class="nav-category">
-            <div class="nav-wrapper">
-                <a href="<?php bloginfo('url'); ?>" class="brand-logo">
-                    <img src="<?php bloginfo('template_directory'); ?>/img/logo-white.png" alt="tixeeboxロゴ">
+    <body id="fn-hesiveTop">
+        <div id="fn-scrollToggle" class="c-btnTop">
+            <a class="fn-pageScroll btn-floating waves-effect waves-light" href="#fn-hesiveTop"></a>
+        </div>
+
+        
+    <?php if ( is_home() ) { ?>
+<div class="header">
+<?php } else {?>
+<div class="navbar-fixed">
+<?php } ?>
+    <nav class="hidden-xs">
+        <ul class="nav-a left hide-on-med-and-down">
+            <li class="nav-a-logo">
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ">
                 </a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="nav-a right hide-on-med-and-down">
-                    <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li><a class="fn-pageScroll" href="#link-schedule">チケット受け取り開始日時</a></li>
-                    <li><a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a></li>
-                    <li><a class="fn-pageScroll" href="#link-contact">お問い合わせ</a></li>
-                    <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+            </li>
+        </ul>
+        <ul class="nav-a right hide-on-med-and-down">
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">EVENT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/event/special/">スペシャルイベント一覧</a></li>
+                    <li><a href="/event/lp/">イベント一覧</a></li>
+                    <li><a href="/event/archives/">アーカイブ</a></li>
                 </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li><a class="fn-pageScroll" href="#link-schedule">チケット受け取り開始日時</a></li>
-                    <li><a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a></li>
-                    <li><a class="fn-pageScroll" href="#link-contact">お問い合わせ</a></li>
-                    <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+            </li>
+            <li><a href="/lp/how-to/">HOW TO</a></li>
+            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">CONTACT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
+                    <li><a href="/contact/">お問い合わせ（個人）</a></li>
                 </ul>
-            </div>
-        </nav>
-    </section>
-    <div class="container" ng-controller="contactController">
+            </li>
+            <li class="u-pl30">
+                <ul class="social-icons">
+                    <li>
+                        <a href="https://twitter.com/tixeebox1" target="_blank">
+                            <i class="icon-twitter"></i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        
+    </nav>
+    <nav class="visible-xs navbar-fixed-top">
+
+        <ul id="slide-out" class="side-nav">
+            <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">TOP</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">EVENT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/event/special/">スペシャルイベント一覧</a></li>
+                    <li><a href="/event/lp/">イベント一覧</a></li>
+                    <li><a href="/event/archives/">アーカイブ</a></li>
+                </ul>
+            </li>
+            <li><a target="_blank" href="https://tixeebox.tv/lp/how-to/">HOW TO</a></li>
+            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
+            <li class='fn-dropdown-button c-dropdown'>
+                <!-- Dropdown Trigger -->
+                <a class="c-dropdown-head">CONTACT</a>
+                <!-- Dropdown Structure -->
+                <ul class='c-dropdown-body'>
+                    <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
+                    <li><a href="/contact/">お問い合わせ（個人）</a></li>
+                </ul>
+            </li>
+        </ul>
+        <a data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo center"><img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ"></a>
+        <ul class="social-icons">
+            <li>
+                <a href="https://twitter.com/tixeebox1" target="_blank">
+                    <i class="icon-twitter"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+    <div class="container u-pt60" ng-controller="contactController">
         <section class="row">
             <div class="col s12">
-                <h1 class="heading-a u-mt30 u-mb30">お問い合わせ</h1>
+                <h1 class="heading-a u-mt30 u-mb30">お問い合わせ（個人）</h1>
                 <p> 
                     tixeeboxではサービス内容や機能性を向上させるために日々努めています。<br>
                     サービス内容や利便性を高めるためのご意見をお待ちしております。
