@@ -1,0 +1,50 @@
+.m-stripBg {
+    margin: 0;
+    background-color: lighten($commonLightCol, 15%);
+    background-image: -webkit-linear-gradient(-45deg, rgba(244, 146, 74, 0.48) 25%, transparent 25%, transparent 50%, rgba(244, 146, 74, 0.48) 50%, #455765 75%, transparent 75%, transparent);
+    background-image: linear-gradient(-45deg, rgba(244, 146, 74, 0.48) 25%, transparent 25%, transparent 50%, rgba(244, 146, 74, 0.46) 50%, rgba(244, 146, 74, 0.43) 75%, transparent 75%, transparent);
+    background-size: 6px 6px;
+    display: inline-block;
+    padding-bottom: 15px;
+
+    &-title {
+        background-color: $whiteCol;
+        padding: 0px;
+        line-height: 1.4;
+    }
+
+    &--content {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        background-image: -webkit-linear-gradient(-45deg, rgba(244, 146, 74, 0.2) 25%, transparent 25%, transparent 50%, rgba(244, 146, 74, 0.2) 50%, #455765 75%, transparent 75%, transparent);
+        background-image: linear-gradient(-45deg, rgba(244, 146, 74, 0.2) 25%, transparent 25%, transparent 50%, rgba(244, 146, 74, 0.2) 50%, rgba(244, 146, 74, 0.2) 75%, transparent 75%, transparent);
+        background-size: 4px 4px;
+        border:1px solid $color-a;
+        border-radius: 4px;
+        color: $color-a;
+
+        &-title {
+            margin: 0;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed $color-a;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        p {
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        &:hover {
+            background-color: $color-a;
+            color: $whiteCol;
+            border-color: darken($color-a, 30%);
+
+            .m-stripBg--content-title {
+                border-color: $whiteCol;
+            }
+        }
+    }
+}

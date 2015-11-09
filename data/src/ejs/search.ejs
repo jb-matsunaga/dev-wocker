@@ -4,7 +4,6 @@
     $s = $_GET['s'];
     ?>
     <% include template/_nav %>
-    <% include parallax/_parallax02 %>
     <section class="container">
         <h1 class="heading-category">
             <?php if($s){ ?>"<?php echo $s; ?>"の検索結果<?php } ?>
@@ -21,6 +20,8 @@
     <?php
     query_posts( array(
         's' => $s,
+        'category__not_in' => array(9),//FAQカテゴリ除外
+        'post__not_in' => array(2, 13, 7, 16)//固定ページ除外
         )
     );
     ?>

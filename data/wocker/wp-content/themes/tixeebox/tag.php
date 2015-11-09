@@ -32,6 +32,7 @@ if ( have_posts() ) {
                 </ul>
             </li>
             <li><a href="/lp/how-to/">HOW TO</a></li>
+            <li><a href="/faq/">FAQ</a></li>
             <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
             <li class='fn-dropdown-button c-dropdown'>
                 <!-- Dropdown Trigger -->

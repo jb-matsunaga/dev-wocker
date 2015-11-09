@@ -44,6 +44,7 @@
                 </ul>
             </li>
             <li><a href="/lp/how-to/">HOW TO</a></li>
+            <li><a href="/faq/">FAQ</a></li>
             <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
             <li class='fn-dropdown-button c-dropdown'>
                 <!-- Dropdown Trigger -->
@@ -110,7 +111,7 @@
             <p>
             詳細なご相談内容については、必要に応じて別途NDA（機密保持契約）の締結をさせていただきます。<br>
             弊社は皆様のプライバシーを尊重し、個人情報を保護するために細心の注意を払っております。<br>
-            <span class="alert">*印の入力は必須となります。必須項目を入力していただくと「確認」ボタンが動作します。</span>
+            <span class="m-alert">*印の入力は必須となります。必須項目を入力していただくと「確認」ボタンが動作します。</span>
             </p>
         </section>
         <div class="row">
@@ -133,59 +134,59 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input placeholder="株式会社カンパニー" id="company_name" name="company_name" ng-model="company_name" ng-maxlength="20" required type="text" class="validate">
-                        <label for="company_name">会社名<small class="alert">*</small></label>
+                        <label for="company_name">会社名<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.company_name.$error" ng-if="contactForm.company_name.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="maxlength">20文字以内で入力必須項目です。</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="maxlength">20文字以内で入力必須項目です。</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
                         <input placeholder="山田" id="name_sei" name="name_sei" ng-model="name_sei" ng-maxlength="10" required type="text" class="validate">
-                        <label for="name_sei">お名前（姓）<small class="alert">*</small></label>
+                        <label for="name_sei">お名前（姓）<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.name_sei.$error" ng-if="contactForm.name_sei.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="maxlength">10文字以内で入力必須項目です。</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="maxlength">10文字以内で入力必須項目です。</div>
                         </div>
                     </div>
                     <div class="input-field col s6">
                         <input placeholder="太郎" id="name_mei" name="name_mei" ng-model="name_mei" ng-maxlength="10" required type="text" class="validate">
-                        <label for="name_mei">お名前（名）<small class="alert">*</small></label>
+                        <label for="name_mei">お名前（名）<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.name_mei.$error" ng-if="contactForm.name_mei.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="maxlength">10文字以内で入力必須項目です。</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="maxlength">10文字以内で入力必須項目です。</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input placeholder="expamle@mail.com" id="email" name="email" ng-model="email" ng-pattern="/^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" required type="email" class="validate">
-                        <label for="form-email">メールアドレス<small class="alert">*</small></label>
+                        <label for="form-email">メールアドレス<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.email.$error" ng-if="contactForm.email.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input placeholder="expamle@mail.com" id="email_confirm" name="email_confirm" ng-model="email_confirm" ng-pattern="/^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" autocomplete="off" match="email" required type="email" class="validate">
-                        <label for="form-email-confirm">メールアドレス(確認)<small class="alert">*</small></label>
+                        <label for="form-email-confirm">メールアドレス(確認)<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.email_confirm.$error" ng-if="contactForm.email_confirm.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
-                            <div class="alert" ng-message="mismatch">メールアドレスが一致していません</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
+                            <div class="m-alert" ng-message="mismatch">メールアドレスが一致していません</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input placeholder="03-1234-5678" id="phone" name="phone" ng-model="phone" ng-pattern="/^[(]{0,1}[0-9]{2,4}[)\.\- ]{0,1}[0-9]{4}[\.\- ]{0,1}[0-9]{4}$/" required type="tel" class="validate">
-                        <label for="phone">電話番号<small class="alert">*</small></label>
+                        <label for="phone">電話番号<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.phone.$error" ng-if="contactForm.phone.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="pattern">ハイフンを入れて半角数字で電話番号を入力してください</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="pattern">ハイフンを入れて半角数字で電話番号を入力してください</div>
                         </div>
                     </div>
                 </div>
@@ -198,24 +199,24 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input placeholder="ご入力ください" id="contact_title" name="contact_title" ng-model="contact_title" required type="text" class="validate">
-                        <label for="form-contact-title">お問い合わせ件名<small class="alert">*</small></label>
+                        <label for="form-contact-title">お問い合わせ件名<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.contact_title.$error" ng-if="contactForm.contact_title.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <textarea placeholder="ご入力ください" id="contact_content" name="contact_content" ng-model="contact_content" required class="materialize-textarea"></textarea>
-                        <label for="form-contact-content">お問い合わせ内容<small class="alert">*</small></label>
+                        <label for="form-contact-content">お問い合わせ内容<small class="m-alert">*</small></label>
                         <div ng-messages="contactForm.contact_content.$error" ng-if="contactForm.contact_content.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
                         </div>
                     </div>
                 </div>
                 <div class="row u-pt30 u-pb60">
                     <div class="col s12">
-                        <button id="fn-modalOpen" type="button" ng-click="check()" class="btn btn-large waves-effect waves-light u-center-block" href="#modal1">確認する</button>
+                        <button id="fn-modalOpen" type="button" ng-click="check()" ng-disabled="contactForm.$invalid" class="btn btn-large waves-effect waves-light u-center-block" href="#modal1">確認する</button>
                     </div>
                 </div>
                 <div id="modal1" class="modal">

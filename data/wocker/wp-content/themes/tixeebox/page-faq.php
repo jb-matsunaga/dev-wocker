@@ -1,4 +1,5 @@
-<?php if ( is_home() ) { ?>
+<?php get_header(); ?>
+    <?php if ( is_home() ) { ?>
 <div class="header">
 <?php } else {?>
 <div class="navbar-fixed">
@@ -83,3 +84,51 @@
         </ul>
     </nav>
 </div>
+
+    <div class="u-text-center u-pt60 u-pb60">
+        <section class="m-stripBg u-mt20 u-mb30">
+            <h1 class="m-stripBg-title heading-category">
+                <?php the_title(); ?>
+            </h1>
+        </section>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m3">
+                <div id="fn-sticker">
+                    <a class="m-stripBg m-stripBg--content u-mb15" href="/lp/how-to/" target="_blank">
+                        <div class="m-stripBg--content-title">
+                            はじめての方へ<br>
+                            <small>(How To ページ)</small>
+                        </div>
+                        <p>
+                            ご利用の際、まずはこちらをご覧ください
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="col s12 m9">
+            <ul class="collapsible popout" data-collapsible="accordion">
+                <?php
+                $cf_faqGroup = SCF::get( 'cf-faqGroup' );
+                foreach ( $cf_faqGroup as $field_name => $field_value ) {
+                    ?>
+                <li>
+                    <div class="collapsible-header">
+                        <?php echo esc_html( $field_value['cf-question'] ); ?>
+                    </div>
+                    <div class="collapsible-body">
+                        <?php echo  $field_value['cf-asked'] ; ?>
+                    </div>
+                </li>
+                <?php } ?>
+            </ul>
+            </div>
+        </div>
+    </div>
+
+    <?php get_footer(); ?>
+    <script src="<?php bloginfo( 'template_directory' ); ?>/js/faq.min.js"></script>
+    </body>
+</html>

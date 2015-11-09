@@ -28,6 +28,7 @@
                 </ul>
             </li>
             <li><a href="/lp/how-to/">HOW TO</a></li>
+            <li><a href="/faq/">FAQ</a></li>
             <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
             <li class='fn-dropdown-button c-dropdown'>
                 <!-- Dropdown Trigger -->
@@ -87,20 +88,6 @@
         </ul>
     </nav>
 </div>
-    <?php if ( $cat_slug == 'special' ) { ?>
-    <div class="c-parallax c-parallax--category1" id="fn-parallax-2">
-    <?php } else if ( $cat_slug == 'lp' ) {?>
-    <div class="c-parallax c-parallax--category2" id="fn-parallax-2">
-    <?php } else if ( $cat_slug == 'archives' ) {?>
-    <div class="c-parallax c-parallax--tag1" id="fn-parallax-2">
-    <?php } else { ?>
-    <div class="c-parallax c-parallax--category1" id="fn-parallax-2">
-    <?php } ?>
-        <div class="c-parallax-overlay"></div>
-        <div class="c-parallax-content">
-
-        </div>
-    </div>
     <section class="container">
         <h1 class="heading-category">
             <?php if($s){ ?>"<?php echo $s; ?>"の検索結果<?php } ?>
@@ -117,6 +104,8 @@
     <?php
     query_posts( array(
         's' => $s,
+        'category__not_in' => array(9),//FAQカテゴリ除外
+        'post__not_in' => array(2, 13, 7, 16)//固定ページ除外
         )
     );
     ?>

@@ -11,7 +11,7 @@
                 <p>
                     不具合やご意見がございましたらお気軽にご連絡ください。迅速に対応するよう努めます。<br>
                     なお、お問い合わせにつきましては、tixeebox事務局から3営業日以内にご回答させていただきます。<br>
-                    <span class="alert">※平日のみ 10:00 - 19:00対応</span>
+                    <span class="m-alert">※平日のみ 10:00 - 19:00対応</span>
                 </p>
             </div>
         </section>
@@ -24,16 +24,16 @@
                         <input placeholder="山田" id="name_sei" name="name_sei" ng-model="name_sei" ng-maxlength="20" required type="text" class="validate">
                         <label for="name_sei">お名前（姓）</label>
                         <div ng-messages="contactForm.name_sei.$error" ng-if="contactForm.name_sei.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="maxlength">20文字以内で入力必須項目です。</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="maxlength">20文字以内で入力必須項目です。</div>
                         </div>
                     </div>
                     <div class="input-field col s6">
                         <input placeholder="太郎" id="name_mei" name="name_mei" ng-model="name_mei" ng-maxlength="20" required type="text" class="validate">
                         <label for="name_mei">お名前（名）</label>
                         <div ng-messages="contactForm.name_mei.$error" ng-if="contactForm.name_mei.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="maxlength">20文字以内で入力必須項目です。</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="maxlength">20文字以内で入力必須項目です。</div>
                         </div>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
                         <input placeholder="expamle@mail.com" id="email" name="email" ng-model="email" ng-pattern="/^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" required type="email" class="validate">
                         <label for="email">メールアドレス</label>
                         <div ng-messages="contactForm.email.$error" ng-if="contactForm.email.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
                         </div>
                     </div>
                 </div>
@@ -52,9 +52,9 @@
                         <input placeholder="expamle@mail.com" id="emailConfirm" name="emailConfirm" ng-model="emailConfirm" ng-pattern="/^[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/" autocomplete="off" match="email" required type="email" class="validate">
                         <label for="emailConfirm">メールアドレス<small>(確認のため再度入力して下さい)</small></label>
                         <div ng-messages="contactForm.emailConfirm.$error" ng-if="contactForm.emailConfirm.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
-                            <div class="alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
-                            <div class="alert" ng-message="mismatch">メールアドレスが一致していません</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="pattern">正しいメールアドレスを入力してください</div>
+                            <div class="m-alert" ng-message="mismatch">メールアドレスが一致していません</div>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <textarea placeholder="ご入力ください" id="content" name="content" ng-model="content" required class="materialize-textarea validate"></textarea>
                         <label for="content">お問い合わせ内容</label>
                         <div ng-messages="contactForm.content.$error" ng-if="contactForm.content.$touched">
-                            <div class="alert" ng-message="required">入力必須項目です</div>
+                            <div class="m-alert" ng-message="required">入力必須項目です</div>
                         </div>
                     </div>
                 </div>
