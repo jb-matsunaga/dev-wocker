@@ -1,3 +1,6 @@
+var requireDir = require( 'require-dir' );
+requireDir( './gulp/task', { recurse: true } );
+
 var gulp = require("gulp"),
     compass = require('gulp-compass'),
     hologram = require('gulp-hologram'),
