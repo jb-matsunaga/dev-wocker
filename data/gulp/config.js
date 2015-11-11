@@ -1,14 +1,22 @@
-module.exports = {
+module.exports.path = {
+    all: {
+        src: 'src',
+        dest: 'wocker/wp-content/themes/tixeebox',
+    },
     ejs: {
-        src: 'src/ejs/**/_*.ejs',
-        dest: 'wocker/wp-content/themes/tixeebox'
+        src: {
+            on: 'src/ejs/**/*.ejs',
+            off: 'src/ejs/**/_*.ejs',
+        }
     },
     sass: {
-        src: 'src/sass/**/_*.scss',
-        dest: 'wocker/wp-content/themes/tixeebox/css'
+        src: 'src/sass/**/*.scss',
     },
     js: {
-        src: 'src/js/**/_*.js',
-        dest: 'wocker/wp-content/themes/tixeebox/js'
+        src: 'src/js/plugins/**/*.js',
+    },
+    webpack: {
+        src1: 'src/js/module/*.js',
+        src2: 'src/js/*.js',
     }
 }

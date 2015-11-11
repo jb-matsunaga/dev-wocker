@@ -33,6 +33,7 @@
     "gulp-styledocco": "0.0.3",
     "gulp-uglify": "^1.2.0",
     "main-bower-files": "^2.8.2",
+    "require-dir": "^0.3.0",
     "vinyl-source-stream": "^1.1.0",
     "vinyl-transform": "^1.0.0"
   },
