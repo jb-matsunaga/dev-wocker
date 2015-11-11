@@ -16,7 +16,7 @@ gulp.task("server", function() {
 
 //watch
 gulp.task('default',['server'], function() {
-    gulp.watch( config.path.ejs.src.on, ['ejs']);
+    gulp.watch( [config.path.ejs.src.on, config.path.ejs.src.on], ['ejs']);
     gulp.watch( config.path.sass.src, ['sass'] );
     gulp.watch( config.path.js.src, ['js'] );
     gulp.watch( [config.path.webpack.src1, config.path.webpack.src2], ['webpack'] );
