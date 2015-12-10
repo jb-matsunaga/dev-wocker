@@ -1,30 +1,11 @@
-.c-thumbnail {
-    height: 150px;
-    overflow: hidden;
-    position: relative;
-    background: #000;
+.m-thumbnailSlider {
+    width: 100%;
+    height: 420px;
+    background-color: $blackCol;
     text-align: center;
-    margin-bottom: 15px;
 
     img {
+        height: 100%;
         width: auto;
-        height: auto;
-        max-width: 100%;
-        max-height: 100%;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    &--one {
-        height: 315px;
-    }
-}
-
-.thumbnail {
-
-    img {
-        width: 100%;
-        max-width: 1024px;
-        height: auto;
     }
 }

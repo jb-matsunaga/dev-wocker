@@ -14,9 +14,10 @@ module.exports.path = {
     },
     js: {
         src: 'src/js/plugins/**/*.js',
+        modules: 'src/js/modules/**/*.js',
     },
     webpack: {
-        src1: 'src/js/module/*.js',
+        src1: 'src/js/modules/*.js',
         src2: 'src/js/*.js',
     }
 }

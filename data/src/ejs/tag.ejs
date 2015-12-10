@@ -7,20 +7,20 @@ if ( have_posts() ) {
     $tag_name = $tags[0]->slug;
 }
 ?>
+
     <% include template/_nav %>
-    <% include parallax/_parallax02 %>
     <section class="container">
-            <h1 class="heading-category"><?php if ( have_posts() ) { echo single_tag_title( ).'新着';} else { echo '投稿されていません。';} ?></h1>
+            <h1 class="m-heading-category"><?php if ( have_posts() ) { echo single_tag_title( ).'新着';} else { echo '投稿されていません。';} ?></h1>
     </section>
-    <section class="c-visualPanel">
-        <div class="c-visualPanel-body">
-            <div class="c-visualPanel-contant">
+    <section class="m-panelFive">
+        <div class="m-panelFive-body">
+            <div class="m-panelFive-contant">
                 <?php
                 if ( have_posts() ) {
                 $tag_query = new WP_Query( 'posts_per_page=1&tag_id='.$tag_id);
                 ?>
                 <a href="<?php the_permalink();?>">
-                    <div class="c-visualPanel-thumbnail c-visualPanel-thumbnail--one">
+                    <div class="m-panelFive-thumbnail m-panelFive-thumbnail--one">
                         <?php while ( $tag_query->have_posts() ) : $tag_query->the_post();
                         $do_not_duplicate[] = $post->ID; ?>
                         <?php
@@ -28,7 +28,7 @@ if ( have_posts() ) {
                                 the_post_thumbnail();
                             }
                         ?>
-                        <h1 class="c-visualPanel-heading">
+                        <h1 class="m-panelFive-heading">
                             <?php the_title(); ?>
                         </h1>
                         <?php endwhile;?>
@@ -36,22 +36,22 @@ if ( have_posts() ) {
                 </a>
                 <?php } ?>
             </div>
-            <div class="c-visualPanel-contant">
+            <div class="m-panelFive-contant">
                 <?php
                 if ( have_posts() ) {
                 $tag_query = new WP_Query( 'offset=1&posts_per_page=4&tag_id='.$tag_id);
                 while ( $tag_query->have_posts() ) : $tag_query->the_post();
                 $do_not_duplicate[] = $post->ID;
                 ?>
-                <div class="c-visualPanel-box">
+                <div class="m-panelFive-box">
                     <a href="<?php the_permalink();?>">
-                        <div class="c-visualPanel-thumbnail">
+                        <div class="m-panelFive-thumbnail">
                             <?php
                             if ( has_post_thumbnail() ) {
                                 the_post_thumbnail('medium');
                             }
                             ?>
-                            <h1 class="c-visualPanel-heading">
+                            <h1 class="m-panelFive-heading">
                                 <?php the_title(); ?>
                             </h1>
                         </div>
@@ -61,9 +61,11 @@ if ( have_posts() ) {
             </div>
         </div>
     </section>
-    <?php if ( ($tag_query->found_posts ) > 4 ){ ?>
+    <?php 
+    $tag_query = new WP_Query( 'offset=1&posts_per_page=4&tag_id='.$tag_id);
+    if ( ($tag_query->found_posts ) > 4 ){ ?>
     <div class="container">
-        <h1 class="heading-category"><?php echo single_tag_title().'一覧'; ?></h1>
+        <h1 class="m-heading-category"><?php echo single_tag_title().'一覧'; ?></h1>
         <div class="row fn-grid">
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post();
                 if ( in_array( $post->ID, $do_not_duplicate ) ) continue;?>
@@ -97,7 +99,6 @@ if ( have_posts() ) {
     </div>
     <?php } ?>
     <?php get_footer(); ?>
-    <script src="<?php bloginfo( 'template_directory' ); ?>/js/index.min.js"></script>
-    <script src="<?php bloginfo( 'template_directory' ); ?>/js/category.min.js"></script>
+    <script src="<?php bloginfo( 'template_directory' ); ?>/js/tag.min.js"></script>
     </body>
 </html>

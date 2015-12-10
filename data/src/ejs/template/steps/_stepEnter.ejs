@@ -1,0 +1,42 @@
+        <!-- キャプチャー枠タイトル -->
+        <?php if(empty($enterCaptureTitle)):?>
+        <?php else:?>
+        <strong><?php echo nl2br($enterCaptureTitle); ?></strong>
+        <?php endif;?>
+
+        <!-- キャプチャー枠注意文言 -->
+        <?php if(empty($enterCaptureAlertDetail)):?>
+        <?php else:?>
+            <ul class="m-alert m-alert-list u-mt0">
+                <?php foreach ( $gp_enterCaptureAlert as $field_name => $field_value ) { ?>
+                <li>
+                    <?php echo nl2br($field_value['cf-enterCaptureAlertDetail']); ?>
+                </li>
+                <?php } ?>
+            </ul>
+        <?php endif;?>
+
+        <!-- キャプチャー説明リスト -->
+        <ol class="m-listSteps u-hidden-xs">
+            <?php foreach ( $gp_enterCapture as $field_name => $field_value ) { ?>
+            <li><?php echo nl2br($field_value['cf-enterCaptureStringLong']); ?></li>
+            <?php } ?>
+        </ol>
+
+        <!-- キャプチャー説明 -->
+        <div class="row l-step">
+            <?php foreach ( $gp_enterCapture as $field_name => $field_value ) { ?>
+            <div class="col m3 s12">
+                <div class="card card-step fn-step">
+                    <span class="card-number"><?php echo nl2br($field_value['cf-enterCaptureNumber']); ?>.</span>
+                    <div class="card-content">
+                        <p class="u-hidden-xs"><?php echo nl2br($field_value['cf-enterCaptureStringShort']); ?></p>
+                        <p class="u-visible-xs"><?php echo nl2br($field_value['cf-enterCaptureStringLong']); ?></p>
+                    </div>
+                    <div class="card-image fn-stepContent">
+                        <?php echo wp_get_attachment_image($field_value['cf-enterCaptureImage'], 'medium'); ?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>

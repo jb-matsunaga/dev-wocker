@@ -9,6 +9,7 @@ var notify = require('gulp-notify');
 var concat = require('gulp-concat');
 var uglify = require("gulp-uglify");
 var rename = require('gulp-rename');
+var eslint = require('gulp-eslint');
 
 //js
 gulp.task("js", function() {
@@ -17,7 +18,10 @@ gulp.task("js", function() {
         .pipe(plumber({
           errorHandler: notify.onError("Error: <%= error %>")
         }))
-        .pipe(concat('common.js'))
+        .pipe(eslint({useEslintrc: true}))
+        .pipe(eslint.format('./node_modules/eslint-path-formatter'))
+        .pipe(eslint.failOnError())
+        .pipe(concat('plg.js'))
         .pipe(gulp.dest(config.path.all.dest + "/js/"))
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))

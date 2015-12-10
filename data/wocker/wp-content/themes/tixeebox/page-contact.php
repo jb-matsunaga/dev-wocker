@@ -11,83 +11,74 @@
         <link rel="icon" type="image/gif" href="animated_favicon1.gif">
         <title>tixeebox（ティクシーボックス）| スマホチケット発券アプリ </title>
         <link href="<?php bloginfo( 'template_directory' ); ?>/css/common.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body id="fn-hesiveTop">
-        <div id="fn-scrollToggle" class="c-btnTop">
+        <div id="fn-scrollToggle" class="m-btnTop">
             <a class="fn-pageScroll btn-floating waves-effect waves-light" href="#fn-hesiveTop"></a>
         </div>
 
         
-    <?php if ( is_home() ) { ?>
-<div class="header">
-<?php } else {?>
-<div class="navbar-fixed">
-<?php } ?>
-    <nav class="hidden-xs">
-        <ul class="nav-a left hide-on-med-and-down">
-            <li class="nav-a-logo">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-                    <img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ">
-                </a>
-            </li>
-        </ul>
-        <ul class="nav-a right hide-on-med-and-down">
-            <li class='fn-dropdown-button c-dropdown'>
-                <!-- Dropdown Trigger -->
-                <a class="c-dropdown-head">EVENT</a>
-                <!-- Dropdown Structure -->
-                <ul class='c-dropdown-body'>
-                    <li><a href="/event/special/">スペシャルイベント一覧</a></li>
-                    <li><a href="/event/lp/">イベント一覧</a></li>
-                    <li><a href="/event/archives/">アーカイブ</a></li>
-                </ul>
-            </li>
-            <li><a href="/lp/how-to/">HOW TO</a></li>
-            <li><a href="/faq/">FAQ</a></li>
-            <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
-            <li class='fn-dropdown-button c-dropdown'>
-                <!-- Dropdown Trigger -->
-                <a class="c-dropdown-head">CONTACT</a>
-                <!-- Dropdown Structure -->
-                <ul class='c-dropdown-body'>
-                    <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
-                    <li><a href="/contact/">お問い合わせ（個人）</a></li>
-                </ul>
-            </li>
-            <li class="u-pl30">
-                <ul class="social-icons">
-                    <li>
-                        <a href="https://twitter.com/tixeebox1" target="_blank">
-                            <i class="icon-twitter"></i>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        
+    <div class="navbar-fixed">
+    <nav class="u-hidden-xs">
+        <div class="nav-wrapper">
+            <a href="<?php bloginfo('url'); ?>" class="brand-logo">
+                <img src="<?php bloginfo('template_directory'); ?>/img/logo-white.png" alt="tixeeboxロゴ">
+            </a>
+            <ul class="m-listSns right">
+                <li>
+                    <a href="https://twitter.com/tixeebox_info" target="_blank">
+                        <i class="icon-twitter"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="m-hover m-hover--colorA nav-a right hide-on-med-and-down">
+                <li class='m-dropdown'>
+                    <!-- Dropdown Trigger -->
+                    <a class="fn-dropdown-button m-dropdown-head" data-hover="EVENT"><span class="ic-arrow">EVENT</span></a>
+                    <!-- Dropdown Structure -->
+                    <ul class='m-dropdown-body'>
+                        <li><a href="/event/special/" data-hover="スペシャルイベント一覧">スペシャルイベント一覧</a></li>
+                        <li><a href="/event/lp/" data-hover="イベント一覧">イベント一覧</a></li>
+                        <li><a href="/event/archives/" data-hover="アーカイブ">アーカイブ</a></li>
+                    </ul>
+                </li>
+                <li><a href="/lp/how-to/" data-hover="HOW TO">HOW TO</a></li>
+                <li><a href="/faq/" data-hover="FAQ">FAQ</a></li>
+                <li><a target="_blank" href="http://livestyles.tv/aboutus" data-hover="ABOUT US">ABOUT US</a></li>
+                <li class='m-dropdown'>
+                    <!-- Dropdown Trigger -->
+                    <a class="fn-dropdown-button m-dropdown-head" data-hover="CONTACT"><span class="ic-arrow">CONTACT</span></a>
+                    <!-- Dropdown Structure -->
+                    <ul class='m-dropdown-body'>
+                        <li><a href="/contact-corp/" data-hover="お問い合わせ（法人）">お問い合わせ（法人）</a></li>
+                        <li><a href="/contact/" data-hover="お問い合わせ（個人）">お問い合わせ（個人）</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </nav>
-    <nav class="visible-xs navbar-fixed-top">
+    <nav class="u-visible-xs navbar-fixed-top">
 
         <ul id="slide-out" class="side-nav">
             <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">TOP</a></li>
-            <li class='fn-dropdown-button c-dropdown'>
+            <li class='m-dropdown'>
                 <!-- Dropdown Trigger -->
-                <a class="c-dropdown-head">EVENT</a>
+                <a class="fn-dropdown-button m-dropdown-head">EVENT</a>
                 <!-- Dropdown Structure -->
-                <ul class='c-dropdown-body'>
+                <ul class='m-dropdown-body'>
                     <li><a href="/event/special/">スペシャルイベント一覧</a></li>
                     <li><a href="/event/lp/">イベント一覧</a></li>
                     <li><a href="/event/archives/">アーカイブ</a></li>
                 </ul>
             </li>
             <li><a target="_blank" href="https://tixeebox.tv/lp/how-to/">HOW TO</a></li>
+            <li><a href="/faq/">FAQ</a></li>
             <li><a target="_blank" href="http://livestyles.tv/aboutus">ABOUT US</a></li>
-            <li class='fn-dropdown-button c-dropdown'>
+            <li class='m-dropdown'>
                 <!-- Dropdown Trigger -->
-                <a class="c-dropdown-head">CONTACT</a>
+                <a class="fn-dropdown-button m-dropdown-head">CONTACT</a>
                 <!-- Dropdown Structure -->
-                <ul class='c-dropdown-body'>
+                <ul class='m-dropdown-body'>
                     <li><a href="/contact-corp/">お問い合わせ（法人）</a></li>
                     <li><a href="/contact/">お問い合わせ（個人）</a></li>
                 </ul>
@@ -96,7 +87,7 @@
         <a data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="brand-logo center"><img src="<?php bloginfo( 'template_directory' ); ?>/img/logo-white.png" alt="tixeeboxロゴ"></a>
         <ul class="social-icons">
-            <li>
+            <li class="right">
                 <a href="https://twitter.com/tixeebox1" target="_blank">
                     <i class="icon-twitter"></i>
                 </a>
@@ -107,7 +98,7 @@
     <div class="container u-pt60" ng-controller="contactController">
         <section class="row">
             <div class="col s12">
-                <h1 class="heading-a u-mt30 u-mb30">お問い合わせ（個人）</h1>
+                <h1 class="m-heading-sub u-mt30 u-mb30">お問い合わせ（個人）</h1>
                 <p> 
                     tixeeboxではサービス内容や機能性を向上させるために日々努めています。<br>
                     サービス内容や利便性を高めるためのご意見をお待ちしております。
@@ -123,7 +114,7 @@
         <div class="row u-mt30">
             <form name="contactForm" class="col s12" action="/contact-regist/" method="post" ng-submit="submit()" novalidate>
                 <div class="row">
-                    <h1 class="heading-b u-mt30 u-mb40 u-pl10">お問い合わせフォーム入力</h1>
+                    <h1 class="m-headingDefault-sub u-mt30 u-mb40 u-pl10">お問い合わせフォーム入力</h1>
                     <div class="input-field col s6">
                         <input placeholder="山田" id="name_sei" name="name_sei" ng-model="name_sei" ng-maxlength="20" required type="text" class="validate">
                         <label for="name_sei">お名前（姓）</label>
@@ -179,7 +170,7 @@
                 <div id="modal1" class="modal">
                     <div class="modal-content">
                         <section class="row">
-                            <h1 class="heading-a u-mb30">お問い合わせ内容の確認</h1>
+                            <h1 class="m-heading-sub u-mb30">お問い合わせ内容の確認</h1>
                             <ul class="collection">
                                 <li class="collection-item">
                                     <p>お名前（姓）：<span ng-bind="name_sei"></span></p>

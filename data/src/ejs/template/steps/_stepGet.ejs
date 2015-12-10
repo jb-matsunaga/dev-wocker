@@ -1,0 +1,71 @@
+<?php if(empty($getCapture)):?>
+<?php else:?>
+<section class="col s12 u-mb50">
+    <div class="u-mb50">
+        <h1 id="link-receive" class="m-heading-sub u-pt30">tixeeboxアプリによるチケットの受け取り方法</h1>
+        <p>
+            <?php echo nl2br($getString); ?>
+        </p>
+        <p>
+            <a class="page-scroll m-linkDetail" href="https://tixeebox.tv/lp/how-to/#section01" target="_blank">
+                インストール・利用登録についてはこちら
+            </a>
+        </p>
+    </div>
+
+    <!-- 注意文言 -->
+    <?php if(empty($field_value['cf-getAlert'])):?>
+    <?php else:?>
+        <ul class="m-alert m-alert-list u-mt30">
+            <?php foreach ( $getAlert as $field_name => $field_value ) { ?>
+            <li>
+                <?php echo nl2br($field_value['cf-getAlert']); ?>
+            </li>
+            <?php } ?>
+        </ul>
+    <?php endif;?>
+
+    <!-- キャプチャー枠タイトル -->
+    <?php if(empty($getTitle)):?>
+    <?php else:?>
+        <strong><?php echo nl2br($getTitle); ?></strong>
+    <?php endif;?>
+
+    <!-- キャプチャー枠注意文言 -->
+    <?php if(empty($field_value['cf-getAlertCapture'])):?>
+    <?php else:?>
+        <ul class="m-alert m-alert-list u-mt0">
+            <?php foreach ( $getAlertCapture as $field_name => $field_value ) { ?>
+            <li>
+                <?php echo nl2br($field_value['cf-getAlertCapture']); ?>
+            </li>
+            <?php } ?>
+        </ul>
+    <?php endif;?>
+
+    <!-- キャプチャー説明リスト -->
+    <ol class="m-listSteps u-hidden-xs">
+        <?php foreach ( $getCapture as $field_name => $field_value ) { ?>
+        <li><?php echo nl2br($field_value['cf-captureStringLong']); ?></li>
+        <?php } ?>
+    </ol>
+
+    <!-- キャプチャー説明 -->
+    <div class="row l-step">
+        <?php foreach ( $getCapture as $field_name => $field_value ) { ?>
+        <div class="col m3 s12">
+            <div class="card card-step fn-step">
+                <span class="card-number"><?php echo nl2br($field_value['cf-captureNumber']); ?>.</span>
+                <div class="card-content">
+                    <p class="u-hidden-xs"><?php echo nl2br($field_value['cf-captureStringShort']); ?></p>
+                    <p class="u-visible-xs"><?php echo nl2br($field_value['cf-captureStringLong']); ?></p>
+                </div>
+                <div class="card-image fn-stepContent">
+                    <?php echo wp_get_attachment_image($field_value['cf-captureImage'], 'medium'); ?>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+</section>
+<?php endif;?>

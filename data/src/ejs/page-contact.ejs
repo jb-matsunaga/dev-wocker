@@ -3,7 +3,7 @@
     <div class="container u-pt60" ng-controller="contactController">
         <section class="row">
             <div class="col s12">
-                <h1 class="heading-a u-mt30 u-mb30">お問い合わせ（個人）</h1>
+                <h1 class="m-heading-sub u-mt30 u-mb30">お問い合わせ（個人）</h1>
                 <p> 
                     tixeeboxではサービス内容や機能性を向上させるために日々努めています。<br>
                     サービス内容や利便性を高めるためのご意見をお待ちしております。
@@ -19,7 +19,7 @@
         <div class="row u-mt30">
             <form name="contactForm" class="col s12" action="/contact-regist/" method="post" ng-submit="submit()" novalidate>
                 <div class="row">
-                    <h1 class="heading-b u-mt30 u-mb40 u-pl10">お問い合わせフォーム入力</h1>
+                    <h1 class="m-headingDefault-sub u-mt30 u-mb40 u-pl10">お問い合わせフォーム入力</h1>
                     <div class="input-field col s6">
                         <input placeholder="山田" id="name_sei" name="name_sei" ng-model="name_sei" ng-maxlength="20" required type="text" class="validate">
                         <label for="name_sei">お名前（姓）</label>
@@ -75,7 +75,7 @@
                 <div id="modal1" class="modal">
                     <div class="modal-content">
                         <section class="row">
-                            <h1 class="heading-a u-mb30">お問い合わせ内容の確認</h1>
+                            <h1 class="m-heading-sub u-mb30">お問い合わせ内容の確認</h1>
                             <ul class="collection">
                                 <li class="collection-item">
                                     <p>お名前（姓）：<span ng-bind="name_sei"></span></p>

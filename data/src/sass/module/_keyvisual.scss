@@ -1,0 +1,129 @@
+.m-keyvisual {
+    max-width: 1024px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    padding: 20px 0;
+    @extend .u-clearfix;
+
+    @media(max-width: $responseiveWidth){
+        padding: 5px 0;
+    }
+
+    &-image {
+        width: auto;
+        height: 100%;
+        float: right;
+        text-align: center;
+
+        @media(max-width: $responseiveWidth){
+            display: none;
+        }
+
+        img {
+            max-height: 450px;
+            @media(max-width: $responseiveWidth){
+                max-height: 250px;
+            }
+        }
+    }
+
+    &-string {
+        width: auto;
+        height: 100%;
+        float: left;
+        padding: 15px;
+        box-sizing: border-box;
+
+        @media(max-width: $responseiveWidth){
+            padding: 0;
+            width: 100%;
+        }
+
+        big {
+            color: darken($color-b, 5%);
+            padding-right: 5px;
+        }
+
+        h1 {
+            font-size: 30px;
+            @media(max-width: $responseiveWidthMax) {
+                font-size: 26px;
+            }
+            @media(max-width: $responseiveWidth) {
+                font-size: 18px;
+                text-align: center;
+            }
+            @media(max-width: $responseiveWidthMin){
+                font-size: 16px;
+            }
+            font-weight: bold;
+            line-height: 1.5;
+            text-align: left;
+            margin-top: 0;
+            margin-bottom: 15px;
+            @media(max-width: $responseiveWidth) {
+                margin-top: 5px;
+                margin-bottom: 15px;
+            }
+            padding: 0;
+            color: $whiteCol;
+        }
+
+        ul {
+            padding: 0 15px 15px 0;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: left;
+            color: #000;
+
+            @media(max-width: $responseiveWidthMax) {
+                font-size: 20px;
+            }
+
+            @media(max-width: $responseiveWidth) {
+                font-size: 14px;
+            }
+
+            @media(max-width: $responseiveWidthMin){
+                font-size: 13px;
+            }
+
+            li {
+
+                @media(max-width: $responseiveWidth){
+                    line-height: 1.8;
+                }
+            }
+        }
+
+        .btn {
+            font-size: 21px;
+            height: 60px;
+            line-height: 60px;
+            display: block;
+
+            @media(max-width: $responseiveWidth){
+                font-size: 17px;
+            }
+        }
+    }
+
+    &-body {
+        display: inline-block;
+        border-radius: 5px;
+        height: 100%;
+
+        @media(max-width: $responseiveWidth){
+            padding: 15px;
+        }
+
+        ul {
+            list-style: none;
+
+            i {
+                vertical-align: sub;
+            }
+        }
+    }
+}

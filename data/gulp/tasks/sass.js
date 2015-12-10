@@ -35,11 +35,12 @@ gulp.task('sass', function(){
                 },
             minifier: false
         }))
-        .pipe(gulp.dest( config.path.sass.dest ))//開発用書き出し
+        .pipe(gulp.dest( config.path.all.dest + '/css/' ))//開発用書き出し
         .pipe(please({
             minifier: true
         }))
         .pipe(rename({suffix: '.min'}))
-        .pipe(gulp.dest( config.path.sass.dest ))//本番用書き出し
+        .pipe(gulp.dest( config.path.all.dest + '/css/' ))//本番用書き出し
         .pipe(reload({stream: true}));
+        console.log('sass完了');
 });

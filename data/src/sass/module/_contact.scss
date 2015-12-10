@@ -1,4 +1,4 @@
-.c-contact {
+.m-contact {
     position: relative;
     background-color: $bg-contact;
     color: $whiteCol;
@@ -68,7 +68,7 @@
         }
 
         a {
-            color: $whiteCol;
+            color: $color-a;
             font-size: 20px;
 
             @media(max-width: $responseiveWidth) {

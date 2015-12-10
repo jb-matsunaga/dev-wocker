@@ -1,5 +1,5 @@
 
-$('.c-visualPanel-thumbnail').hover(
+$('.m-panelFive-thumbnail').hover(
     function(){
         $('h1', this).slideDown();
     },

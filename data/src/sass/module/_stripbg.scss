@@ -5,7 +5,6 @@
     background-image: linear-gradient(-45deg, rgba(244, 146, 74, 0.48) 25%, transparent 25%, transparent 50%, rgba(244, 146, 74, 0.46) 50%, rgba(244, 146, 74, 0.43) 75%, transparent 75%, transparent);
     background-size: 6px 6px;
     display: inline-block;
-    padding-bottom: 15px;
 
     &-title {
         background-color: $whiteCol;
@@ -17,8 +16,8 @@
         display: block;
         width: 100%;
         padding: 15px;
-        background-image: -webkit-linear-gradient(-45deg, rgba(244, 146, 74, 0.2) 25%, transparent 25%, transparent 50%, rgba(244, 146, 74, 0.2) 50%, #455765 75%, transparent 75%, transparent);
-        background-image: linear-gradient(-45deg, rgba(244, 146, 74, 0.2) 25%, transparent 25%, transparent 50%, rgba(244, 146, 74, 0.2) 50%, rgba(244, 146, 74, 0.2) 75%, transparent 75%, transparent);
+        background-image: -webkit-linear-gradient(-45deg, transparent(darken($color-a, 25%), .8) 25%, transparent 25%, transparent 50%, transparent(darken($color-a, 25%), .8) 50%, #455765 75%, transparent 75%, transparent);
+        background-image: linear-gradient(-45deg, transparent(darken($color-a, 25%), .8) 25%, transparent 25%, transparent 50%, transparent(darken($color-a, 25%), .8) 50%, transparent(darken($color-a, 25%), .8) 75%, transparent 75%, transparent);
         background-size: 4px 4px;
         border:1px solid $color-a;
         border-radius: 4px;
@@ -46,5 +45,22 @@
                 border-color: $whiteCol;
             }
         }
+    }
+
+    &--full {
+        width: 100%;
+        height: auto;
+        //min-height: 300px;
+        background-size: 18px 18px;
+        background-color: lighten($color-a, 20%);
+        @media(max-width: $responseiveWidth){
+            min-height: 150px;
+        }
+    }
+
+    &--blue {
+        background-color: lighten($color-b, 20%);
+        background-image: -webkit-linear-gradient(-45deg, rgba(48,151,239, 0.48) 25%, transparent 25%, transparent 50%, rgba(48,151,239, 0.48) 50%, #455765 75%, transparent 75%, transparent);
+        background-image: linear-gradient(-45deg, rgba(48,151,239, 0.48) 25%, transparent 25%, transparent 50%, rgba(48,151,239, 0.46) 50%, rgba(48,151,239, 0.43) 75%, transparent 75%, transparent);
     }
 }

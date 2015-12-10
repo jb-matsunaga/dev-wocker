@@ -1,33 +1,211 @@
+    <?php
+    //チケット受け取り方法説明
+    $scheduleString = get_post_meta($post->ID, 'cf-scheduleString', true);
+    $scheduleAlert = SCF::get( 'gp-scheduleAlert' );
+    $alertSpecial = SCF::get( 'gp-alertSpecial' );
+    //受け取りURL&QRコード
+    $cf_tableTime = SCF::get( 'cf_tableTime' );
+    //step受け取り
+    $getString = get_post_meta($post->ID, 'cf-getString', true);
+    $getTitle = get_post_meta($post->ID, 'cf-getTitle', true);
+    $getAlert = SCF::get( 'gp-getAlert' );
+    $getAlertCapture = SCF::get( 'gp-getAlertCapture' );
+    $getCapture = SCF::get( 'gp-getCapture' );
+    //stepチケットギフト
+    $giftString = get_post_meta($post->ID, 'cf-giftString', true);
+    $giftTitle = get_post_meta($post->ID, 'cf-giftTitle', true);
+    $giftAlert = SCF::get( 'gp-giftAlert' );
+    $giftAlertCapture = SCF::get( 'gp-giftAlertCapture' );
+    $giftCapture = SCF::get( 'gp-giftCapture' );
+    //入場方法：はじめに
+    $enterFirstlyString = get_post_meta($post->ID, 'cf-enterFirstlyString', true);
+    $enterFirstlyAlertDetail = get_post_meta($post->ID, 'cf-enterFirstlyAlertDetail', true);
+    $gp_enterFirstlyAlert = SCF::get( 'gp-enterFirstlyAlert' );
+    //入場方法：公演当日の入場方法
+    $enterString = get_post_meta($post->ID, 'cf-enterString', true);
+    $gp_enterAlert = SCF::get( 'gp-enterAlert' );
+    $enterAlertDetail = get_post_meta($post->ID, 'cf-enterAlertDetail', true);
+    $gp_enterAlertSpecial = SCF::get( 'gp-enterAlertSpecial' );
+    $enterAlertSpecial = get_post_meta($post->ID, 'cf-enterAlertSpecial', true);
+    //入場方法：キャプチャ
+    $gp_enterCaptureAlert = SCF::get( 'gp-enterCaptureAlert' );
+    $enterCaptureAlertDetail = get_post_meta($post->ID, 'cf-enterCaptureAlertDetail', true);
+    $gp_enterCapture = SCF::get( 'gp-enterCapture' );
+    $enterCaptureTitle = get_post_meta($post->ID, 'cf-enterCaptureTitle', true);
+    $enterCaptureStringLong = get_post_meta($post->ID, 'cf-enterCaptureStringLong', true);
+    $enterCaptureStringShort = get_post_meta($post->ID, 'cf-enterCaptureStringShort', true);
+    //入場方法：ご持参いただくもの
+    $gp_enterBringList = SCF::get( 'gp-enterBringList' );
+    $enterBringList = get_post_meta($post->ID, 'cf-enterBringList', true);
+    $gp_enterBringAlert = SCF::get( 'gp-enterBringAlert' );
+    $enterBringAlert = get_post_meta($post->ID, 'cf-enterBringAlert', true);
+    //お問い合わせ
+    $contact_check = get_post_meta($post->ID, 'cf-contactCheck', true);
+    $contact_title = get_post_meta($post->ID, 'cf-contactTitle', true);
+    $contact_mail = get_post_meta($post->ID, 'cf-contactMail', true);
+    $contact_tell = get_post_meta($post->ID, 'cf-contactTell', true);
+    ?>
     <section class="navbar-fixed navbar-fixed--single">
-        <h1 class="heading-d"><?php single_post_title(); ?> - tixeeboxスマホチケットご利用方法</h1>
+        <h1 class="m-heading-fixedbar"><?php single_post_title(); ?> - tixeeboxスマホチケットご利用方法</h1>
         <nav>
             <div class="nav-wrapper">
                 <a href="<?php bloginfo('url'); ?>" class="brand-logo">
                     <img src="<?php bloginfo('template_directory'); ?>/img/logo-white.png" alt="tixeeboxロゴ">
                 </a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul id="nav-mobile" class="nav-a right hide-on-med-and-down">
-                    <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li id="fn-navSchedule" class="u-display-none">
-                        <a class="fn-pageScroll" href="#link-schedule">
-                        チケット受け取り開始日時
+                <ul id="nav-mobile" class="m-hover m-hover--colorA right hide-on-med-and-down">
+                    <li><a class="fn-pageScroll" href="#fn-hesiveTop" data-hover="TOP">TOP</a></li>
+                    <?php if(empty($scheduleString)):?>
+                    <?php else:?>
+                    <li id="fn-navReceive" class="m-dropdown u-display-none">
+                        <!-- Dropdown Trigger -->
+                        <a class="fn-dropdown-button m-dropdown-head" data-hover="チケット受け取り方法">
+                            <span class="ic-arrow">チケット受け取り方法</span>
                         </a>
+                        <!-- Dropdown Structure -->
+                        <ul class="m-dropdown-body">
+                            <li>
+                                <a class="fn-pageScroll" href="#link-schedule" data-hover="各公演日程とチケット受け取り開始日程">
+                                    各公演日程とチケット受け取り開始日程
+                                </a>
+                            </li>
+                            <?php if(empty($getString)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-receive" data-hover="tixeeboxアプリによるチケットの受け取り方法">
+                                    tixeeboxアプリによるチケットの受け取り方法
+                                </a>
+                            </li>
+                            <?php endif;?>
+                            <?php if(empty($giftString)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-gift" data-hover="同伴者様へのチケットのギフト(分配)方法">
+                                    同伴者様へのチケットのギフト(分配)方法
+                                </a>
+                            </li>
+                            <?php endif;?>
+                        </ul>
                     </li>
-                    <li id="fn-navReceive" class="u-display-none">
-                        <a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a>
+                    <?php endif;?>
+                    <?php if(empty($enterFirstlyString)):?>
+                    <?php else:?>
+                    <li class="m-dropdown u-display-none">
+                        <!-- Dropdown Trigger -->
+                        <a class="fn-dropdown-button m-dropdown-head" data-hover="入場方法">
+                            <span class="ic-arrow">入場方法</span>
+                        </a>
+                        <!-- Dropdown Structure -->
+                        <ul class="m-dropdown-body">
+                            <li>
+                                <a class="fn-pageScroll" href="#link-firstly" data-hover="はじめに">
+                                    はじめに
+                                </a>
+                            </li>
+                            <?php if(empty($enterString)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-enter" data-hover="公演当日の入場方法">
+                                    公演当日の入場方法
+                                </a>
+                            </li>
+                            <?php endif;?>
+                            <?php if(empty($enterBringList)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-bring" data-hover="ご入場の際にご持参いただくもの">
+                                    ご入場の際にご持参いただくもの
+                                </a>
+                            </li>
+                            <?php endif;?>
+                        </ul>
                     </li>
+                    <?php endif;?>
+                    <?php if( $contact_check == 'ON' ) :?>
                     <li id="fn-navContact" class="u-display-none">
-                        <a class="fn-pageScroll" href="#link-contact">お問い合わせ</a>
+                        <a class="fn-pageScroll" href="#link-contact" data-hover="お問い合わせ">お問い合わせ</a>
                     </li>
-                    <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+                    <?php endif;?>
+                    <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank" data-hover="tixeebox使用方法">tixeebox使用方法</a></li>
 
                 </ul>
+                <!-- スマホ：サイドメニュー -->
                 <ul class="side-nav" id="mobile-demo">
                     <li><a class="fn-pageScroll" href="#fn-hesiveTop">TOP</a></li>
-                    <li><a class="fn-pageScroll" href="#link-schedule">チケット受け取り開始日時</a></li>
-                    <li><a class="fn-pageScroll" href="#link-receive">チケット受け取り方法</a></li>
-                    <li><a class="fn-pageScroll" href="#link-contact">お問い合わせ</a></li>
-                    <li><a href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeeboxご利用方法</a></li>
+                    <?php if(empty($scheduleString)):?>
+                    <?php else:?>
+                    <li id="fn-navReceive" class="m-dropdown u-display-none">
+                        <!-- Dropdown Trigger -->
+                        <a class="fn-dropdown-button m-dropdown-head">
+                            <span class="ic-arrow">チケット受け取り方法</span>
+                        </a>
+                        <!-- Dropdown Structure -->
+                        <ul class="m-dropdown-body">
+                            <li>
+                                <a class="fn-pageScroll" href="#link-schedule">
+                                    受け取り開始日程
+                                </a>
+                            </li>
+                            <?php if(empty($getString)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-receive">
+                                    受け取り方法
+                                </a>
+                            </li>
+                            <?php endif;?>
+                            <?php if(empty($giftString)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-gift">
+                                    ギフト(分配)方法
+                                </a>
+                            </li>
+                            <?php endif;?>
+                        </ul>
+                    </li>
+                    <?php endif;?>
+                    <?php if(empty($enterFirstlyString)):?>
+                    <?php else:?>
+                    <li class="m-dropdown u-display-none">
+                        <!-- Dropdown Trigger -->
+                        <a class="fn-dropdown-button m-dropdown-head" data-hover="入場方法">
+                            <span class="ic-arrow">入場方法</span>
+                        </a>
+                        <!-- Dropdown Structure -->
+                        <ul class="m-dropdown-body">
+                            <li>
+                                <a class="fn-pageScroll" href="#link-firstly" data-hover="はじめに">
+                                    はじめに
+                                </a>
+                            </li>
+                            <?php if(empty($enterString)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-enter" data-hover="公演当日の入場方法">
+                                    公演当日の入場方法
+                                </a>
+                            </li>
+                            <?php endif;?>
+                            <?php if(empty($enterBringList)):?>
+                            <?php else:?>
+                            <li>
+                                <a class="fn-pageScroll" href="#link-bring" data-hover="ご入場の際にご持参いただくもの">
+                                    ご持参いただくもの
+                                </a>
+                            </li>
+                            <?php endif;?>
+                        </ul>
+                    </li>
+                    <?php endif;?>
+                    <?php if( $contact_check == 'ON' ) :?>
+                    <li id="fn-navContact">
+                        <a class="fn-pageScroll" href="#link-contact">お問い合わせ</a>
+                    </li>
+                    <?php endif;?>
+                    <li>
+                        <a class="icon-linkblank" href="https://tixeebox.tv/lp/how-to/" target="_blank">tixeebox使用方法</a>
+                    </li>
                 </ul>
             </div>
         </nav>

@@ -1,7 +1,11 @@
-.c-list-icons {
+.m-listIcons {
     display: inline-block;
     margin-top: 30px;
 
+    @media(max-width: $responseiveWidth) {
+        width: 100%;
+        text-align: center;
+    }
     @media(max-width: 1110px) {
         margin-top: 10px;
     }
@@ -9,12 +13,12 @@
     > li {
         float: left;
         width: auto;
+        padding: 0 10px;
 
         @media(max-width: $responseiveWidthDefalt) {
             width: 100%;
             padding: 7px 0;
         }
-        padding: 0 10px;
 
         > a {
 
@@ -33,12 +37,82 @@
     }
 }
 
-.c-list-cols {
+.m-listCheckbox {
     @extend .u-clearfix;
 
     li {
         display: inline-block;
         float: left;
         padding-right: 40px;
+    }
+}
+
+.m-listResult {
+
+    &-title {
+        color: $graylightCol;
+        border-bottom: 1px solid $graylightCol;
+    }
+
+    &-content {
+        margin-bottom: 10px;
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+        color: $redCol;
+    }
+}
+
+.m-listCase {
+
+    &-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 0 8px;
+
+        &--sub {
+            font-size: 1.2rem;
+            margin: 0 0 5px;
+            color: $color-a;
+            line-height: 1.5;
+        }
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 32px;
+    }
+}
+
+.m-listSns {
+    float: right;
+
+    > li > a {
+        background-color: $blackCol;
+        border-radius: 50%;
+        line-height: 10px;
+        padding: 5px;
+        margin: 12px;
+
+        &:hover {
+            background-color: $color-a;
+            color: $blackCol;
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+        }
+
+        i {
+            height: auto;
+            line-height: normal;
+            font-size: 1rem;
+        }
+    }
+}
+
+
+.m-listSteps {
+
+    li {
+        margin-bottom: 1rem;
     }
 }

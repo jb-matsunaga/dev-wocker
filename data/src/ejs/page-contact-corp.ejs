@@ -2,7 +2,7 @@
     <% include template/_nav %>
     <div class="container u-pt60" ng-controller="contactCorpController">
         <section class="row">
-            <h1 class="heading-a u-mt30 u-mb30">お問い合わせ（法人）</h1>
+            <h1 class="m-heading-sub u-mt30 u-mb30">お問い合わせ（法人）</h1>
             <p>法人のお客様のお問合せは必要事項をご記入の上、下記のフォームからお問合せください。</p>
             <p>
             詳細なご相談内容については、必要に応じて別途NDA（機密保持契約）の締結をさせていただきます。<br>
@@ -16,7 +16,7 @@
                     <div class="col s12">
                         <label>お問合せ種別</label>
                         <checkbox-group min-required="1">
-                        <ul class="c-list-cols">
+                        <ul class="m-listCheckbox">
                             <li ng-repeat="kind in kinds">
                             <input type="checkbox" name="kind[]" ng-model="kind.checked" class="filled-in" id="{{kind.id}}" value="{{kind.name}}" />
                                 <label for="{{kind.id}}">{{kind.name}}</label>
@@ -118,7 +118,7 @@
                 <div id="modal1" class="modal">
                     <div class="modal-content">
                         <section class="row">
-                            <h1 class="heading-a u-mb30">お問い合わせ内容の確認</h1>
+                            <h1 class="m-heading-sub u-mb30">お問い合わせ内容の確認</h1>
                             <ul class="collection">
                                 <li class="collection-item">
                                     <p>お問い合わせ種別：<br><span>{{check_bind}}</span></p>

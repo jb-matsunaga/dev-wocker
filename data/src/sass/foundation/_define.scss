@@ -12,12 +12,21 @@ $keyBorderCol: #dd7900;
 $whiteCol: #fff;
 $blackCol: #444;
 $grayCol: #3D3F3F;
+$graylightCol: #9C9C9C;
 $redCol: #ff1744;
+$darkblueCol: #CBDDEC;
 
 $color-a: #F4924A;
+$color-ar: #00A1B2;
 $color-b: #3097EF;
 $color-c: #f6756b;
 $color-d: #444;
+
+$womanCol: #F549AD;
+$manCol: #49ADF5;
+$businessCol: #9149F5;
+
+$tranceBlue: transparent($color-b, .8);
 
 //bgColor
 $body-bg:               #FEFEFE !default;
@@ -32,8 +41,11 @@ $imgRoot : '../../../img/';
 //responsive
 $responseiveWidthMax: 1110px;
 $responseiveWidthDefalt: 992px;
-$responseiveWidth: 420px;
+$responseiveWidth: 600px;
 $responseiveWidthMin: 320px;
+
+//keyvisual
+$mobilekeyvisualHeight: 360px;
 
 //font-size
 $font-size-base:          14px !default;
@@ -48,4 +60,8 @@ $table-border-color:            #ddd !default;
 $visualPanel-height: 400px;
 $visualPanel-box-padding: 15px;
 $visualPanel-thumbnails-height: ($visualPanel-height - $visualPanel-box-padding) / 2;
+
+//
+$paraFontSizeBasic: 20px;
+$paraHeight: 500px;
 

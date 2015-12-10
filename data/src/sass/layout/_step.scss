@@ -1,0 +1,21 @@
+.l-step {
+    margin-top: 60px;
+    @media(min-width: $responseiveWidth) {
+        .card .card-content {
+            height: 114px;
+            overflow-y: auto;
+        }
+    }
+
+    @media(max-width: $responseiveWidth) {
+
+        .col.m3.s12 {
+            width: 90%;
+            margin: 0 5%;
+        }
+
+        .card .card-image {
+            display: none;
+        }
+    }
+}

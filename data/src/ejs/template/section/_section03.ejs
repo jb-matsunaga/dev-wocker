@@ -1,0 +1,95 @@
+                <?php if(empty($enterFirstlyString)):?>
+                <?php else:?>
+                    <section class="card">
+                        <div class="row card-content">
+                            <h1 class="m-heading-main">入場方法</h1>
+                            <!-- はじめに -->
+                            <section class="col s12 u-mb60">
+                                <h1 id="link-firstly" class="m-heading-sub">はじめに</h1>
+                                <!-- 説明 -->
+                                <p><?php echo nl2br($enterFirstlyString); ?></p>
+                                <!-- 注意文言 -->
+                                <?php if(empty($enterFirstlyAlertDetail)):?>
+                                <?php else:?>
+                                <ul class="m-alert m-alert-list u-mt15">
+                                    <?php foreach ( $gp_enterFirstlyAlert as $field_name => $field_value ) { ?>
+                                    <li>
+                                        <?php echo nl2br($field_value['cf-enterFirstlyAlertDetail']); ?>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                                <?php endif;?>
+                                <!-- リンク -->
+                                <p>
+                                    <a class="m-linkDetail" href="https://tixeebox.tv/lp/how-to/#section01" target="_blank">
+                                        インストール・利用登録についてはこちら
+                                    </a><br>
+                                    <a class="fn-pageScroll m-linkDetail" href="#link-receive">
+                                        チケットの受け取りについてはこちら
+                                    </a>
+                                </p>
+                            </section>
+                            <!-- 公演当日の入場方法 -->
+                            <?php if(empty($enterString)):?>
+                            <?php else:?>
+                            <section class="col s12 u-mb60">
+                                <h1 id="link-enter" class="m-heading-sub">公演当日の入場方法</h1>
+                                <p><?php echo nl2br($enterString); ?></p>
+                                <!-- 注意文言 -->
+                                <?php if(empty($enterAlertDetail)):?>
+                                <?php else:?>
+                                <ul class="m-alert m-alert-list u-mt15">
+                                    <?php foreach ( $gp_enterAlert as $field_name => $field_value ) { ?>
+                                    <li>
+                                        <?php echo nl2br($field_value['cf-enterAlertDetail']); ?>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                                <?php endif;?>
+                                <!-- スペシャル注意文言 -->
+                                <?php if(empty($enterAlertSpecial)):?>
+                                <?php else:?>
+                                <div class="m-alert m-alert-box u-mt30 u-mb30">
+                                    <ul class="m-alert-list">
+                                        <?php foreach ( $gp_enterAlertSpecial as $field_name => $field_value ) { ?>
+                                        <li>
+                                            <?php echo nl2br($field_value['cf-enterAlertSpecial']); ?>
+                                        </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                                <?php endif;?>
+                                <!-- キャプチャ入場方法 -->
+                                <?php if(empty($enterCaptureStringLong)):?>
+                                <?php else:?>
+                                    <% include ../steps/_stepEnter %>
+                                <?php endif;?>
+                            </section>
+                            <?php endif;?>
+                            <!-- ご入場の際にご持参いただくもの -->
+                            <?php if(empty($enterBringList)):?>
+                            <?php else:?>
+                            <section class="col s12 u-mb60">
+                                <h1 id="link-bring" class="m-heading-sub">ご入場の際にご持参いただくもの</h1>
+                                <!-- 持ち物リスト -->
+                                <ol class="list-b">
+                                    <?php foreach ( $gp_enterBringList as $field_name => $field_value ) { ?>
+                                    <li><?php echo nl2br($field_value['cf-enterBringList']); ?></li>
+                                    <?php } ?>
+                                </ol>
+                                <!-- 注意文言 -->
+                                <?php if(empty($enterBringAlert)):?>
+                                <?php else:?>
+                                <ul class="m-alert m-alert-list u-mt15">
+                                    <?php foreach ( $gp_enterBringAlert as $field_name => $field_value ) { ?>
+                                    <li>
+                                        <?php echo nl2br($field_value['cf-enterBringAlert']); ?>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                                <?php endif;?>
+                            </section>
+                            <?php endif;?>
+                        </div>
+                    </section>
+                <?php endif;?>

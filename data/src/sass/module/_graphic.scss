@@ -1,0 +1,28 @@
+.m-graphicTriangle{
+    position: relative;
+    @extend .u-clearfix;
+
+    &-bottom {
+        position: absolute;
+        bottom: -60px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        display: block;
+        width: 0;
+        height: 0;
+        border-top: 30px solid $whiteCol;
+        border-right: 30px solid transparent;
+        border-bottom: 30px solid transparent;
+        border-left: 30px solid transparent;
+        z-index: 5;
+
+        &--darkblue {
+            border-top-color: lighten($color-b, 20%);
+        }
+
+        &--orange {
+            border-top-color: lighten($color-a, 20%);
+        }
+    }
+}

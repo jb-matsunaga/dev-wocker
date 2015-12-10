@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
+    padding-top: 50px;
 }
 
 .page-single {
@@ -19,8 +20,11 @@ body {
 .container.section-str {
     padding:120px 90px;
     max-width: 900px;
+    font-size: 18px;
+    font-weight: bold;
 
     @media(max-width: $responseiveWidth) {
-        padding: 90px 30px;
+        padding: 60px 15px;
+        font-size: 16px;
     }
 }

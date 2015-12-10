@@ -3,6 +3,7 @@ module.exports = {
         index: './src/js/index',
         single: './src/js/single',
         category: './src/js/category',
+        tag: './src/js/tag',
         contact: './src/js/contact',
         faq: './src/js/faq'
     },

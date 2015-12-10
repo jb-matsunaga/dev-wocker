@@ -1,0 +1,7 @@
+.l-titleHead {
+    text-align: center;
+    padding: 60px 0;
+    @media(max-width: $responseiveWidth) {
+        padding: 0;
+    }
+}

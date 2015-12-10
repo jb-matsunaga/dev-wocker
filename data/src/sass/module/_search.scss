@@ -1,6 +1,12 @@
-.c-search {
+.m-search {
     width: 22%;
-    margin-top: 10px;
+    margin-top: 5px;
+
+    @media(max-width: $responseiveWidth){
+        width: 100%;
+        margin-bottom: 10px;
+        background: lighten($commonLightCol, 5%);
+    }
 
     &-body {
         position: relative;
@@ -12,6 +18,7 @@
             padding-left: 2.5em;
             margin: 0;
             box-sizing: border-box;
+            -webkit-appearance: none;
         }
 
         label i {
@@ -19,7 +26,9 @@
             display: inline-table;
             top: 0;
             bottom: 0;
+            left: 5px;
             margin: auto;
+            -webkit-appearance: none;
         }
     }
 }

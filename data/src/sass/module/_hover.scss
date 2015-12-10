@@ -1,0 +1,81 @@
+//@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
+.m-hover {
+    text-transform: uppercase;
+    font-weight: 500;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    > li {
+        display: inline-block;
+        list-style: outside none none;
+        margin: 0;
+        padding: 0 1rem;
+    }
+
+    a {
+        padding: 0;
+        color: rgba(255, 255, 255, 0.5);
+        position: relative;
+        letter-spacing: 1px;
+        text-decoration: none;
+
+        &:before,
+        &:after {
+            position: absolute;
+            -webkit-transition: all 0.35s ease;
+            transition: all 0.35s ease;
+        }
+
+        &:before {
+            bottom: 0;
+            display: block;
+            height: 3px;
+            width: 0%;
+            content: "";
+            background-color: $redCol;
+        }
+
+        &:after {
+            left: 0;
+            top: 0;
+            padding: 0;
+            position: absolute;
+            content: attr(data-hover);
+            color: #ffffff;
+            white-space: nowrap;
+            max-width: 0%;
+            overflow: hidden;
+        }
+    }
+
+    &--colorA {
+
+        a {
+
+            &:before {
+                background-color: $color-a;
+            }
+        }
+    }
+}
+
+.m-hover a:hover:before,
+.m-hover .is-active:before,
+.m-hover .current a:before {
+  opacity: 1;
+  width: 100%;
+}
+
+.m-hover a:hover:after,
+.m-hover .is-active:after,
+.m-hover .current a:after {
+  max-width: 100%;
+}
+
+.m-hover a:hover .ic-arrow:after {
+    border-color: $whiteCol;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+}

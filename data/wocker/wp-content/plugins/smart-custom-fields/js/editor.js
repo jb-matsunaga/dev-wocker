@@ -1,10 +1,10 @@
 /**
  * editor.js
- * Version    : 1.3.0
- * Author     : Takashi Kitajima
+ * Version    : 1.3.1
+ * Author     : inc2734
  * Created    : September 23, 2014
- * Modified   : September 28, 2015
- * License    : GPLv2
+ * Modified   : October 6, 2015
+ * License    : GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 jQuery( function( $ ) {
@@ -15,13 +15,14 @@ jQuery( function( $ ) {
 		var btn_remove_repeat_group = wrapper.find( '.btn-remove-repeat-group' );
 		var table_class             = '.smart-cf-meta-box-table';
 		var cnt                     = wrapper.find( table_class ).length;
+		var wrapper_index           = i;
 
 		/**
 		 * ロード時に wysiwyg エディター用のテキストエリアがあったら wysiwyg 化する。
 		 */
 		wrapper.find( '.smart-cf-wp-editor' ).each( function( i, e ) {
 			if ( $( this ).parents( table_class ).css( 'display' ) !== 'none' ) {
-				$( this ).attr( 'id', 'smart-cf-wysiwyg-' + cnt + i );
+				$( this ).attr( 'id', 'smart-cf-wysiwyg-' + wrapper_index + '-' + cnt + '-' + i );
 				var editor_id = $( this ).attr( 'id' );
 				$( this ).parents( '.wp-editor-wrap' ).find( 'a.add_media' ).attr( 'data-editor', editor_id );
 				
@@ -92,7 +93,7 @@ jQuery( function( $ ) {
 			} );
 
 			clone.find( '.smart-cf-wp-editor' ).each( function( i, e ) {
-				$( this ).attr( 'id', 'smart-cf-wysiwyg-' + cnt + i );
+				$( this ).attr( 'id', 'smart-cf-wysiwyg-' + wrapper_index + '-' + cnt + '-' + i );
 			} );
 
 			button.parent().after( clone.fadeIn( 'fast' ) );

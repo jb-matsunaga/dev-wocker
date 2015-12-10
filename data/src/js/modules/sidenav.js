@@ -5,3 +5,9 @@ $('.button-collapse').sideNav({
     closeOnClick: false // Closes side-nav on <a> clicks, useful for Angular/Meteor
     }
 );
+
+
+$('.fn-pageScroll').bind('touchstart', function(){
+    $('#slide-out').sideNav('hide');
+});
+

@@ -16,18 +16,42 @@
 
 @include util(def);
 
-//Margin,Padding -ex
-.u-mr100 {
-    margin-right: 100px;
+//block
+.u-center-block {
+    display: block !important;
+    margin: 0 auto;
 }
 
-.u-pr135 {
-    padding-right: 135px;
+//display
+.u-display-none {
+    display: none;
 }
 
-.u-padding {
-    padding: 60px 0 240px!important;
+.u-display-block {
+    display: block;
 }
+
+@media(min-width: $responseiveWidth) {
+
+    .u-visible-xs {
+        display: none !important;
+    }
+
+    .u-hidden-xs {
+        display: block !important;
+    }
+}
+
+@media(max-width: $responseiveWidth) {
+
+    .u-visible-xs {
+        display: block !important;
+    }
+    .u-hidden-xs {
+        display: none !important;
+    }
+}
+
 //Floats
 .u-clearfix {
     @include clearfix;
@@ -43,6 +67,79 @@
 
 .u-pull-left {
     float: left !important;
+}
+
+//Margin,Padding -ex
+// .u-mr100 {
+//     margin-right: 100px;
+// }
+
+// .u-pr135 {
+//     padding-right: 135px;
+// }
+
+// .u-padding {
+//     padding: 60px 0 240px!important;
+// }
+
+//Background
+.u-bg-col {
+    background-color: $bgCol;
+}
+
+.u-bg-light {
+    background-color: $commonLightCol;
+}
+
+.u-bg-dark {
+    background-color: $commonDarkCol;
+}
+
+.u-bg-darkblue {
+    background-color: $darkblueCol;
+}
+
+.u-bg-colorA {
+    background-color: lighten($color-a, 30%) !important;
+}
+
+//img
+.header img {
+    width: 200px;
+}
+
+.u-img-middle {
+    max-width: 700px;
+    width: 100%;
+    height: auto;
+}
+
+//text
+.u-text-red {
+    color: #ff0000 !important;
+}
+
+.u-text-strong {
+    color: $redCol;
+    font-weight: bold;
+    font-size: 1.5rem;
+    background: transparentize($whiteCol, .6);
+    border-radius: 5px;
+    padding: 0 5px;
+
+    @media(max-width: $responseiveWidth) {
+        padding: 0 3px;
+        font-size: 1.3rem;
+    }
+
+    &--middle {
+        font-size: 1.2rem;
+        color: $blackCol;
+    }
+}
+
+.u-pre-wrap {
+    white-space: pre-wrap;
 }
 
 //Text-align
@@ -66,44 +163,6 @@
     white-space: nowrap;
 }
 
-//Display
-.u-display-none {
-    display: none;
-}
-
-//Background
-.u-bg-col {
-    background-color: $bgCol;
-}
-
-.u-bg-light {
-    background-color: $commonLightCol;
-}
-
-.u-bg-dark {
-    background-color: $commonDarkCol;
-}
-
-.u-display-block {
-    display: block;
-}
-//img
-.header img {
-    width: 200px;
-}
-//text
-.u-text-red {
-    color: #ff0000 !important;
-}
-//block
-.u-center-block {
-    display: block !important;
-    margin: 0 auto;
-}
-//text
-.u-pre-wrap {
-    white-space: pre-wrap;
-}
 //border
 .u-border-top {
     border-top: 3px solid $color-b;

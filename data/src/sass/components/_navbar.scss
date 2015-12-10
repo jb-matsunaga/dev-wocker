@@ -1,7 +1,7 @@
 nav {
   color: $navbar-font-color;
   @extend .z-depth-1;
-  background-color: $primary-color;
+  background-color: rgba(0,0,0,.8);
   //opacity: 0.9;
   width: 100%;
   height: $navbar-height-mobile;
@@ -80,9 +80,6 @@ nav {
       float: left;
       padding: 0;
 
-      &:hover, &.active {
-        background-color: rgba(0,0,0,.1);
-      }
     }
     a {
       font-size: 1rem;
@@ -132,13 +129,21 @@ nav {
 
 // Fixed Navbar
 .navbar-fixed {
-  position: relative;
+  position: fixed;
   height: $navbar-height-mobile;
   z-index: 998;
+  background-color: $blackCol;
 
   nav {
     position: fixed;
     top: 0;
+  }
+
+  &--single {
+
+    nav {
+      top: 14px;
+    }
   }
 }
 @media #{$medium-and-up} {

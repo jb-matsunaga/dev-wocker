@@ -2,24 +2,24 @@
     <% include template/_nav-single %>
 
     <?php if(have_posts()) : while(have_posts()) : the_post(); ?>
-            <div class="c-mainPanel">
-                <div class="c-mainPanel_body">
+            <div class="m-panelOne">
+                <div class="m-panelOne_body">
                     <?php echo wp_get_attachment_image(post_custom('cf_keyVisual'),'full'); ?>
                 </div>
             </div>
     <?php endwhile; endif; ?>
 
-    <div class="container">
+    <div class="container u-pb60">
         <div class="row u-mt20">
             <div class="col s12">
-            <?php $ctm_linkspecial = get_post_meta($post->ID, 'cf_linkSpecialLP', true);?>
-            <?php if(empty($ctm_linkspecial)):?>
-                <a class="btn waves-effect waves-light btn-large u-center-block" href="https://tixeebox.tv/lp/how-to/" target="_blank">
-                    tixeeboxご利用方法をみる
-                </a>
+            <?php
+            $keyBtnUrl = get_post_meta($post->ID, 'cf-keyBtnUrl', true);
+            $keyBtnTxt = get_post_meta($post->ID, 'cf-keyBtnTxt', true);
+            ?>
+            <?php if(empty($keyBtnUrl)):?>
             <?php else:?>
-                <a class="btn btn-special waves-effect waves-light btn-large u-center-block" href="<?php echo get_post_meta($post->ID , 'cf_linkSpecialLP' ,true); ?>" target="_blank">
-                    特設ランディングページをみる
+                <a class="btn btn-special waves-effect waves-light btn-large u-center-block" href="<?php echo $keyBtnUrl; ?>" target="_blank">
+                    <?php echo $keyBtnTxt; ?>
                 </a>
             <?php endif;?>
             </div>
@@ -27,7 +27,7 @@
         <?php $ctm_alert = get_post_meta($post->ID, 'cf_alertStrings', true);?>
         <?php if(empty($ctm_alert)):?>
         <?php else:?>
-            <div class="m-alert u-text-center u-mb10">
+            <div class="m-alert u-text-center u-mb30">
                 <?php echo nl2br($ctm_alert); ?>
             </div>
         <?php endif;?>
@@ -49,14 +49,14 @@
                 </setion>';
         }
         ?>
-        <!-- 公演日程とチケット受け取り開始日時 -->
-        <% include template/section/_section01 %>
         <!-- チケット受け取り方法 -->
         <% include template/section/_section02 %>
+        <!-- 入場方法 -->
+        <% include template/section/_section03 %>
         <!-- お問い合わせ -->
         <% include template/section/_section06 %>
     </div><!--end container-->
-    <div class="c-breadcrumb">
+    <div class="m-breadcrumb">
     <?php breadcrumb(); ?>
     </div>
     <?php get_footer(); ?>

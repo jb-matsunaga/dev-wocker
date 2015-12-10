@@ -35,11 +35,13 @@ a {
 
 // Positioning
 .valign-wrapper {
-  @include flexbox();
-  @include align(center);
+  @media(min-width: $responseiveWidth) {
+    @include flexbox();
+    @include align(center);
 
-  .valign {
-    display: block;
+    .valign {
+      display: block;
+    }
   }
 }
 
@@ -312,7 +314,7 @@ footer.page-footer {
     line-height: 50px;
     color: rgba(255,255,255,.8);
     background-color: rgba(51,51,51,.08);;
-    @extend .light;
+    //@extend .light;
   }
 }
 

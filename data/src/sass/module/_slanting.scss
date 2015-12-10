@@ -1,0 +1,45 @@
+.m-slanting {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    height: 500px;
+
+    @media(max-width: $responseiveWidth) {
+            height: $mobilekeyvisualHeight;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 123%;
+        height: 10000px;
+        margin: 0;
+        background: lighten($color-a, 10%);
+        -webkit-transform-origin: top center;
+        -ms-transform-origin: top center;
+        transform-origin: top center;
+        -webkit-transform: rotate(66deg);
+        -ms-transform: rotate(66deg);
+        transform: rotate(66deg);
+        z-index: -1;
+        @media(max-width: $responseiveWidth) {
+            left: 50%;
+            -webkit-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            opacity: .8;
+        }
+    }
+
+    &-inner {
+        box-sizing: boder-box;
+        width: 100%;
+        max-width: 1024px;
+        height: 100%;
+        margin: 0 auto;
+        color: $blackCol;
+        text-align: center;
+    }
+}

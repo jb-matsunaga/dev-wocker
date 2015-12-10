@@ -1,0 +1,22 @@
+.l-section {
+    padding-top: 60px;
+    padding-bottom: 30px;
+
+    @media(max-width: $responseiveWidth) {
+        padding: 30px;
+    }
+
+    @media(max-width: $responseiveWidthMin) {
+        padding: 15px;
+    }
+
+    &-user {
+        // @media(min-width: $responseiveWidth) {
+        //     padding: 120px 0 90px;
+        //     background-image: url(../img/bg/bg-user.jpg);
+        //     background-repeat: no-repeat;
+        //     background-size: cover;
+        //     background-position: top center;
+        // }
+    }
+}

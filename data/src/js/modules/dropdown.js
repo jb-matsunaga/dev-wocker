@@ -5,19 +5,19 @@ $(window).load(function() {
         || navigator.userAgent.indexOf('Android') > 0) {
         // スマートフォン＆タブレット用JS
         $('.fn-dropdown-button').bind('touchstart', function() {
-            $('ul:not(:animated)', this).slideToggle();
+            $(this).next('.m-dropdown-body').slideToggle('fast');
         });
     } else {
         // PC用JS
-        $('.fn-dropdown-button').hover(function() {
-            $('ul:not(:animated)', this).slideToggle();
+        $('.fn-dropdown-button').click(function() {
+            $(this).next('.m-dropdown-body:not(:animated)').slideToggle('fast');
 
-            $('.c-dropdown-head', this).hover(
+            $('.m-dropdown-head', this).hover(
                 function(){
-                    $(this).addClass('c-dropdown-head--hovered');
+                    $(this).addClass('m-dropdown-head--hovered');
                 },
                 function() {
-                    $(this).removeClass('c-dropdown-head--hovered');
+                    $(this).removeClass('m-dropdown-head--hovered');
                 }
             );
         });

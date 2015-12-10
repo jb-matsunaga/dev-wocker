@@ -1,169 +1,301 @@
-
-
-.card-panel {
-  transition: box-shadow .25s;
-  padding: $card-padding;
-  margin: $element-top-margin 0 $element-bottom-margin 0;
-  border-radius: 2px;
-  @extend .z-depth-1;
-  background-color: $card-bg-color;
-}
-
 .card {
-  position: relative;
-  overflow: hidden;
-  margin: $element-top-margin 0 $element-bottom-margin 0;
-  background-color: $card-bg-color;
-  transition: box-shadow .25s;
-  border-radius: 2px;
-  @extend .z-depth-1;
-
-
-  .card-title {
-    color: #000;
-    font-size: 24px;
-    font-weight: 300;
-    margin: 0 auto 5px;
-    font-weight: bold;
-
-    &.activator {
-      cursor: pointer;
-    }
-  }
-
-  // Card Sizes
-  &.small, &.medium, &.large {
     position: relative;
-
-    .card-image {
-      overflow: hidden;
-    }
-    .card-content {
-      overflow: hidden;
-    }
-    .card-action {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-  }
-
-  &.small {
-    height: 300px;
-
-    .card-image {
-      height: 150px;
-    }
-    .card-content {
-      height: 150px;
-    }
-
-  }
-
-  &.medium {
-    height: 400px;
-
-    .card-image {
-      height: 250px;
-    }
-    .card-content {
-      height: 150px;
-    }
-  }
-
-  &.large {
-    height: 500px;
-
-    .card-image {
-      height: 330px;
-    }
-    .card-content {
-      height: 170px;
-    }
-  }
-
-
-  .card-image {
-    position: relative;
-
-    // Image background for content
-    img {
-      border-radius: 2px 2px 0 0;
-      position: relative;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
-
-    .card-title {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      padding: $card-padding;
-    }
-
-  }
-
-  .card-content {
-    padding: $card-padding;
-    border-radius: 0 0 2px 2px;
-    font-size: 16px;
-
-    @media(max-width: 420px) {
-      font-size: 14px;
-    }
-
-
-    p {
-      margin: 0;
-      color: inherit;
-    }
-    .card-title {
-      line-height: 48px;
-    }
-  }
-
-  .card-action {
-    border-top: 1px solid rgba(160,160,160,.2);
-    padding: $card-padding;
-
-    @media(max-width: 420px) {
-      font-size: 14px;
-      padding: $card-padding 0 0;
-
-      &-string {
-        padding: 0 $card-padding $card-padding;
-      }
-    }
-
-    a {
-      color: $card-link-color;
-      margin-right: $card-padding;
-      @include transition(color .3s ease);
-      //text-transform: uppercase;
-
-      &:hover { color: $card-link-color-light; }
-    }
-  }
-
-  .card-reveal {
-    padding: $card-padding;
-    position: absolute;
+    overflow: hidden;
+    margin: $element-top-margin 0 $element-bottom-margin 0;
     background-color: $card-bg-color;
-    width: 100%;
-    overflow-y: auto;
-    top: 100%;
-    height: 100%;
-    z-index: 1;
-    display: none;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+    @extend .z-depth-1;
 
-    .card-title {
-      cursor: pointer;
-      display: block;
+    &-title {
+        color: #000;
+        font-size: 24px;
+        font-weight: 300;
+        margin: 0 auto 5px;
+        font-weight: bold;
+
+        &.activator {
+            cursor: pointer;
+        }
     }
 
-  }
+    &.small, &.medium, &.large {
+        position: relative;
+
+        .card-image {
+            overflow: hidden;
+        }
+        .card-content {
+            overflow: hidden;
+        }
+        .card-action {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    }
+
+    &.small {
+        height: 300px;
+
+        .card-image {
+            height: 150px;
+        }
+        .card-content {
+            height: 150px;
+        }
+
+    }
+
+    &.medium {
+        height: 400px;
+
+        .card-image {
+            height: 250px;
+        }
+        .card-content {
+            height: 150px;
+        }
+    }
+
+    &.large {
+        height: 500px;
+
+        .card-image {
+            height: 330px;
+        }
+        .card-content {
+            height: 170px;
+        }
+    }
+
+
+    .card-image {
+        position: relative;
+
+        img {
+            border-radius: 2px 2px 0 0;
+            position: relative;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .card-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: $card-padding;
+        }
+
+    }
+
+    .card-content {
+        padding: $card-padding;
+        border-radius: 0 0 2px 2px;
+        font-size: 16px;
+
+        @media(max-width: 420px) {
+            font-size: 14px;
+            padding: 10px 20px;
+
+            p {
+                padding: 10px;
+            }
+        }
+
+
+        p {
+            margin: 0;
+            color: inherit;
+        }
+        .card-title {
+            line-height: 48px;
+        }
+    }
+
+    .card-action {
+        padding: $card-padding;
+
+        @media(max-width: 420px) {
+            font-size: 14px;
+            padding: 8px;
+
+            &-string {
+                padding: 0 $card-padding $card-padding;
+            }
+        }
+
+        a {
+            color: $card-link-color;
+            margin-right: $card-padding;
+            @include transition(color .3s ease);
+
+
+            &:hover { color: $card-link-color-light; }
+        }
+    }
+
+    .card-reveal {
+        padding: $card-padding;
+        position: absolute;
+        background-color: $card-bg-color;
+        width: 100%;
+        overflow-y: auto;
+        top: 100%;
+        height: 100%;
+        z-index: 1;
+        display: none;
+
+        .card-title {
+            cursor: pointer;
+            display: block;
+        }
+
+    }
+
+    //追加
+    overflow: visible;
+
+    &-image {
+        text-align: center;
+        margin-bottom: -10px;
+
+        @media(max-width: $responseiveWidth) {
+            padding: 15px 0 10px;
+        }
+
+        img {
+            max-width: 320px;
+
+            @media(min-width: 420px) {
+                max-width: 260px;
+            }
+        }
+    }
+
+    &-action {
+
+        h1:nth-child(1){
+            margin-top: 15px;
+        }
+
+        &--masonry {
+            line-height: 1.5;
+        }
+    }
+
+    &--masony {
+
+        a {
+            color: $color-b;
+
+            &:hover {
+
+                img {
+                    opacity: .8;
+                }
+
+                h1 {
+                    color: lighten($color-b, 20%);
+                }
+            }
+        }
+
+        img {
+            height: auto;
+        }
+
+        h1 {
+            font-size: 15px;
+            margin: 0;
+        }
+    }
+
+    &-list {
+
+        h1 {
+            margin: 0;
+            line-height: 1.5;
+            font-weight: bold;
+            font-size: 15px;
+            color: $color-b;
+        }
+
+        .card {
+
+            &-image {
+                min-height: 245px;
+                position: relative;
+                background-image: radial-gradient($whiteCol, $bgCol);
+
+                img {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    max-width: 330px;
+                }
+            }
+
+            &-action {
+
+                a {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    &-panel {
+        transition: box-shadow .25s;
+        padding: $card-padding;
+        margin: $element-top-margin 0 $element-bottom-margin 0;
+        border-radius: 2px;
+        @extend .z-depth-1;
+        background-color: lighten($color-a, 30%);
+        border: 2px solid $color-a;
+
+        &--pattern {
+            background-color: lighten($color-b, 40%);
+            border: 2px solid $color-b;
+        }
+    }
+
+    &-step {
+
+        .card-image {
+            border-top: 1px dashed transparentize($graylightCol, .5);
+
+            img {
+                height: auto;
+
+                @media(max-width: $responseiveWidth) {
+                    max-height: 420px;
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    &-number {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        z-index: 1;
+        color: $color-a;
+        border: 2px solid $color-a;
+        font-weight: bold;
+        font-size: 24px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background: $whiteCol;
+        text-align: center;
+        border-radius: 5px;
+        box-sizing: content-box;
+    }
 }

@@ -11,10 +11,9 @@
         <link rel="icon" type="image/gif" href="animated_favicon1.gif">
         <title>tixeebox（ティクシーボックス）| スマホチケット発券アプリ </title>
         <link href="<?php bloginfo( 'template_directory' ); ?>/css/common.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
 <body id="fn-hesiveTop">
-    <div id="fn-scrollToggle" class="c-btnTop">
+    <div id="fn-scrollToggle" class="m-btnTop">
         <a class="fn-pageScroll btn-floating waves-effect waves-light" href="#fn-hesiveTop"></a>
     </div>
 

@@ -1,26 +1,69 @@
                             <section>
-                            <?php
-                            $cf_tableTime = SCF::get( 'cf_tableTime' );
-                            foreach ( $cf_tableTime as $field_name => $field_value ) {
-                            ?>
-                                <h1 class="heading-b"><?php echo esc_html( $field_value['cf-tableTime-title'] ); ?></h1>
-                                <table class="table table-time table-bordered table-url">
+                            <?php $tableTimeTitle = get_post_meta($post->ID, 'cf-tableTime-title', true); ?>
+                                <table class="table m-table-time m-table-bordered m-table-url u-mb30">
                                     <thead>
                                         <tr>
                                             <th>日程</th>
                                             <th>開場/開演</th>
                                             <th class="tb-place">会場</th>
-                                            <th>受け取り開始</th>
+                                            <th>受取開始</th>
+                                            <th>
+                                                <a class="btn btn-primary btn-xs" href="javascript:location.reload(true);">更新</a>
+                                            </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="getticket_area">
+                                    <?php
+                                    foreach ( $cf_tableTime as $field_name => $field_value ) { 
+                                    ?>
                                         <tr>
                                             <td><?php echo esc_html( $field_value['cf-tableTime-schedule'] ); ?></td>
                                             <td><?php echo esc_html( $field_value['cf-tableTime-open'] ); ?></td>
                                             <td><?php echo esc_html( $field_value['cf-tableTime-venue'] ); ?></td>
                                             <td><?php echo esc_html( $field_value['cf-tableTime-getTicketDay'] ); ?></td>
+                                            <td><a class="btn btn-action waves-effect waves-light white-text u-mr0 fn-getTicketBtn">受け取る</a></td>
                                         </tr>
+                                        <tr class="fn-getTicket u-display-none">
+                                            <td colspan="5">
+                                                <table class="table m-table-url m-table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>端末</th>
+                                                            <th>イベント</th>
+                                                            <th>受け取りボタン / QRコード</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>iPhone</th>
+                                                            <th width="10%">公演</th>
+                                                            <td class="bg-color-b">
+                                                                <a class="btn btn-action waves-effect waves-light white-text u-mr0" href="<?php echo esc_html( $field_value['cf-getiphoneUrl'] ); ?>" target="_blank">
+                                                                iPhoneで受け取る
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Android</th>
+                                                            <th>公演</th>
+                                                            <td class="bg-color-b">
+                                                                <a class="btn btn-action waves-effect waves-light white-text u-mr0" href="<?php echo esc_html( $field_value['cf-getandroidUrl'] ); ?>" target="_blank">
+                                                                Androidで受け取る
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>tixeebox<br>『QRコードリーダー』</th>
+                                                            <th>公演</th>
+                                                            <td class="bg-color-b">
+                                                                <?php echo wp_get_attachment_image($field_value['cf-getQrcode'], 'thumbnail'); ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
                                     </tbody>
                                 </table>
-                            <?php } ?>
                             </section>

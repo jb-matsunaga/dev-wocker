@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:url('../font/icons/icomoon.eot?-4gl2hm');
-    src:url('../font/icons/icomoon.eot?#iefix-4gl2hm') format('embedded-opentype'),
-        url('../font/icons/icomoon.ttf?-4gl2hm') format('truetype'),
-        url('../font/icons/icomoon.woff?-4gl2hm') format('woff'),
-        url('../font/icons/icomoon.svg?-4gl2hm#icomoon') format('svg');
+    src:url('../font/icons/icomoon.eot?pg8i7j');
+    src:url('../font/icons/icomoon.eot?#iefixpg8i7j') format('embedded-opentype'),
+        url('../font/icons/icomoon.ttf?pg8i7j') format('truetype'),
+        url('../font/icons/icomoon.woff?pg8i7j') format('woff'),
+        url('../font/icons/icomoon.svg?pg8i7j#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -22,8 +22,119 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: lighten($womanCol, 15%);
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
 
+    @media(max-width: $responseiveWidth) {
+        margin-bottom: 20px;
+    }
 
+    &-body {
+        font-size: 55px;
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        display: inline-block;
+    }
+
+    span {
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        display: inline-block;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    &--man {
+        background: lighten($manCol, 15%);
+    }
+
+    &--business {
+        background: lighten($businessCol, 15%);
+    }
+}
+
+.ic-arrow {
+
+    &:after {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        content: '';
+        -webkit-transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        transform: rotate(135deg);
+        border-top: 2px solid rgba(255, 255, 255, 0.5);
+        border-right: 2px solid rgba(255, 255, 255, 0.5);
+        margin: 3px;
+        margin-left: 10px;
+    }
+}
+
+.ic-link {
+
+    &:after {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        content: '';
+        -webkit-transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        transform: rotate(135deg);
+        border-top: 2px solid rgba(255, 255, 255, 0.5);
+        border-right: 2px solid rgba(255, 255, 255, 0.5);
+        margin: 3px;
+        margin-left: 10px;
+    }
+}
+
+.icon-linkblank:after {
+    content: "\e90a";
+    margin-left: 8px;
+}
+.icon-business:before {
+    content: "\e907";
+    @extend .icon-circle-body;
+}
+.icon-man:before {
+    content: "\e908";
+    @extend .icon-circle-body;
+}
+.icon-woman:before {
+    content: "\e909";
+    @extend .icon-circle-body;
+}
+.icon-earth:before {
+    content: "\e901";
+}
+.icon-apple:before {
+    content: "\e902";
+}
+.icon-android:before {
+    content: "\e903";
+}
+.icon-resale:before {
+    content: "\e904";
+}
+.icon-smartphones:before {
+    content: "\e905";
+}
+.icon-gift:before {
+    content: "\e906";
+}
 .icon-ticket:before {
     content: "\e900";
 }
@@ -35,4 +146,32 @@
 }
 .icon-twitter:before {
     content: "\e600";
+}
+
+.icon-link {
+
+    &:after {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        content: '';
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        border-top: 3px solid $whiteCol;
+        border-right: 3px solid $whiteCol;
+        margin-left: 10px;
+    }
+
+    &--orange {
+        color: $color-a;
+
+        &:after {
+            width: 10px;
+            height: 10px;
+            margin-bottom: 1.5px;
+            border-color: $color-a;
+            border-width: 1px;
+        }
+    }
 }

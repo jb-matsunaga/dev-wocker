@@ -1,0 +1,66 @@
+<?php if(empty($giftString)):?>
+<?php else:?>
+    <section class="col s12">
+        <div class="u-mb50">
+            <h1 id="link-gift" class="m-heading-sub u-pt30">同伴者様へのチケットのギフト(分配)方法</h1>
+            <p>
+                <?php echo nl2br($giftString); ?>
+            </p>
+        </div>
+
+        <!-- 注意文言 -->
+        <?php if(empty($field_value['cf-giftAlert'])):?>
+        <?php else:?>
+            <ul class="m-alert m-alert-list u-mt30">
+                <?php foreach ( $giftAlert as $field_name => $field_value ) { ?>
+                <li>
+                    <?php echo nl2br($field_value['cf-giftAlert']); ?>
+                </li>
+                <?php } ?>
+            </ul>
+        <?php endif;?>
+
+        <!-- キャプチャー枠タイトル -->
+        <?php if(empty($giftTitle)):?>
+        <?php else:?>
+        <strong><?php echo nl2br($giftTitle); ?></strong>
+        <?php endif;?>
+
+        <!-- キャプチャー枠注意文言 -->
+        <?php if(empty($field_value['cf-giftAlertCapture'])):?>
+        <?php else:?>
+            <ul class="m-alert m-alert-list u-mt0">
+                <?php foreach ( $giftAlertCapture as $field_name => $field_value ) { ?>
+                <li>
+                    <?php echo nl2br($field_value['cf-giftAlertCapture']); ?>
+                </li>
+                <?php } ?>
+            </ul>
+        <?php endif;?>
+
+        <!-- キャプチャー説明リスト -->
+        <ol class="m-listSteps u-hidden-xs">
+            <?php foreach ( $giftCapture as $field_name => $field_value ) { ?>
+            <li><?php echo nl2br($field_value['cf-captureGiftLong']); ?></li>
+            <?php } ?>
+        </ol>
+
+        <!-- キャプチャー説明 -->
+        <div class="row l-step">
+            <?php foreach ( $giftCapture as $field_name => $field_value ) { ?>
+            <div class="col m3 s12">
+                <div class="card card-step fn-step">
+                    <span class="card-number"><?php echo nl2br($field_value['cf-captureGiftNum']); ?>.</span>
+                    <div class="card-content">
+                        <p class="u-hidden-xs"><?php echo nl2br($field_value['cf-captureGiftShort']); ?></p>
+                        <p class="u-visible-xs"><?php echo nl2br($field_value['cf-captureGiftLong']); ?></p>
+                    </div>
+                    <div class="card-image fn-stepContent">
+                        <?php echo wp_get_attachment_image($field_value['cf-captureGiftImage'], 'medium'); ?>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+    </section>
+<?php endif;?>

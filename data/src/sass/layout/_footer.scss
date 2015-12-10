@@ -3,11 +3,15 @@ footer {
     background: $grayCol;
     font-size: 13px;
 
+    @media(max-width: $responseiveWidth) {
+        padding: 20px;
+    }
+
     h5 {
         font-size: 18px;
     }
 
-    .c-list-icons {
+    .m-listIcons {
         margin-top: 0;
 
         li:nth-child(1) {
@@ -24,60 +28,6 @@ footer {
         background: none;
         opacity: initial;
         height: auto;
-
-        ul  {
-            @extend .u-clearfix;
-            @media(max-width: $responseiveWidthDefalt) {
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                background-color: $body-bg;
-
-                li {
-                    border-bottom: 1px solid #ccc;
-
-                    &:last-child {
-                        border: none;
-                    }
-
-                    > a {
-                        color: $blackCol;
-                    }
-                }
-
-                .c-dropdown-head:after {
-                    border-color: $blackCol;
-                }
-            }
-
-            > li {
-                width: 100%;
-                line-height: 30px;
-                position: relative;
-
-                > a {
-                    font-size: 13px;
-
-                    &:hover {
-                        background-color: $bg-nav !important;
-                        color: $blackCol;
-                        -webkit-transition: all .5s ease;
-                        -moz-transition: all .5s ease;
-                    }
-                }
-
-                ul {
-                    width: 100%;
-                }
-            }
-
-            &.c-dropdown-body {
-                @media(max-width: $responseiveWidthDefalt) {
-                    position: relative;
-                    border: none;
-                    border-radius: 0;
-                }
-            }
-        }
     }
 
     .footer-copyright {
@@ -86,5 +36,9 @@ footer {
         line-height: 30px;
         height: 30px;
         margin-top: 15px;
+
+        @media(max-width: $responseiveWidth) {
+            text-align: center;
+        }
     }
 }

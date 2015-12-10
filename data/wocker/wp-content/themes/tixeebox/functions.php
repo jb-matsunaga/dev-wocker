@@ -19,7 +19,7 @@ function fn_pagenation($pages = '', $range = 2) {
     }
 
     if(1 != $pages) {//全ページが１でない場合はページネーションを表示する
-        echo "<ul class=\"c-pagenation\">\n";
+        echo "<ul class=\"m-pagenation\">\n";
         //Prev：現在のページ値が１より大きい場合は表示
         if($paged > 1) echo "<li class=\"c-pagenatin-arrow\"><a href='".get_pagenum_link($paged - 1)."'><i class=\"material-icons\">chevron_left</i></a></li>\n";
 
@@ -40,7 +40,7 @@ function breadcrumb(){
     global $post;
     $str ='';
     if(!is_home()&&!is_admin()){
-        $str.= '<div id="breadcrumb" class="cf c-breadcrumb-body"><div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
+        $str.= '<div id="breadcrumb" class="cf m-breadcrumb-body"><div itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
         $str.= '<a href="'. home_url() .'" itemprop="url"><span itemprop="title">トップ</span></a> &gt;</div>';
  
         if(is_category()) {
