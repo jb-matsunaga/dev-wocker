@@ -8,6 +8,7 @@
         float: left;
         border: 1px solid #ccc;
         border-left: none;
+        height: 36px;
 
         a {
             color: $color-a;
@@ -15,6 +16,8 @@
             &:hover {
                 color: darken(#ffffff, 5%);
                 background-color: lighten($color-a, 5%);
+                -webkit-transition: 0.4s ;
+                transition: 0.4s ;
             }
         }
 
@@ -31,7 +34,8 @@
         &:first-child, &:last-child {
 
             a {
-                padding: 5px 10px;
+                width: 34px;
+                height: 34px;
             }
         }
 
@@ -52,5 +56,58 @@
 
     &-arrow {
         position: relative;
+
+        &--right a,
+        &--left a {
+            position: relative;
+
+            &:before {
+                position: absolute;
+                display: inline-block;
+                width: 10px;
+                height: 10px;
+                content: '';
+                border-top: 2px solid $color-a;
+                border-right: 2px solid $color-a;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+            }
+
+            &:hover:before {
+                border-top: 2px solid $whiteCol;
+                border-right: 2px solid $whiteCol;
+            }
+        }
+
+        &--left a {
+
+            &:before {
+                -webkit-transform: rotate(225deg);
+                -ms-transform: rotate(225deg);
+                transform: rotate(225deg);
+                left: 0;
+                right: -3px;
+            }
+
+            &:hover {
+                border-radius: 5px 0 0 5px;
+            }
+        }
+
+        &--right a {
+
+            &:before {
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+                left: -3px;
+                right: 0;
+            }
+
+            &:hover {
+                border-radius: 0 4px 4px 0;
+            }
+        }
     }
 }

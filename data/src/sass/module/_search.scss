@@ -11,6 +11,17 @@
     &-body {
         position: relative;
 
+        &:before {
+            position: absolute;
+            @extend [class^="icon-"];
+            content: '\e90c';
+            color: $graylightCol;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            display: inline-table;
+        }
+
         input {
             color: $blackCol;
             height: 2.3em;
@@ -18,16 +29,6 @@
             padding-left: 2.5em;
             margin: 0;
             box-sizing: border-box;
-            -webkit-appearance: none;
-        }
-
-        label i {
-            position: absolute;
-            display: inline-table;
-            top: 0;
-            bottom: 0;
-            left: 5px;
-            margin: auto;
             -webkit-appearance: none;
         }
     }

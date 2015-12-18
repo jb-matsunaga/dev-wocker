@@ -109,7 +109,7 @@ if ( have_posts() ) {
         <form class="m-search u-pull-right" method="get" id="searchform" action="<?php bloginfo('url'); ?>">
             <div class="m-search-body">
                 <input type="search" name="s" id="search" placeholder="検索" required>
-                <label for="s"><i class="material-icons">search</i></label>
+                <label for="s"></label>
             </div>
         </form>
     </section>

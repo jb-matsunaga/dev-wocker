@@ -94,6 +94,12 @@
                 @media(max-width: $responseiveWidth){
                     line-height: 1.8;
                 }
+
+                &:before {
+                    @extend [class^="icon-"];
+                    content: '\e90b';
+                    color: $redCol;
+                }
             }
         }
 

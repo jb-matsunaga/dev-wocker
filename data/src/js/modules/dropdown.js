@@ -5,21 +5,38 @@ $(window).load(function() {
         || navigator.userAgent.indexOf('Android') > 0) {
         // スマートフォン＆タブレット用JS
         $('.fn-dropdown-button').bind('touchstart', function() {
-            $(this).next('.m-dropdown-body').slideToggle('fast');
+
+            var $dropDown = $(this).next('.m-dropdown-body');
+
+            if($dropDown.css('display') == 'none'){
+                $dropDown.velocity("slideDown", {duration: 200});
+                $dropDown.addClass('is-active');
+            }
+            else {
+                $dropDown.velocity("slideUp", {duration: 200});
+                $dropDown.removeClass('is-active');
+            }
+
+            $('.m-dropdown-body').not($dropDown).velocity("slideUp", {duration: 200});
         });
     } else {
         // PC用JS
         $('.fn-dropdown-button').click(function() {
-            $(this).next('.m-dropdown-body:not(:animated)').slideToggle('fast');
 
-            $('.m-dropdown-head', this).hover(
-                function(){
-                    $(this).addClass('m-dropdown-head--hovered');
-                },
-                function() {
-                    $(this).removeClass('m-dropdown-head--hovered');
-                }
-            );
+            var $dropDown = $(this).next('.m-dropdown-body');
+
+            if($dropDown.css('display') == 'none'){
+                $dropDown.velocity('slideDown', { duration: 200 });
+                $dropDown.velocity({ opacity: 0.9 }, 200);
+                $dropDown.addClass('is-active');
+            }
+            else {
+                $dropDown.velocity("slideUp", { duration: 200 });
+                $dropDown.velocity({ opacity: 1 }, 200);
+                $dropDown.removeClass('is-active');
+            }
+
+            $('.m-dropdown-body').not($dropDown).velocity("slideUp", {duration: 200});
         });
     }
 });

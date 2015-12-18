@@ -53,7 +53,8 @@
                 <a href="<?php bloginfo('url'); ?>" class="brand-logo">
                     <img src="<?php bloginfo('template_directory'); ?>/img/logo-white.png" alt="tixeeboxロゴ">
                 </a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="mobile-demo" class="m-btnCollapse">
+                </a>
                 <ul id="nav-mobile" class="m-hover m-hover--colorA right hide-on-med-and-down">
                     <li><a class="fn-pageScroll" href="#fn-hesiveTop" data-hover="TOP">TOP</a></li>
                     <?php if(empty($scheduleString)):?>
@@ -122,6 +123,7 @@
                         </ul>
                     </li>
                     <?php endif;?>
+                    <li><a href="/faq/" target="_blank">FAQ</a></li>
                     <?php if( $contact_check == 'ON' ) :?>
                     <li id="fn-navContact" class="u-display-none">
                         <a class="fn-pageScroll" href="#link-contact" data-hover="お問い合わせ">お問い合わせ</a>
@@ -432,7 +434,7 @@
 
                             <?php if(empty($giftString)):?>
 <?php else:?>
-    <section class="col s12">
+    <section class="col s12 u-mb60">
         <div class="u-mb50">
             <h1 id="link-gift" class="m-heading-sub u-pt30">同伴者様へのチケットのギフト(分配)方法</h1>
             <p>

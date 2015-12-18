@@ -57,22 +57,18 @@
                                 </h1>
                                 <ul>
                                     <li>
-                                        <i class="material-icons">label_outline</i>
                                         <span class="fn-text-2">日本初！発券に特化したスマホアプリ</span>
                                     </li>
                                     <li>
-                                        <i class="material-icons">label_outline</i>
                                         <span class="fn-text-2">チケット1枚につき100円の費用で底コスト</span>
                                     </li>
                                     <li>
-                                        <i class="material-icons">label_outline</i>
                                         <span class="fn-text-2">ユーザーに優しい発券手数料0円</span>
                                     </li>
-                                    <li><i class="material-icons">label_outline</i>
+                                    <li>
                                         <span class="fn-text-2">あらゆるスマホに対応</span>
                                     </li>
                                     <li>
-                                        <i class="material-icons">label_outline</i>
                                         <span class="fn-text-2">マルチ言語（日・英・中）対応</span>
                                     </li>
                                 </ul>

@@ -21,7 +21,7 @@ function fn_pagenation($pages = '', $range = 2) {
     if(1 != $pages) {//全ページが１でない場合はページネーションを表示する
         echo "<ul class=\"m-pagenation\">\n";
         //Prev：現在のページ値が１より大きい場合は表示
-        if($paged > 1) echo "<li class=\"c-pagenatin-arrow\"><a href='".get_pagenum_link($paged - 1)."'><i class=\"material-icons\">chevron_left</i></a></li>\n";
+        if($paged > 1) echo "<li class=\"m-pagenatin-arrow m-pagenation-arrow--left\"><a href='".get_pagenum_link($paged - 1)."'></a></li>\n";
 
         for ($i=1; $i <= $pages; $i++) {
             if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems )) {
@@ -30,7 +30,7 @@ function fn_pagenation($pages = '', $range = 2) {
             }
         }
     //Next：総ページ数より現在のページ値が小さい場合は表示
-        if ($paged < $pages) echo "<li class=\"c-pagenatin-arrow\"><a href=\"".get_pagenum_link($paged + 1)."\"><i class=\"material-icons\">chevron_right</i></a></li>\n";
+        if ($paged < $pages) echo "<li class=\"m-pagenatin-arrow m-pagenation-arrow--right\"><a href=\"".get_pagenum_link($paged + 1)."\"></a></li>\n";
         echo "</ul>\n";
     }
 };
@@ -203,12 +203,9 @@ function remove_menus () {
     if (!current_user_can('level_10')) { //level10以下のユーザーの場合メニューをunsetする
         remove_menu_page('wpcf7'); //Contact Form 7
         global $menu;
-        unset($menu[2]); // ダッシュボード
         unset($menu[4]); // メニューの線1
-        //unset($menu[5]); // 投稿
-        //unset($menu[10]); // メディア
         unset($menu[15]); // リンク
-        unset($menu[20]); // ページ
+        //unset($menu[20]); // ページ
         unset($menu[25]); // コメント
         unset($menu[59]); // メニューの線2
         unset($menu[60]); // テーマ
@@ -220,6 +217,5 @@ function remove_menus () {
     }
 }
 add_action('admin_menu', 'remove_menus');
-
 
 ?>

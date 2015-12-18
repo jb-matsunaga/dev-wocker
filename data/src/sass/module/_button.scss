@@ -51,3 +51,19 @@
         padding: 0 10px;
     }
 }
+
+.m-btnCollapse {
+    position: relative;
+
+    @media(min-width: $responseiveWidthDefalt) {
+        display: none;
+    }
+
+    &:before {
+        @extend [class^="icon-"];
+        content: '\e90d';
+        font-size: 24px;
+        margin-left: 10px;
+        vertical-align: text-bottom;
+    }
+}
